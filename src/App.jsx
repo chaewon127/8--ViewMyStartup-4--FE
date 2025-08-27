@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
+
 import HomePage from './pages/HomePage';
 import ComparePage from './pages/ComparePage';
 import InvestmentPage from './pages/InvestmentPage';
@@ -12,27 +11,27 @@ import CompanyDetailPage from './pages/CompanyDetailPage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 
+
 function App() {
   return (
     <Router>
-      <Navbar /> {/* 공통 헤더 */}
-      <main>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<HomePage />} /> {/* / */}
-            <Route path="compare" element={<ComparePage />} />
-            <Route path="investment" element={<InvestmentPage />} />
-            <Route path="compare/select" element={<CompareSelectPage />} />
-            <Route path="compare/result" element={<CompareResultPage />} />
-            <Route path="company/:id" element={<CompanyDetailPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="join" element={<JoinPage />} />
-          </Route>
-        </Routes>
-      </main>
-      <Footer /> {/* 공통 푸터 */}
+      <Routes>
+        {/* 공통 헤더/레이아웃이 필요한 묶음 */}
+        <Route element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="compare" element={<ComparePage />} />
+          <Route path="investment" element={<InvestmentPage />} />
+          <Route path="compare/select" element={<CompareSelectPage />} />
+          <Route path="compare/result" element={<CompareResultPage />} />
+          <Route path="company/:id" element={<CompanyDetailPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="join" element={<JoinPage />} />
+        </Route>
+
+        {/* 헤더 없이 쓰는 페이지가 있다면 레이아웃 밖에 둠 */}
+      </Routes>
     </Router>
-  );
+  )
 }
 
 export default App;
