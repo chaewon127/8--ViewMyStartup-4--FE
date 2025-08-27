@@ -1,0 +1,100 @@
+/* 기본 회색 */
+.nav-link {
+  color: var(--gray-gray_200, #747474);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+}
+
+/* 활성 흰색 */
+.nav-link.active {
+  color: #ffffff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+}
+
+/* 접근성: NavLink는 활성에 aria-current="page"도 달아줌 */
+.nav-link[aria-current="page"] {
+  color: #ffffff;
+}
+
+.globalHeader nav ul {
+  display: flex;
+  gap: 34px;
+  list-style: none;                 /* 점 제거 */
+  margin: 0;                        /* 기본 마진 제거 */
+  padding: 0;                       /* 기본 패딩 제거 */
+}
+
+
+.headerLogo img {
+  width: 112px; /* 기본: PC / 태블릿 */
+  display: flex;
+  width: 112px;
+  height: 40px;
+  padding: 0 1.432px 1.043px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 모바일 사이즈 (예: 768px 이하) */
+@media (max-width: 768px) {
+  .headerLogo img {
+    display: flex;
+    width: 64px;
+    height: 23px;
+    padding: 0 0.424px 0.6px 0;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* 기본: PC */
+.globalHeader {
+  width: 1920px;
+  height: 60px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--black-black_100, #2E2E2E);
+  background: var(--black-black_400, #131313);
+}
+
+
+/* 태블릿 (예: 768px 이하 ~ 481px 이상) */
+@media (max-width: 768px) {
+  .globalHeader {
+    width: 744px;
+    height: 60px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--black-black_100, #2E2E2E);
+    background: var(--black-black_400, #131313);
+  }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .globalHeader {
+    width: 375px;
+    height: 56px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--black-black_100, #2E2E2E);
+    background: var(--black-black_400, #131313);
+  }
+}
+
+
+.headerLogo img {
+  width: 112px !important;
+  height: auto !important;
+  display: block !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
