@@ -1,0 +1,10 @@
+// vsc에서 css 파일 import 시 추천 경로가 뜨지 않아 추가
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"]
+}
