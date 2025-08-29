@@ -1,0 +1,23 @@
+main {
+  min-height: 100vh;
+  background: var(--black-black_400, #131313);
+  padding-top: 8rem;
+}
+
+.inner-container {
+  max-width: 120rem;
+  margin: 0 auto;
+  min-height: 100px;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-top: 6rem; /* 헤더 높이에 맞춤 */
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-top: 5.6rem; /* 헤더 높이에 맞춤 */
+  }
+}
