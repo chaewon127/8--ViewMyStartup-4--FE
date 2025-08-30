@@ -1,0 +1,24 @@
+/* 루트 폰트 크기 설정: 1rem = 10px */
+html {
+  font-size: 10px;
+  font-family: "Pretendard", sans-serif;
+}
+
+:root {
+  /* Black Scale */
+  --black-black_400: #131313;
+  --black-black_300: #212121;
+  --black-black_200: #282828;
+  --black-black_100: #2e2e2e;
+
+  /* Gray Scale */
+  --gray-gray_400: #333333;
+  --gray-gray_300: #4b4b4b;
+  --gray-gray_200: #747474;
+  --gray-gray_100: #d8d8d8;
+
+  /* Brand & Semantic Colors */
+  --brand-brand_orange: #eb5230;
+  --blue-blue: #558fff;
+  --red-red_error: #c41013;
+}
