@@ -1,0 +1,226 @@
+.home-page .page-container {
+  width: calc(100vw - 720px);
+  margin-left: 360px;
+  margin-right: 360px;
+  box-sizing: border-box;
+}
+
+/* ===== 타이틀 줄 ===== */
+.home-page .page-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+}
+
+.home-page .page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+
+/* 오른쪽(검색+드롭다운) */
+.home-page .controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.home-page .search-input {
+  width: 448px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  background: var(--black-400) url("../../assets/searchIcon.svg") no-repeat 12px 50%;
+  color: var(--gray-100);
+  padding: 0 12px 0 40px;
+  box-sizing: border-box;
+}
+
+.home-page .sort-select {
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  background: var(--black-400) url("../../assets/chevronDown.svg") no-repeat right 12px center;
+  color: var(--gray-100);
+  padding: 10px;
+  appearance: none;
+}
+
+/* ===== 리스트 섹션 & 스크롤 컨테이너 ===== */
+.home-page .list-section {
+  margin-top: 16px;
+  background: var(--black-100);
+  border-radius: 4px;
+}
+
+.home-page .table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  /* 좁은 화면에서 수평 스크롤 허용 */
+}
+
+/* ===== 테이블 기본 ===== */
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* ← border-spacing 제거하여 위쪽 여백 방지 */
+  table-layout: fixed;
+  /* colgroup 폭 고정 */
+  background: var(--black-400);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* colgroup: 시안 기준 고정 폭 (필요 시 조정) */
+.colw-rank {
+  width: 72px;
+}
+
+.colw-company {
+  width: 240px;
+}
+
+.colw-summary {
+  width: auto;
+}
+
+/* 유동 */
+.colw-category {
+  width: 140px;
+}
+
+.colw-invest {
+  width: 160px;
+}
+
+.colw-revenue {
+  width: 160px;
+}
+
+.colw-employees {
+  width: 140px;
+}
+
+/* 헤더 */
+.company-table thead th {
+  height: 39px;
+  position: static;
+  background: var(--black-100);
+  color: var(--white);
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  padding: 0 8px;
+  white-space: nowrap;
+  border-bottom: none;
+  /* 간격은 아래 tbody 첫 행의 투명 보더로 처리 */
+}
+
+/* 머리 ↔ 본문 간격 16px (진짜 간격) */
+.company-table tbody tr:first-child td {
+  border-top: 16px solid transparent;
+  /* ← 정확히 16px 떨어뜨림 */
+}
+
+/* 바디 행 */
+.company-table tbody tr {
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.company-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.company-table td {
+  padding: 14px 16px;
+  color: var(--white);
+  font-size: 14px;
+  vertical-align: middle;
+  word-break: break-word;
+}
+
+/* 정렬/정렬 방향에 따른 텍스트 정렬 */
+.company-table .col-rank {
+  text-align: center;
+}
+
+.company-table .col-company {
+  text-align: left;
+}
+
+.company-table .col-summary {
+  text-align: left;
+}
+
+.company-table .col-category {
+  text-align: center;
+}
+
+.company-table .col-invest,
+.company-table .col-revenue,
+.company-table .col-employees {
+  text-align: right;
+}
+
+/* 회사 셀(로고 + 이름) */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  /* 이름 말줄임 허용 */
+}
+
+.company-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #1E1E1E;
+  flex: 0 0 auto;
+}
+
+.company-name {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 소개 말줄임 (2줄) */
+.company-summary {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--white);
+  line-height: 1.4;
+}
+
+/* 상태 행(로딩/에러/빈 데이터) */
+.state-row .state-cell {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--white);
+  font-size: 14px;
+}
+
+/* 페이지네이션 자리 */
+.pagination-slot {
+  height: 56px;
+}
+
+/* ===== 반응형: 1200px 이하면 좌/우 여백 축소 ===== */
+@media (max-width: 1200px) {
+  .home-page .page-container {
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
