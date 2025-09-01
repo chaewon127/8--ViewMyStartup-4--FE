@@ -1,7 +1,6 @@
 .home-page .page-container {
-  width: calc(100vw - 720px);
-  margin-left: 360px;
-  margin-right: 360px;
+  width: auto;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -16,7 +15,7 @@
 .home-page .page-title {
   font-size: 20px;
   font-weight: 700;
-  color: var(--white);
+  color: #fff;
   margin: 0;
 }
 
@@ -33,9 +32,9 @@
   width: 448px;
   height: 48px;
   border-radius: 10px;
-  border: 1px solid var(--gray-200);
-  background: var(--black-400) url("../../assets/searchIcon.svg") no-repeat 12px 50%;
-  color: var(--gray-100);
+  border: 1px solid var(--gray-gray_200);
+  background: var(--black-black_400) url("../../assets/searchIcon.svg") no-repeat 12px 50%;
+  color: var(--gray-gray_100);
   padding: 0 12px 0 40px;
   box-sizing: border-box;
 }
@@ -43,9 +42,9 @@
 .home-page .sort-select {
   height: 48px;
   border-radius: 10px;
-  border: 1px solid var(--gray-200);
-  background: var(--black-400) url("../../assets/chevronDown.svg") no-repeat right 12px center;
-  color: var(--gray-100);
+  border: 1px solid var(--gray-gray_200);
+  background: var(--black-black_400) url("../../assets/chevronDown.svg") no-repeat right 12px center;
+  color: var(--gray-gray_100);
   padding: 10px;
   appearance: none;
 }
@@ -53,7 +52,7 @@
 /* ===== 리스트 섹션 & 스크롤 컨테이너 ===== */
 .home-page .list-section {
   margin-top: 16px;
-  background: var(--black-100);
+  background: var(--black-black_100);
   border-radius: 4px;
 }
 
@@ -70,7 +69,7 @@
   /* ← border-spacing 제거하여 위쪽 여백 방지 */
   table-layout: fixed;
   /* colgroup 폭 고정 */
-  background: var(--black-400);
+  background: var(--black-black_400);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -109,8 +108,8 @@
 .company-table thead th {
   height: 39px;
   position: static;
-  background: var(--black-100);
-  color: var(--white);
+  background: var(--black-black_100);
+  color: #fff;
   font-weight: 500;
   font-size: 14px;
   text-align: left;
@@ -128,7 +127,7 @@
 
 /* 바디 행 */
 .company-table tbody tr {
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-gray_100);
 }
 
 .company-table tbody tr:last-child {
@@ -137,7 +136,7 @@
 
 .company-table td {
   padding: 14px 16px;
-  color: var(--white);
+  color: #fff;
   font-size: 14px;
   vertical-align: middle;
   word-break: break-word;
@@ -199,7 +198,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  color: var(--white);
+  color: #fff;
   line-height: 1.4;
 }
 
@@ -207,7 +206,7 @@
 .state-row .state-cell {
   padding: 32px 16px;
   text-align: center;
-  color: var(--white);
+  color: #fff;
   font-size: 14px;
 }
 
