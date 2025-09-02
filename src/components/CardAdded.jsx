@@ -1,9 +1,10 @@
-function CardAdded({ companyName, companyCategory}) {
+import MinusIcon from "../assets/minusIcon.svg";
+
+function CardAdded({ companyName, companyCategory }) {
   return (
     <>
       <div>
-        <button>닫기</button>
-      {/* <MinusIcon /> */}
+        <img src={MinusIcon} />
       </div>
       <img />
       <div>{companyName}</div>

@@ -1,10 +1,12 @@
-function MediumButton ({ children }) {
+import "./Button.css";
+
+function MediumButton({ children }) {
   return (
     <>
-      <button>
+      <button className="btn_medium">
         {/* <LoadingIcon/> */}
         {children}
-        </button>
+      </button>
     </>
   );
 }
