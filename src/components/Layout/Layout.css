@@ -1,6 +1,7 @@
 main {
   min-height: 100vh;
   background: var(--black-black_400, #131313);
+  padding: 0 1.6rem;
   padding-top: 8rem;
 }
 
@@ -12,12 +13,14 @@ main {
 
 @media (max-width: 768px) {
   main {
+    padding: 0 2.4rem;
     padding-top: 6rem; /* 헤더 높이에 맞춤 */
   }
 }
 
 @media (max-width: 480px) {
   main {
+    padding: 0 1.6rem;
     padding-top: 5.6rem; /* 헤더 높이에 맞춤 */
   }
 }

@@ -1,6 +1,135 @@
 /* CardContainer, CardAdded용 CSS */
 
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
 .card-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.title-left {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.title {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.desc {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+  border-radius: 4px;
+  background: var(--black-black_300, #212121);
+  height: 30rem;
+}
+
+.add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.add-card > div {
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* CardAdded.jsx */
+
+.card-added {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+
+  width: 126px;
+  flex-shrink: 0;
+  padding: 1rem 1rem;
+
+  border-radius: 8px;
+  background: var(--gray-gray_400, #333);
+}
+
+.minus-icon {
+  display: flex;
+  justify-content: end;
+}
+
+.card-inner {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.card-img {
+  width: 82.963px;
+  height: 82.963px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: url("src/assets/default.svg") lightgray 50% / cover no-repeat;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.company-name {
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  max-width: 13rem;
+
+  /* 여러 줄 텍스트에 줄임표(...)를 적용하기 위한 필수 속성 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 2줄까지만 표시하고 넘치면 줄임표(...) 처리 */
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* 이 속성을 추가하면 긴 텍스트가 컨테이너 너비를 초과할 때 자동으로 줄바꿈됩니다. */
+  word-break: break-all;
+}
+
+.company-category {
+  color: #747474;
+  font-size: 1.4rem;
+  font-weight: 500;
 }

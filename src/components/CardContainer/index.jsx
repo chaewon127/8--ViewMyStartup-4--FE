@@ -7,33 +7,33 @@ function CardContainer({
   title,
   desc,
   btnName,
-  companyName,
-  companyCategory,
+  companyList,
   isData = false,
 }) {
   return (
-    <>
+    <div className="card-container">
       <div className="card-title">
-        <div>
-          <div>{title}</div>
-          <div>{desc}</div>
+        <div className="title-left">
+          <div className="title">{title}</div>
+          <div className="desc">{desc}</div>
         </div>
         <MediumButton>{btnName}</MediumButton>
       </div>
       <div className="card-main">
         {isData ? (
+          companyList.map((el) => 
           <CardAdded
-            companyName={companyName}
-            companyCategory={companyCategory}
-          />
+            companyName={el.name}
+            companyCategory={el.category}
+          />)
         ) : (
-          <div>
+          <button className="add-card">
             <img src={PlusButton} />
-            기업 추가
-          </div>
+            <div>기업 추가</div>
+          </button>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

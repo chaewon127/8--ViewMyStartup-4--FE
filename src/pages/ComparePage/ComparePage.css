@@ -1,3 +1,18 @@
 body {
   color: white;
 }
+
+.compare-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-page > :first-child {
+  margin-bottom: 4rem;
+}
+
+.btn-compare {
+  margin-top: 2.4rem;
+  align-self: center;
+}
+
