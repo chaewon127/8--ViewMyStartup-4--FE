@@ -114,18 +114,8 @@
   text-align: center;
   font-size: 1.6rem;
   font-weight: 500;
-  max-width: 13rem;
-
-  /* 여러 줄 텍스트에 줄임표(...)를 적용하기 위한 필수 속성 */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* 2줄까지만 표시하고 넘치면 줄임표(...) 처리 */
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  /* 이 속성을 추가하면 긴 텍스트가 컨테이너 너비를 초과할 때 자동으로 줄바꿈됩니다. */
-  word-break: break-all;
+  max-width: 10.5rem;
+  /* TODO: 2줄까지 줄바꿈 가능하도록 설정 */
 }
 
 .company-category {
