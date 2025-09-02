@@ -41,9 +41,11 @@
   justify-content: center;
   align-items: center;
   gap: 1.6rem;
+  flex-wrap: wrap;
   border-radius: 4px;
   background: var(--black-black_300, #212121);
-  height: 30rem;
+  padding: 0.8rem;
+  min-height: 25rem;
 }
 
 .add-card {
@@ -111,7 +113,7 @@
 
 .company-name {
   color: #fff;
-  text-align: center;
+  /* text-align: center; */
   font-size: 1.6rem;
   font-weight: 500;
   max-width: 10.5rem;
