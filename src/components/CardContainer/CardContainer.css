@@ -1,0 +1,6 @@
+/* CardContainer, CardAdded용 CSS */
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+}
