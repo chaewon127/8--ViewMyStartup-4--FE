@@ -1,0 +1,132 @@
+:root{
+  --gray-200: #747474;    /* var(--gray-gray_200) */
+  --gray-100: #D8D8D8;    /* var(--gray-gray_100) */
+  --bg-dark:  #212121;
+  --radius:   10px;
+}
+
+/* 공통 베이스 */
+.wrap{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  padding: 0 12px;
+  color: #fff; /* 입력 텍스트/inline SVG 아이콘 currentColor */
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+               Roboto, 'Noto Sans KR', Arial, 'Apple SD Gothic Neo',
+               'Nanum Gothic', 'Malgun Gothic', sans-serif;
+}
+
+/* 입력 */
+.input{
+  flex: 1 1 auto;
+  width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;           /* #fff */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+.input::placeholder{ color: var(--gray-100); }
+
+/* 아이콘 버튼 */
+.icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:none;
+  border:0;
+  width:24px;               /* ← 실제 크기 고정 */
+  height:24px;
+  padding:0;                /* 불필요 패딩 제거(겹침 방지) */
+  cursor:pointer;
+}
+.icon img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+}
+.icon:hover{ filter: brightness(1.1); }
+.left{  margin-left: -4px; }
+.right{ margin-right: -4px; }
+
+/* 동작 모드 */
+.plain  { /* 좌측 돋보기만 보임 */ }
+.action { /* 우측 X + 검색 */ }
+
+/* ---------- kind별 배경/placeholder/사이즈 ---------- */
+
+/* 1) 루트(/) — 배경 투명, 테두리만 회색 */
+.root{ background: transparent; }
+/* PC */
+@media (min-width:1024px){
+  .root{ width:448px; height:48px; }
+}
+/* Tablet */
+@media (min-width:768px) and (max-width:1023.98px){
+  .root{ width:269px; height:48px; }
+}
+/* Mobile */
+@media (max-width:767.98px){
+  .root{ width:189px; height:40px; }
+}
+
+/* 2) compare - 나의 기업 선택 모달 */
+.compareMine{ background: var(--bg-dark); }
+/* PC */
+@media (min-width:1024px){
+  .compareMine{ width:424px; height:48px; padding: 0 12px; }
+}
+/* Tablet */
+@media (min-width:768px) and (max-width:1023.98px){
+  .compareMine{ width:424px; height:48px; padding: 0 12px; }
+}
+/* Mobile */
+@media (max-width:767.98px){
+  .compareMine{ width:287px; height:40px; padding: 0 12px; }
+}
+
+/* 3) compare - 비교할 기업 선택 모달 */
+.comparePick{
+  background: var(--bg-dark);
+}
+.comparePick .input::placeholder{ color:#FFFFFF; }
+/* PC */
+@media (min-width:1024px){
+  .comparePick{ width:448px; height:48px; }
+}
+/* Tablet */
+@media (min-width:768px) and (max-width:1023.98px){
+  .comparePick{ width:448px; height:48px; }
+}
+/* Mobile */
+@media (max-width:767.98px){
+  .comparePick{ width:311px; height:40px; }
+}
+
+/* 기본 검색 입력(type=search) X 버튼 숨김 (크롬/사파리/엣지) */
+.input::-webkit-search-cancel-button,
+.input::-webkit-search-decoration,
+.input::-webkit-search-results-button,
+.input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* (구) Edge/IE */
+.input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
