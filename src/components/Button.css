@@ -37,3 +37,14 @@
   font-weight: 600;
   line-height: normal;
 }
+
+.btn_medium:disabled {
+  display: flex;
+  /* height: 4rem; */
+  padding: 8px 24px;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 10px;
+  border-radius: 50px;
+  background: var(--black-black_100, #2e2e2e);
+}

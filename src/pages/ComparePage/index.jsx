@@ -37,12 +37,13 @@ export default function ComparePage() {
         title={"나의 기업을 선택해주세요!"}
         btnName={"전체 초기화"}
         companyList={MOCK_MY}
-        isData={false}
+        isData={true}
       />
       <CardContainer
         title={"어떤 기업이 궁금하세요?"}
         desc={"(최대 5개)"}
         btnName={"기업 추가하기"}
+        btnDisabled={true}
         companyList={MOCK_COMPARE}
         isData={true}
       />

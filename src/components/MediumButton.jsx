@@ -1,9 +1,9 @@
 import "./Button.css";
 
-function MediumButton({ children }) {
+function MediumButton({ disabled, children }) {
   return (
     <>
-      <button className="btn_medium">
+      <button className="btn_medium" disabled={disabled}>
         {/* <LoadingIcon/> */}
         {children}
       </button>

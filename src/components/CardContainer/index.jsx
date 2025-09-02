@@ -7,6 +7,7 @@ function CardContainer({
   title,
   desc,
   btnName,
+  btnDisabled,
   companyList,
   isData = false,
 }) {
@@ -17,7 +18,7 @@ function CardContainer({
           <div className="title">{title}</div>
           <div className="desc">{desc}</div>
         </div>
-        <MediumButton>{btnName}</MediumButton>
+        <MediumButton disabled={btnDisabled}>{btnName}</MediumButton>
       </div>
       <div className="card-main">
         {isData ? (
