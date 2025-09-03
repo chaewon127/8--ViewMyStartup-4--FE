@@ -123,3 +123,14 @@
   --btn-fg: var(--brand-brand_orange);
   border-color: var(--btn-border);
 }
+
+/* outline */
+
+.vms-btn--outline,
+.vms-btn--md-outline,
+.vms-btn--lg-outline {
+  --btn-bg: transparent;
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: var(--brand-brand_orange);
+  border-color: var(--btn-border);
+}
