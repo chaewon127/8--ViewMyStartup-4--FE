@@ -17,34 +17,36 @@ function Pagination({ totalItems, dataPerPage, page, onPageChange }) {
 
   return (
     <div className="pagination">
-      <div>
-        {/* 이전 그룹으로 이동 */}
-        <button
-          onClick={() => onPageChange(startPage - 1)} // 이전 그룹의 마지막 페이지로 이동
-          disabled={startPage === 1}
-        >
-          &lt;
-        </button>
+      {/* 이전 그룹으로 이동 */}
+      <button
+        className="btn-inactive"
+        onClick={() => onPageChange(startPage - 1)} // 이전 그룹의 마지막 페이지로 이동
+        disabled={startPage === 1}
+      >
+        &lt;
+      </button>
 
-        {/* 현재 그룹 페이지 번호 */}
+      {/* 현재 그룹 페이지 번호 */}
+      <div>
         {pageNumbers.map((p) => (
           <button
+            className={page === p ? "btn-active" : "btn-inactive"}
             key={p}
             onClick={() => onPageChange(p)}
-            style={{ fontWeight: page === p ? "bold" : "normal" }}
           >
             {p}
           </button>
         ))}
-
-        {/* 다음 그룹으로 이동 */}
-        <button
-          onClick={() => onPageChange(endPage + 1)}
-          disabled={currentGroup * pagesPerGroup >= totalPages}
-        >
-          &gt;
-        </button>
       </div>
+
+      {/* 다음 그룹으로 이동 */}
+      <button
+        className="btn-inactive"
+        onClick={() => onPageChange(endPage + 1)}
+        disabled={currentGroup * pagesPerGroup >= totalPages}
+      >
+        &gt;
+      </button>
     </div>
   );
 }
