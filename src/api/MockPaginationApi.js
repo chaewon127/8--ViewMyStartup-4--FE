@@ -1,5 +1,6 @@
 export async function fetchCorpData({ offset, limit, order }) {
   return new Promise((resolve) => {
+    // 목데이터
     const MOCK_DATA = Array.from({ length: 100 }, (_, i) => ({
       name: `Corp ${i + 1}`,
       total_investment: Math.floor(Math.random() * 10000),
@@ -7,6 +8,7 @@ export async function fetchCorpData({ offset, limit, order }) {
       employee: Math.floor(Math.random() * 200),
     }));
 
+    // 데이터 정렬
     let sortedData = [...MOCK_DATA];
     switch (order) {
       case "investmentLowest":
@@ -31,8 +33,10 @@ export async function fetchCorpData({ offset, limit, order }) {
         sortedData.sort((a, b) => b.total_investment - a.total_investment);
     }
 
+    // 페이지네이션
     const paged = sortedData.slice(offset, offset + limit);
 
+    // 응답 객체 반환
     resolve({
       data: paged,
       totalCount: sortedData.length,
