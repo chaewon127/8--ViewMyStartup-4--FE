@@ -1,50 +1,140 @@
-.btn_large {
-  display: flex;
-  width: 183px;
-  height: 48px;
-  padding: 13px 48px;
-  justify-content: center;
+.vms-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  justify-content: center;
+  padding: 13px 48px;
+  min-width: 183px;
+  height: 48px;
   border-radius: 50px;
-  background: var(--brand-brand_orange, #eb5230);
-  color: #fff;
-  text-align: center;
   font-family: Pretendard;
   font-size: 16px;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.02s ease;
+
+  --btn-bg: var(--black-black_100);
+  --btn-border: var(--black-black_100);
+  --btn-fg: var(--gray-gray_200);
+  --btn-bg-hov: var(--btn-bg);
+  --btn-bg-act: var(--btn-bg);
+
+  background: var(--btn-bg);
+  border-color: var(--btn-border);
+  color: var(--btn-fg);
 }
 
-.btn_medium {
-  display: flex;
-  width: 183px;
-  height: 48px;
-  padding: 13px 48px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  border-radius: 50px;
-  background: var(--brand-brand_orange, #eb5230);
-  color: #fff;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+.vms-btn:focus-visible {
+  outline: 2px solid var(--btn-fg);
+  outline-offset: 2px;
 }
 
-.btn_medium:disabled {
-  display: flex;
-  /* height: 4rem; */
-  padding: 8px 24px;
-  /* flex-direction: column; */
-  align-items: center;
-  gap: 10px;
-  border-radius: 50px;
-  background: var(--black-black_100, #2e2e2e);
+.vms-btn:hover:not(:disabled):not(.is-disabled) {
+  background: var(--btn-bg-hov);
+}
+
+.vms-btn:active:not(:disabled):not(.is-disabled) {
+  background: var(--btn-bg-act);
+  transform: translateY(1px);
+}
+
+.vms-btn.is-block {
+  width: 100%;
+}
+
+.vms-btn:disabled,
+.vms-btn.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  /* 필요시 교체 가능 */
+  transform: none;
+}
+
+.vms-btn--inactive {
+  --btn-bg: var(--black-black_100);
+  --btn-border: var(--black-black_100);
+  --btn-fg: var(--gray-gray_200);
+  --btn-bg-hov: var(--black-black_100);
+  --btn-bg-act: var(--black-black_100);
+}
+
+.vms-btn--active {
+  --btn-bg: var(--brand-brand_orange);
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: #ffffff;
+  --btn-bg-hov: var(--brand-brand_orange);
+  --btn-bg-act: var(--brand-brand_orange);
+}
+
+.vms-btn--outline {
+  --btn-bg: transparent;
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: var(--brand-brand_orange);
+  border-color: var(--btn-border);
+}
+
+/* 아이콘 대비 라벨 래퍼(필요 시) */
+.vms-btn__label {
+  display: inline-block;
+}
+
+/* size modifiers */
+.vms-btn--lg {
+}
+
+/* Medium */
+
+.vms-btn--md {
+  height: var(--btn-md-h, 40px);
+  padding: var(--btn-md-py, 8px) var(--btn-md-px, 24px);
+  min-width: var(--btn-md-minw, 163px);
+  border-radius: var(--btn-md-radius, 50px);
+  font-size: var(--btn-md-fs, 16px);
+  font-weight: var(--btn-md-fw, 600);
+}
+
+.vms-btn--inactive,
+.vms-btn--md-inactive,
+.vms-btn--lg-inactive {
+  --btn-bg: var(--black-black_100);
+  --btn-border: var(--black-black_100);
+  --btn-fg: var(--gray-gray_200);
+  --btn-bg-hov: var(--black-black_100);
+  --btn-bg-act: var(--black-black_100);
+}
+
+.vms-btn--active,
+.vms-btn--md-active,
+.vms-btn--lg-active {
+  --btn-bg: var(--brand-brand_orange);
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: #ffffff;
+  --btn-bg-hov: var(--brand-brand_orange);
+  --btn-bg-act: var(--brand-brand_orange);
+}
+
+.vms-btn--outline,
+.vms-btn--md-outline,
+.vms-btn--lg-outline {
+  --btn-bg: transparent;
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: var(--brand-brand_orange);
+  border-color: var(--btn-border);
+}
+
+/* outline */
+
+.vms-btn--outline,
+.vms-btn--md-outline,
+.vms-btn--lg-outline {
+  --btn-bg: transparent;
+  --btn-border: var(--brand-brand_orange);
+  --btn-fg: var(--brand-brand_orange);
+  border-color: var(--btn-border);
 }

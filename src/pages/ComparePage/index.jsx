@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardContainer from "../../components/CardContainer";
 import LargeButton from "../../components/LargeButton";
+import Button from "../../components/Button";
 import "./ComparePage.css";
+import Pagination from "@/components/Pagination";
+import { fetchCorpData } from "@/api/MockPaginationApi";
 
 export default function ComparePage() {
   const MOCK_MY = [
@@ -31,6 +34,25 @@ export default function ComparePage() {
     { url: "src/assets/default.svg", name: "메스프레소", category: "에듀테크" },
   ];
 
+  const [data, setData] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [order, setOrder] = useState("investmentHighest");
+
+  const limit = 10; // 한 페이지당 보여줄 tr 개수
+
+  useEffect(() => {
+    fetchCorpData({
+      // 예: page=1 -> offset=0, page=2 -> offset=10
+      offset: (page - 1) * limit,
+      limit,
+      order,
+    }).then((res) => {
+      setData(res.data);
+      setTotal(res.totalCount);
+    });
+  }, [page, order]); // page와 정렬 바뀔 때마다 재렌더링
+
   return (
     <div className="compare-page">
       <CardContainer
@@ -49,7 +71,43 @@ export default function ComparePage() {
       />
       <div className="btn-compare">
         <LargeButton>기업 비교하기</LargeButton>
+        <Button size="lg">기업 비교하기</Button>
       </div>
+      {/* select와 테이블, pagination 테스트 */}
+      <select value={order} onChange={(e) => setOrder(e.target.value)}>
+        <option value="investmentHighest">투자금 많은 순</option>
+        <option value="investmentLowest">투자금 적은 순</option>
+        <option value="salesHighest">매출 높은 순</option>
+        <option value="salesLowest">매출 낮은 순</option>
+        <option value="employeeHighest">사원 많은 순</option>
+        <option value="employeeLowest">사원 적은 순</option>
+      </select>
+      <table border="1" style={{ borderCollapse: "collapse", width: "100%" }}>
+        <thead>
+          <tr>
+            <th>기업명</th>
+            <th>투자금</th>
+            <th>매출</th>
+            <th>직원 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((corp) => (
+            <tr key={corp.name}>
+              <td>{corp.name}</td>
+              <td>{corp.total_investment.toLocaleString()}</td>
+              <td>{corp.corp_sales.toLocaleString()}</td>
+              <td>{corp.employee}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Pagination
+        totalItems={total}
+        dataPerPage={limit}
+        page={page}
+        onPageChange={setPage}
+      />
     </div>
   );
 }
