@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../components/CardContainer";
-import LargeButton from "../../components/LargeButton";
 import Button from "../../components/Button";
 import "./ComparePage.css";
 import Pagination from "@/components/Pagination";
@@ -70,7 +69,6 @@ export default function ComparePage() {
         isData={true}
       />
       <div className="btn-compare">
-        <LargeButton>기업 비교하기</LargeButton>
         <Button size="lg">기업 비교하기</Button>
       </div>
       {/* select와 테이블, pagination 테스트 */}
