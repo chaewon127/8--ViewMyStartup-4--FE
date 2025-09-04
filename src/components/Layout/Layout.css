@@ -8,7 +8,8 @@ main {
 .inner-container {
   max-width: 120rem;
   margin: 0 auto;
-  min-height: 100px;
+  min-height: 10rem;
+  padding: 0 1.6rem;
 }
 
 @media (max-width: 768px) {
