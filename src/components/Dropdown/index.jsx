@@ -1,3 +1,11 @@
+/*
+ * Dropdown 공통 컴포넌트
+ * @param {string} value - 현재 선택한 값
+ * @param {function} onChange - 값이 변경될 때 호출되는 함수
+ * @param {array} options - 드롭다운 목록 [{ value: string, label: string }]
+ * @param {boolean} disabled - 비활성화 여부
+ */
+
 function Dropdown({ value, onChange, options = [], disabled = false }) {
   return (
     <>
@@ -8,10 +16,10 @@ function Dropdown({ value, onChange, options = [], disabled = false }) {
       >
         {options.map((option) => (
           <option
-            key={option.id || option.value || option.name}
+            key={option.id || option.value || option.label}
             value={option.value}
           >
-            {option.name}
+            {option.label}
           </option>
         ))}
       </select>
