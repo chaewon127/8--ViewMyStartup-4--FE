@@ -1,0 +1,117 @@
+:root{
+  /* 색상 변수 (없는 경우 fallback 사용) */
+  --gray-gray_200: #747474;
+  --gray-gray_100: #D8D8D8;
+  --brand-brand_orange: #EB5230;
+}
+
+/* 행 레이아웃 */
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 0;
+}
+
+/* 좌측 메타(로고 + 텍스트) */
+.meta{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.logo{
+  width:40px; height:40px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+}
+.logoFallback{
+  width:40px; height:40px;
+  border-radius:50%;
+  background:#333;
+  display:block;
+}
+
+.texts{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.name{
+  color:#fff;
+  font-family:Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;
+  font-weight:700;
+  line-height:normal;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.category{
+  color:#9b9b9b;
+  font-family:Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:14px;
+  font-weight:400;
+  line-height:normal;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* ---------------- 버튼 ---------------- */
+
+/* 공통 버튼 베이스 */
+.btn{
+  /* 상태별로 바뀌는 색(텍스트/보더 동시 적용) */
+  --btn-color: #fff;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:104px;
+  height:48px;
+
+  padding:0;
+  gap:2px; /* PC/태블릿: 체크아이콘과 글자 2px 간격 */
+  background:transparent;
+
+  /* 전역 규칙을 덮어쓰도록 변수 + !important */
+  color: var(--btn-color) !important;
+  border: 1px solid var(--btn-color) !important;
+
+  border-radius:10px;
+  box-sizing:border-box;
+  cursor:pointer;
+
+  font-family:Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;
+  font-weight:500;
+  line-height:normal;
+}
+
+/* 상태별 색상 지정 (텍스트/보더 동시 변경) */
+.remove{ --btn-color: var(--gray-gray_200, #747474); }   /* 선택 해제 */
+.done  { --btn-color: var(--gray-gray_100, #D8D8D8); }   /* 선택완료 */
+.pick  { --btn-color: var(--brand-brand_orange, #EB5230); } /* 선택하기 */
+
+/* 체크 아이콘 크기 */
+.icon{
+  width:20px; height:20px; display:block;
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 767.98px){
+  .btn{
+    width:73px;
+    height:32px;
+    border-radius:8px;
+    font-size:14px;
+    gap:0; /* 모바일: 아이콘과 텍스트 붙이기 */
+  }
+  .icon{ width:16px; height:16px; }
+}
