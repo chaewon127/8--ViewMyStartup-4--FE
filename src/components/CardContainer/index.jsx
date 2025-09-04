@@ -1,5 +1,5 @@
 import CardAdded from "../CardAdded";
-import MediumButton from "../../components/MediumButton";
+import LargeButton from "../LargeButton";
 import PlusButton from "../../assets/plusButton.svg";
 import "./CardContainer.css";
 
@@ -7,7 +7,7 @@ function CardContainer({
   title,
   desc,
   btnName,
-  btnDisabled,
+  // btnDisabled,
   companyList,
   isData = false,
 }) {
@@ -18,15 +18,13 @@ function CardContainer({
           <div className="title">{title}</div>
           <div className="desc">{desc}</div>
         </div>
-        <MediumButton disabled={btnDisabled}>{btnName}</MediumButton>
+        <LargeButton>{btnName}</LargeButton>
       </div>
       <div className="card-main">
         {isData ? (
-          companyList.map((el) => 
-          <CardAdded
-            companyName={el.name}
-            companyCategory={el.category}
-          />)
+          companyList.map((el) => (
+            <CardAdded companyName={el.name} companyCategory={el.category} />
+          ))
         ) : (
           <button className="add-card">
             <img src={PlusButton} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../components/CardContainer";
-import Button from '../../components/LargeButton'
+import LargeButton from "@/components/LargeButton";
 import "./ComparePage.css";
 import Pagination from "@/components/Pagination";
 import { fetchCorpData } from "@/api/MockPaginationApi";
@@ -40,6 +40,9 @@ export default function ComparePage() {
 
   const limit = 10; // 한 페이지당 보여줄 tr 개수
 
+  // 버튼의 disaled 상태 관리 state
+  const [isDisabled, setIsDisabled] = useState(true);
+
   useEffect(() => {
     fetchCorpData({
       // 예: page=1 -> offset=0, page=2 -> offset=10
@@ -69,7 +72,9 @@ export default function ComparePage() {
         isData={true}
       />
       <div className="btn-compare">
-        <Button size="lg">기업 비교하기</Button>
+        <LargeButton size="lg" disabled={isDisabled}>
+          기업 비교하기
+        </LargeButton>
       </div>
       {/* select와 테이블, pagination 테스트 */}
       <select value={order} onChange={(e) => setOrder(e.target.value)}>

@@ -21,7 +21,8 @@
 
   --btn-bg: var(--black-black_100);
   --btn-border: var(--black-black_100);
-  --btn-fg: var(--gray-gray_200);
+  /* --btn-fg: var(--gray-gray_200); */
+  --btn-fg: #ffffff;
   --btn-bg-hov: var(--btn-bg);
   --btn-bg-act: var(--btn-bg);
 
