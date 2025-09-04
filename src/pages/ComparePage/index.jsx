@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardContainer from "../../components/CardContainer";
-import Button from "../../components/Button";
+import Button from '../../components/LargeButton'
 import "./ComparePage.css";
 import Pagination from "@/components/Pagination";
 import { fetchCorpData } from "@/api/MockPaginationApi";
