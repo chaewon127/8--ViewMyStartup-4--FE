@@ -1,0 +1,53 @@
+.pagination {
+  container-type: inline-size;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.pagination > div {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-inactive {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--black-black_100, #2e2e2e);
+
+  color: var(--gray-gray_200, #747474);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.btn-active {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--brand-brand_orange, #eb5230);
+
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@container (max-width: 50rem) {
+  .btn-inactive,
+  .btn-active {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+}
