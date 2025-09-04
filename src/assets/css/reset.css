@@ -9,14 +9,6 @@
   box-sizing: border-box; /* 테두리와 패딩을 포함한 크기 계산 */
 }
 
-/* body 기본 폰트와 배경 설정 */
-body {
-  font-family: Arial, Helvetica, sans-serif; /* 기본 폰트 설정 */
-  line-height: 1.5; /* 기본 줄 간격 설정 */
-  background-color: #fff; /* 기본 배경색 */
-  color: #000; /* 기본 글자색 */
-}
-
 /* 링크 기본 스타일 제거 */
 a {
   text-decoration: none; /* 밑줄 제거 */

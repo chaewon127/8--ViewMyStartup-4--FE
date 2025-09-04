@@ -57,8 +57,8 @@
 .right{ margin-right: -4px; }
 
 /* 동작 모드 */
-.plain  { /* 좌측 돋보기만 보임 */ }
-.action { /* 우측 X + 검색 */ }
+/*.plain  { /* 좌측 돋보기만 보임  }
+.action { /* 우측 X + 검색  }*/
 
 /* ---------- kind별 배경/placeholder/사이즈 ---------- */
 
