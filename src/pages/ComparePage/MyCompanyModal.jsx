@@ -1,6 +1,5 @@
 import React from 'react';
 import SearchBar from '../../components/SearchBar';
-import styles from '../../components/CompanyListItem.module.css'; // 버튼/행 공통 CSS
 
 // ── 목데이터 (API 완성 전 임시)
 const MOCK = [
