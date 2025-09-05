@@ -1,12 +1,28 @@
-.modal {
-  display: inline-flex;
-  padding: 24px;
-  align-items: flex-start;
-  gap: 10px;
+/* 화면 전체를 덮는 반투명 배경 */
+.modal-overlay {
+  position: fixed; /* 화면에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+  display: flex; /* Flexbox를 이용해 자식 요소를 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* 다른 요소들 위에 오도록 z-index 설정 */
+}
 
+/* 실제 모달 컨텐츠를 담는 박스 */
+.modal-content-box {
+  display: flex;
+  flex-direction: column; /* 컨텐츠를 세로로 쌓음 */
+  padding: 24px;
+  gap: 10px;
   border-radius: 16px;
   background: var(--black-black_300, #212121);
   color: white;
+  max-width: 90vw; /* 화면 너비의 90%를 넘지 않도록 */
+  max-height: 90vh; /* 화면 높이의 90%를 넘지 않도록 */
 }
 
 .modal-header {
