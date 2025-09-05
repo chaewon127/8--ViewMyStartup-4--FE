@@ -1,0 +1,346 @@
+/* ================================
+   컨테이너 & 변수
+================================ */
+.invest-page {
+  width: 100%;
+}
+
+:root{
+  --w-rank: 68px;
+  --w-name: 213px;
+  --w-intro: 304px;
+  --w-category: 153.75px;
+  --w-vms: 231px;
+  --w-actual: 231px;
+  --table-width: calc(var(--w-rank) + var(--w-name) + var(--w-intro) + var(--w-category) + var(--w-vms) + var(--w-actual));
+}
+
+@media (max-width: 1024.98px){
+  :root{
+    --w-rank: 60px;
+    --w-name: 140px;
+    --w-intro: 180px;
+    --w-category: 84px;
+    --w-vms: 116px;
+    --w-actual: 116px;
+    --table-width: calc(var(--w-rank) + var(--w-name) + var(--w-intro) + var(--w-category) + var(--w-vms) + var(--w-actual));
+  }
+}
+
+/* 페이지 래퍼 */
+.page-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 16px 133px;
+}
+
+@media (min-width: 768px){
+  .page-inner {
+    padding: 0 0 133px;
+  }
+}
+
+/* ================================
+   타이틀
+================================ */
+.title-wrap {
+  width: 100%;
+}
+
+@media (min-width: 768px){
+  .title-wrap {
+    width: var(--table-width);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767.98px){
+  .title-wrap {
+    margin-top: 22px;
+  }
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: #FFF;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@media (min-width: 768px){
+  .title {
+    font-size: 20px;
+  }
+}
+
+/* 외부 컴포넌트 슬롯 */
+.dropdown-slot {
+  width: 320px;
+  height: 40px;
+}
+
+.pagination-slot {
+  margin-top: 16px;
+  height: 40px;
+}
+
+/* ================================
+   스크롤 & 폭
+================================ */
+.table-scroll {
+  overflow-x: visible;
+  position: relative;
+}
+
+.table-inner {
+  width: var(--table-width);
+  margin: 0 auto;
+}
+
+@media (max-width: 767.98px){
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .table-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ================================
+   그리드
+================================ */
+.grid-cols{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: var(--w-rank) var(--w-name) var(--w-intro) var(--w-category) var(--w-vms) var(--w-actual);
+  box-sizing: border-box;
+}
+
+/* ================================
+   분리 박스 (테두리 제거)
+================================ */
+.table-head,
+.table-body {
+  border-radius: 4px;
+  background: var(--black-black_100, #2E2E2E);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* ================================
+   헤더
+================================ */
+.th{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 39px;
+  box-sizing: border-box;
+  color: #FFF;
+  text-align: center;
+  white-space: nowrap;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 13px; /* 모바일 13px */
+}
+
+@media (min-width: 768px){
+  .th {
+    font-size: 14px; /* PC/태블릿 14px */
+  }
+}
+
+.br-md {
+  display: none;
+}
+
+@media (max-width: 1024.98px){
+  .br-md {
+    display: block !important;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .th-vms {
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    gap: 2px; /*줄 여백*/
+  }
+}
+
+/* PC에서 우측 헤더 잘림 방지 */
+.th.wrap {
+  white-space: normal;
+}
+
+/* 헤더/바디 사이 16px */
+.head-body-gap {
+  height: 16px;
+}
+
+/* ================================
+   데이터 바디 (행 64px 보장)
+================================ */
+.tr {
+  height: 64px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.tr:last-child {
+  border-bottom: 0;
+}
+
+.td{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  font-size: 13px; /* 모바일 13px */
+}
+
+@media (min-width: 768px){
+  .td {
+    font-size: 14px; /* PC/태블릿 14px */
+  }
+}
+
+.td.center {
+  justify-content: center;
+  text-align: center;
+}
+
+.td.left {
+  justify-content: flex-start;
+  text-align: left;
+  padding: 0 12px;
+}
+
+.td.right {
+  justify-content: flex-end;
+  text-align: right;
+  padding: 0 12px;
+}
+
+.td.body {
+  color: #D8D8D8;
+  text-align: center;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.td.company {
+  color: #FFF;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* 기업명 셀 내부 */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.company-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 기업 소개 */
+.intro-text {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+}
+
+/* ================================
+   모바일 커스텀 스크롤바
+================================ */
+.mobile-scrollbar {
+  display: none;
+}
+
+@media (max-width: 767.98px){
+  .mobile-scrollbar {
+    display: block;
+    width: 100%;
+    margin: 8px 0 0;
+  }
+
+  .mobile-scrollbar.hidden {
+    display: none;
+  }
+
+  .mobile-scrollbar__track{
+    width: 348px;
+    height: 12px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #212121;
+    position: relative;
+    touch-action: none;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .mobile-scrollbar__thumb{
+    width: 101px;
+    height: 8px;
+    border-radius: 8px;
+    background: #131313;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    will-change: transform;
+    margin-left: 3px; /*스크롤 왼쪽 여백*/
+  }
+}
+
+/* ================================
+   페이지네이션 위치
+================================ */
+.pagination-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
