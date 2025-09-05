@@ -3,6 +3,7 @@ import CardContainer from "../../components/CardContainer";
 import LargeButton from "../../components/LargeButton";
 import Pagination from "@/components/Pagination";
 import { fetchCorpData } from "@/api/MockPaginationApi";
+import Dropdown from "@/components/Dropdown";
 
 export default function ComparePage() {
   const [data, setData] = useState([]);
@@ -11,6 +12,15 @@ export default function ComparePage() {
   const [order, setOrder] = useState("investmentHighest");
 
   const limit = 10; // 한 페이지당 보여줄 tr 개수
+
+  const orderOptions = [
+    { value: "investmentHighest", label: "투자금 많은 순" },
+    { value: "investmentLowest", label: "투자금 적은 순" },
+    { value: "salesHighest", label: "매출 높은 순" },
+    { value: "salesLowest", label: "매출 낮은 순" },
+    { value: "employeeHighest", label: "사원 많은 순" },
+    { value: "employeeLowest", label: "사원 적은 순" },
+  ];
 
   useEffect(() => {
     fetchCorpData({
@@ -40,15 +50,7 @@ export default function ComparePage() {
         companyCategory={"에듀테크"}
       />
       <LargeButton>기업 비교하기</LargeButton>
-      {/* select와 테이블, pagination 테스트 */}
-      <select value={order} onChange={(e) => setOrder(e.target.value)}>
-        <option value="investmentHighest">투자금 많은 순</option>
-        <option value="investmentLowest">투자금 적은 순</option>
-        <option value="salesHighest">매출 높은 순</option>
-        <option value="salesLowest">매출 낮은 순</option>
-        <option value="employeeHighest">사원 많은 순</option>
-        <option value="employeeLowest">사원 적은 순</option>
-      </select>
+      <Dropdown value={order} onChange={setOrder} options={orderOptions} />
       <table border="1" style={{ borderCollapse: "collapse", width: "100%" }}>
         <thead>
           <tr>
