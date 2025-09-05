@@ -1,0 +1,16 @@
+.modal {
+  display: inline-flex;
+  padding: 24px;
+  align-items: flex-start;
+  gap: 10px;
+
+  border-radius: 16px;
+  background: var(--black-black_300, #212121);
+  color: white;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
