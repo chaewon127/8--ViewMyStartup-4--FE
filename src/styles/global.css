@@ -18,6 +18,11 @@ body {
   margin: 0;
 }
 
+/* 모든 버튼의 기본 텍스트 색상을 흰색으로 설정 */
+button {
+  color: #fff;
+}
+
 :root {
   /* colors */
   --gray-100: #747474; /* 선택해제 */
