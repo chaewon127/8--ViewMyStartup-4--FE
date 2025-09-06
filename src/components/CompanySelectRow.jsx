@@ -1,5 +1,7 @@
-import React from 'react';
-import s from './CompanySelectRow.module.css';
+import React from "react";
+import s from "./CompanySelectRow.module.css";
+import checkSmallIcon from "@/assets/images/icons/ic_check_small.svg";
+import checkIcon from "@/assets/images/icons/ic_check.svg";
 
 /**
  * props
@@ -48,9 +50,9 @@ export default function CompanySelectRow({
         {status === 'done' && (
           <picture>
             {/* 모바일(<=767.98px): 작은 체크 아이콘 */}
-            <source media="(max-width: 767.98px)" srcSet="/images/ic_check_small.svg" />
+            <source media="(max-width: 767.98px)" srcSet={checkSmallIcon} />
             {/* PC/태블릿: 기본 체크 아이콘 */}
-            <img className={s.icon} src="/images/ic_check.svg" alt="" />
+            <img className={s.icon} src={checkIcon} alt="" />
           </picture>
         )}
         {label}

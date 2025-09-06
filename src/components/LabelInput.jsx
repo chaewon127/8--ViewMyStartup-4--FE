@@ -1,5 +1,7 @@
-import React from 'react';
-import styles from './LabelInput.module.css';
+import React from "react";
+import styles from "./LabelInput.module.css";
+import visibilityOnIcon from "@/assets/icons/btn_visibility_on_24px.svg";
+import visibilityOffIcon from "@/assets/icons/btn_visibility_off_24px.svg";
 
 export default function LabelInput({
   id,
@@ -70,7 +72,7 @@ export default function LabelInput({
             disabled={disabled}
           >
             <img
-              src="/images/btn_visibility_on_24px.svg"
+              src={showPw ? visibilityOnIcon : visibilityOffIcon}
               alt=""
               width="20"
               height="20"
