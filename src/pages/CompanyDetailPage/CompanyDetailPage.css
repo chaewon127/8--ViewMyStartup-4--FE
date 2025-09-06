@@ -1,0 +1,294 @@
+.company-detail-page {
+  color: #fff;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0 153px;
+}
+
+
+.company-hero .hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #2a2c30;
+
+  margin-bottom: 16px;
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #2b2d31;
+  overflow: hidden;
+  flex: 0 0 48px;
+}
+
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.company-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.category-pill {
+  padding: 2px 8px;
+  font-size: 12px;
+  line-height: 18px;
+  color: #b9bdc3;
+  background: #2b2d31;
+  border-radius: 999px;
+  width: max-content;
+}
+
+
+.kpi-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.kpi-card {
+  width: 384px;
+  height: 93px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #1e1f22;
+  border: 1px solid #2a2c30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-label {
+  font-size: 12px;
+  color: #9aa0a6;
+}
+
+.kpi-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+.about-section {
+  margin-top: 24px;
+}
+
+.about-card {
+  background: #1e1f22;
+  border: 1px solid #2a2c30;
+  border-radius: 8px;
+  padding: 16px 24px;
+}
+
+.about-card-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #e6e8ea;
+}
+
+.about-card-body {
+  margin: 0;
+  line-height: 1.6;
+  color: #e6e8ea;
+}
+
+
+.invest-section {
+  margin-top: 24px;
+}
+
+
+.invest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 12px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid #2a2c30;
+}
+
+.invest-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #e6e8ea;
+}
+
+.vms-btn-active {
+  border: none;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #fff;
+  background: #ff6b3d;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.vms-btn-active:hover {
+  opacity: .95;
+}
+
+.invest-submeta {
+  margin: 8px 0 12px;
+  font-size: 14px;
+  color: #e6e8ea;
+}
+
+
+.table-scroll {
+  background: #1e1f22;
+  border: 1px solid #2a2c30;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.invest-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invest-table thead th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: #b9bdc3;
+  padding: 14px 16px;
+  border-bottom: 1px solid #2a2c30;
+}
+
+.invest-table tbody td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #e6e8ea;
+  border-bottom: 1px solid #2a2c30;
+  vertical-align: middle;
+}
+
+.invest-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cell-rank {
+  width: 120px;
+}
+
+.cell-amount {
+  width: 220px;
+}
+
+.cell-comment {
+  position: relative;
+}
+
+.comment-text {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.row-menu {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.kebab-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #2a2c30;
+  color: #c9cfd6;
+  cursor: pointer;
+}
+
+.kebab-btn:hover {
+  background: #2a2c30;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  min-width: 120px;
+  padding: 6px;
+  background: #2a2c30;
+  border: 1px solid #3a3d42;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.dropdown li {
+  list-style: none;
+}
+
+.dropdown button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 8px 10px;
+  color: #e6e8ea;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: #3a3d42;
+}
+
+.dropdown .danger {
+  color: #ff5a5f;
+}
+
+
+.empty-row {
+  padding: 32px 16px;
+  text-align: center;
+  color: #9aa0a6;
+}
+
+.error-box {
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: #3a0d0d;
+  color: #ffdede;
+  border: 1px solid #5a1b1b;
+  border-radius: 8px;
+}
+
+.invest-section .pagination {
+  margin-top: 24px;
+  padding-bottom: 40px;
+}
