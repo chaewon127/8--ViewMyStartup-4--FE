@@ -2,11 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import "./InvestmentPage.css";
 import Pagination from "../../components/Pagination";
 
+// 로고 이미지 import
+import co_codeit from "@/assets/images/mock/co_codeit.svg";
+import co_codestates from "@/assets/images/mock/co_codestates.svg";
+import co_bluecord from "@/assets/images/mock/co_bluecord.svg";
+import co_ccode from "@/assets/images/mock/co_ccode.svg";
+
 // 목업 데이터
 const MOCK = [
   {
-    rank: "1위",
-    logo: "codeit.svg",
+    rank: "1위", // 1
+    logo: co_codeit,
     name: "코드잇",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -15,8 +21,8 @@ const MOCK = [
     actual: "120억 원",
   },
   {
-    rank: "2위",
-    logo: "codestates.svg",
+    rank: "2위", // 2
+    logo: co_codestates,
     name: "코드스테이츠",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -25,8 +31,8 @@ const MOCK = [
     actual: "100억 원",
   },
   {
-    rank: "3위",
-    logo: "bluecord.svg",
+    rank: "3위", // 3
+    logo: co_bluecord,
     name: "블루코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -35,8 +41,8 @@ const MOCK = [
     actual: "80억 원",
   },
   {
-    rank: "4위",
-    logo: "codestates.svg",
+    rank: "4위", // 4
+    logo: co_codestates,
     name: "매스프레스",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -45,8 +51,8 @@ const MOCK = [
     actual: "60억 원",
   },
   {
-    rank: "5위",
-    logo: "codeit.svg",
+    rank: "5위", // 5
+    logo: co_codeit,
     name: "코드잉",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -55,8 +61,8 @@ const MOCK = [
     actual: "36억 원",
   },
   {
-    rank: "6위",
-    logo: "bluecord.svg",
+    rank: "6위", // 6
+    logo: co_bluecord,
     name: "블루코딩",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -65,8 +71,8 @@ const MOCK = [
     actual: "70억 원",
   },
   {
-    rank: "7위",
-    logo: "codeit.svg",
+    rank: "7위", // 7
+    logo: co_codeit,
     name: "고드잇",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -75,8 +81,8 @@ const MOCK = [
     actual: "50억 원",
   },
   {
-    rank: "8위",
-    logo: "ccode.svg",
+    rank: "8위", // 8
+    logo: co_ccode,
     name: "씨코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -85,8 +91,8 @@ const MOCK = [
     actual: "29억 원",
   },
   {
-    rank: "9위",
-    logo: "codestates.svg",
+    rank: "9위", // 9
+    logo: co_codestates,
     name: "불사조",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -95,8 +101,8 @@ const MOCK = [
     actual: "29억 원",
   },
   {
-    rank: "10위",
-    logo: "ccode.svg",
+    rank: "10위", // 10
+    logo: co_ccode,
     name: "엘리스",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -106,8 +112,8 @@ const MOCK = [
   },
 
   {
-    rank: "11위",
-    logo: "codeit.svg",
+    rank: "11위", // 11
+    logo: co_codeit,
     name: "에듀코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -116,8 +122,8 @@ const MOCK = [
     actual: "18억 원",
   },
   {
-    rank: "12위",
-    logo: "codestates.svg",
+    rank: "12위", // 12
+    logo: co_codestates,
     name: "뉴코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -126,8 +132,8 @@ const MOCK = [
     actual: "25억 원",
   },
   {
-    rank: "13위",
-    logo: "bluecord.svg",
+    rank: "13위", // 13
+    logo: co_bluecord,
     name: "코디",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -136,8 +142,8 @@ const MOCK = [
     actual: "33억 원",
   },
   {
-    rank: "14위",
-    logo: "ccode.svg",
+    rank: "14위", // 14
+    logo: co_ccode,
     name: "코딩하자",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -146,8 +152,8 @@ const MOCK = [
     actual: "46억 원",
   },
   {
-    rank: "15위",
-    logo: "codeit.svg",
+    rank: "15위", // 15
+    logo: co_codeit,
     name: "코다스",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -156,8 +162,8 @@ const MOCK = [
     actual: "14억 원",
   },
   {
-    rank: "16위",
-    logo: "codestates.svg",
+    rank: "16위", // 16
+    logo: co_codestates,
     name: "파인코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -166,8 +172,8 @@ const MOCK = [
     actual: "30억 원",
   },
   {
-    rank: "17위",
-    logo: "bluecord.svg",
+    rank: "17위", // 17
+    logo: co_bluecord,
     name: "하이코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -176,8 +182,8 @@ const MOCK = [
     actual: "35억 원",
   },
   {
-    rank: "18위",
-    logo: "ccode.svg",
+    rank: "18위", // 18
+    logo: co_ccode,
     name: "메타코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -186,8 +192,8 @@ const MOCK = [
     actual: "21억 원",
   },
   {
-    rank: "19위",
-    logo: "codeit.svg",
+    rank: "19위", // 19
+    logo: co_codeit,
     name: "알고리",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -196,8 +202,8 @@ const MOCK = [
     actual: "26억 원",
   },
   {
-    rank: "20위",
-    logo: "codestates.svg",
+    rank: "20위", // 20
+    logo: co_codestates,
     name: "디지털코딩",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -207,8 +213,8 @@ const MOCK = [
   },
 
   {
-    rank: "21위",
-    logo: "bluecord.svg",
+    rank: "21위", // 21
+    logo: co_bluecord,
     name: "프로그라미",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -217,8 +223,8 @@ const MOCK = [
     actual: "15억 원",
   },
   {
-    rank: "22위",
-    logo: "ccode.svg",
+    rank: "22위", // 22
+    logo: co_ccode,
     name: "코드랩",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -227,8 +233,8 @@ const MOCK = [
     actual: "19억 원",
   },
   {
-    rank: "23위",
-    logo: "codeit.svg",
+    rank: "23위", // 23
+    logo: co_codeit,
     name: "코드베이스",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -237,8 +243,8 @@ const MOCK = [
     actual: "23억 원",
   },
   {
-    rank: "24위",
-    logo: "codestates.svg",
+    rank: "24위", // 24
+    logo: co_codestates,
     name: "코드포스",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -247,8 +253,8 @@ const MOCK = [
     actual: "27억 원",
   },
   {
-    rank: "25위",
-    logo: "bluecord.svg",
+    rank: "25위", // 25
+    logo: co_bluecord,
     name: "코딩워크",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -257,8 +263,8 @@ const MOCK = [
     actual: "31억 원",
   },
   {
-    rank: "26위",
-    logo: "ccode.svg",
+    rank: "26위", // 26
+    logo: co_ccode,
     name: "코딩메이트",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -267,8 +273,8 @@ const MOCK = [
     actual: "37억 원",
   },
   {
-    rank: "27위",
-    logo: "codeit.svg",
+    rank: "27위", // 27
+    logo: co_codeit,
     name: "오렌지코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -277,8 +283,8 @@ const MOCK = [
     actual: "20억 원",
   },
   {
-    rank: "28위",
-    logo: "codestates.svg",
+    rank: "28위", // 28
+    logo: co_codestates,
     name: "그린코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -287,8 +293,8 @@ const MOCK = [
     actual: "24억 원",
   },
   {
-    rank: "29위",
-    logo: "bluecord.svg",
+    rank: "29위", // 29
+    logo: co_bluecord,
     name: "블랙코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -297,8 +303,8 @@ const MOCK = [
     actual: "28억 원",
   },
   {
-    rank: "30위",
-    logo: "ccode.svg",
+    rank: "30위", // 30
+    logo: co_ccode,
     name: "화이트코드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -308,8 +314,8 @@ const MOCK = [
   },
 
   {
-    rank: "31위",
-    logo: "codeit.svg",
+    rank: "31위", // 31
+    logo: co_codeit,
     name: "코드팜",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -318,8 +324,8 @@ const MOCK = [
     actual: "39억 원",
   },
   {
-    rank: "32위",
-    logo: "codestates.svg",
+    rank: "32위", // 32
+    logo: co_codestates,
     name: "코드스쿨",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -328,8 +334,8 @@ const MOCK = [
     actual: "43억 원",
   },
   {
-    rank: "33위",
-    logo: "bluecord.svg",
+    rank: "33위", // 33
+    logo: co_bluecord,
     name: "코드팩토리",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -338,8 +344,8 @@ const MOCK = [
     actual: "47억 원",
   },
   {
-    rank: "34위",
-    logo: "ccode.svg",
+    rank: "34위", // 34
+    logo: co_ccode,
     name: "코드에듀",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -348,8 +354,8 @@ const MOCK = [
     actual: "12억 원",
   },
   {
-    rank: "35위",
-    logo: "codeit.svg",
+    rank: "35위", // 35
+    logo: co_codeit,
     name: "코딩몽키",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -358,8 +364,8 @@ const MOCK = [
     actual: "16억 원",
   },
   {
-    rank: "36위",
-    logo: "codestates.svg",
+    rank: "36위", // 36
+    logo: co_codestates,
     name: "코딩나무",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -368,8 +374,8 @@ const MOCK = [
     actual: "18억 원",
   },
   {
-    rank: "37위",
-    logo: "bluecord.svg",
+    rank: "37위", // 37
+    logo: co_bluecord,
     name: "코딩스푼",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -378,8 +384,8 @@ const MOCK = [
     actual: "22억 원",
   },
   {
-    rank: "38위",
-    logo: "ccode.svg",
+    rank: "38위", // 38
+    logo: co_ccode,
     name: "코딩웨이",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -388,8 +394,8 @@ const MOCK = [
     actual: "30억 원",
   },
   {
-    rank: "39위",
-    logo: "codeit.svg",
+    rank: "39위", // 39
+    logo: co_codeit,
     name: "코딩로드",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -398,8 +404,8 @@ const MOCK = [
     actual: "31억 원",
   },
   {
-    rank: "40위",
-    logo: "codestates.svg",
+    rank: "40위", // 40
+    logo: co_codestates,
     name: "코딩팟",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -409,8 +415,8 @@ const MOCK = [
   },
 
   {
-    rank: "41위",
-    logo: "bluecord.svg",
+    rank: "41위", // 41
+    logo: co_bluecord,
     name: "코딩캠프",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -419,8 +425,8 @@ const MOCK = [
     actual: "38억 원",
   },
   {
-    rank: "42위",
-    logo: "ccode.svg",
+    rank: "42위", // 42
+    logo: co_ccode,
     name: "코딩스테이지",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -429,8 +435,8 @@ const MOCK = [
     actual: "39억 원",
   },
   {
-    rank: "43위",
-    logo: "codeit.svg",
+    rank: "43위", // 43
+    logo: co_codeit,
     name: "코딩플래닛",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -439,8 +445,8 @@ const MOCK = [
     actual: "41억 원",
   },
   {
-    rank: "44위",
-    logo: "codestates.svg",
+    rank: "44위", // 44
+    logo: co_codestates,
     name: "코딩스테이션",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -449,8 +455,8 @@ const MOCK = [
     actual: "44억 원",
   },
   {
-    rank: "45위",
-    logo: "bluecord.svg",
+    rank: "45위", // 45
+    logo: co_bluecord,
     name: "코드리버",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -459,8 +465,8 @@ const MOCK = [
     actual: "45억 원",
   },
   {
-    rank: "46위",
-    logo: "ccode.svg",
+    rank: "46위", // 46
+    logo: co_ccode,
     name: "코드레이크",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -469,8 +475,8 @@ const MOCK = [
     actual: "49억 원",
   },
   {
-    rank: "47위",
-    logo: "codeit.svg",
+    rank: "47위", // 47
+    logo: co_codeit,
     name: "코드마운틴",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -479,8 +485,8 @@ const MOCK = [
     actual: "50억 원",
   },
   {
-    rank: "48위",
-    logo: "codestates.svg",
+    rank: "48위", // 48
+    logo: co_codestates,
     name: "코드밸리",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -489,8 +495,8 @@ const MOCK = [
     actual: "13억 원",
   },
   {
-    rank: "49위",
-    logo: "bluecord.svg",
+    rank: "49위", // 49
+    logo: co_bluecord,
     name: "코드시티",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -499,8 +505,8 @@ const MOCK = [
     actual: "19억 원",
   },
   {
-    rank: "50위",
-    logo: "ccode.svg",
+    rank: "50위", // 50
+    logo: co_ccode,
     name: "코드타운",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -510,8 +516,8 @@ const MOCK = [
   },
 
   {
-    rank: "51위",
-    logo: "bluecord.svg",
+    rank: "51위", // 51
+    logo: co_bluecord,
     name: "코딩캠프",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -520,8 +526,8 @@ const MOCK = [
     actual: "38억 원",
   },
   {
-    rank: "52위",
-    logo: "ccode.svg",
+    rank: "52위", // 52
+    logo: co_ccode,
     name: "코딩스테이지",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -530,8 +536,8 @@ const MOCK = [
     actual: "39억 원",
   },
   {
-    rank: "53위",
-    logo: "codeit.svg",
+    rank: "53위", // 53
+    logo: co_codeit,
     name: "코딩플래닛",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -540,8 +546,8 @@ const MOCK = [
     actual: "41억 원",
   },
   {
-    rank: "54위",
-    logo: "codestates.svg",
+    rank: "54위", // 54
+    logo: co_codestates,
     name: "코딩스테이션",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -550,8 +556,8 @@ const MOCK = [
     actual: "44억 원",
   },
   {
-    rank: "55위",
-    logo: "bluecord.svg",
+    rank: "55위", // 55
+    logo: co_bluecord,
     name: "코드리버",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -560,8 +566,8 @@ const MOCK = [
     actual: "45억 원",
   },
   {
-    rank: "56위",
-    logo: "ccode.svg",
+    rank: "56위", // 56
+    logo: co_ccode,
     name: "코드레이크",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -570,8 +576,8 @@ const MOCK = [
     actual: "49억 원",
   },
   {
-    rank: "57위",
-    logo: "codeit.svg",
+    rank: "57위", // 57
+    logo: co_codeit,
     name: "코드마운틴",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -580,8 +586,8 @@ const MOCK = [
     actual: "50억 원",
   },
   {
-    rank: "58위",
-    logo: "codestates.svg",
+    rank: "58위", // 58
+    logo: co_codestates,
     name: "코드밸리",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -590,8 +596,8 @@ const MOCK = [
     actual: "13억 원",
   },
   {
-    rank: "59위",
-    logo: "bluecord.svg",
+    rank: "59위", // 59
+    logo: co_bluecord,
     name: "코드시티",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -600,8 +606,8 @@ const MOCK = [
     actual: "19억 원",
   },
   {
-    rank: "60위",
-    logo: "ccode.svg",
+    rank: "60위", // 60
+    logo: co_ccode,
     name: "코드타운",
     intro:
       "코드잇은 온라인 코딩 교육 서비스를 운영하는 EdTech 스타트업입니다. 코딩 교육에 대한 수...",
@@ -765,7 +771,7 @@ export default function Index() {
                     <div className="company-cell">
                       <img
                         className="logo"
-                        src={`/images/${it.logo}`}
+                        src={it.logo}
                         alt={`${it.name} 로고`}
                         loading="lazy"
                       />
