@@ -1,13 +1,13 @@
 .pagination {
   container-type: inline-size;
   display: flex;
-  gap: 0.8rem;
+  gap: 8px;
   justify-content: center;
 }
 
 .pagination > div {
   display: flex;
-  gap: 0.4rem;
+  gap: 4px;
 }
 
 .btn-inactive {

@@ -3,6 +3,7 @@
   --text:#FFF;
   --bg:#212121;                  /* 인풋 배경 */
   --radius:10px;
+  --error-color: #ff6666;
 }
 
 /* 필드 컨테이너 */
@@ -26,7 +27,7 @@
 @media (max-width:767.98px){
   .label{ margin-bottom:12px; }   /* 모바일: 라벨↔인풋 12px */
 }
-.requiredMark{ color:#ff6666; margin-left:4px; }
+.requiredMark{ color:var(--error-color); margin-left:4px; }
 
 /* 컨트롤 공통 */
 .control{
@@ -38,6 +39,10 @@
   border-radius:var(--radius);
   box-sizing:border-box;
   align-items:center;
+}
+
+.control.error {
+  border-color: var(--error-color);
 }
 
 /* 사이즈 규격 */
@@ -98,3 +103,10 @@
 .input::-webkit-search-results-button,
 .input::-webkit-search-results-decoration{ -webkit-appearance:none; appearance:none; display:none; }
 .input::-ms-clear{ display:none; width:0; height:0; }
+
+/* 에러 메시지 */
+.errorMessage {
+  color: var(--error-color);
+  font-size: 13px;
+  margin-top: 8px;
+}

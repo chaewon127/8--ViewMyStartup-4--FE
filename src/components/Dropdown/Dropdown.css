@@ -31,7 +31,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 0.5rem;
+  margin-top: 5px;
 
   display: flex;
   width: 100%;
@@ -42,7 +42,7 @@
 /* 옵션 아이템 li 태그 스타일 */
 .dropdown-item {
   width: 100%;
-  padding: 1.2rem 2.6rem;
+  padding: 12px 26px;
 
   color: var(--gray-gray_100, #d8d8d8);
   font-family: Pretendard;
@@ -51,7 +51,7 @@
   font-weight: 400;
   line-height: normal;
   text-align: center;
-  
+
   border: 1px solid var(--gray-gray_200, #747474);
   background: var(--black-black_400, #131313);
   cursor: pointer;

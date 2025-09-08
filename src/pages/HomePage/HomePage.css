@@ -32,8 +32,8 @@
   width: 448px;
   height: 48px;
   border-radius: 10px;
-  border: 1px solid var(--gray-gray_200);
-  background: var(--black-black_400) url("../../assets/searchIcon.svg") no-repeat 12px 50%;
+  border: 1px solid var(--gray-gray_200); /* prettier-ignore */
+  background: var(--black-black_400) url("@/assets/icons/ic_search.svg") no-repeat 12px 50%;
   color: var(--gray-gray_100);
   padding: 0 12px 0 40px;
   box-sizing: border-box;
@@ -43,7 +43,8 @@
   height: 48px;
   border-radius: 10px;
   border: 1px solid var(--gray-gray_200);
-  background: var(--black-black_400) url("../../assets/chevronDown.svg") no-repeat right 12px center;
+  background: var(--black-black_400) url("@/assets/icons/chevronDown.svg")
+    no-repeat right 12px center;
   color: var(--gray-gray_100);
   padding: 10px;
   appearance: none;
@@ -179,7 +180,7 @@
   height: 28px;
   object-fit: contain;
   border-radius: 6px;
-  background: #1E1E1E;
+  background: #1e1e1e;
   flex: 0 0 auto;
 }
 
