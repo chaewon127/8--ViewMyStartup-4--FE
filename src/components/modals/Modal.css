@@ -125,6 +125,10 @@
   padding: 5px 0;
 }
 
+.modal-padding.modal-pagination {
+  padding-top: 15px;
+}
+
 .modal-nothing {
   color: var(--gray-gray_200, #d8d8d8);
   font-family: Pretendard;
