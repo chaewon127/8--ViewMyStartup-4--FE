@@ -1,33 +1,43 @@
+import MOCK_COMPANIES from "./mockCompanies";
+
 export async function fetchCorpData({ offset, limit, order }) {
   return new Promise((resolve) => {
-    // 목데이터
-    const MOCK_DATA = Array.from({ length: 100 }, (_, i) => ({
-      name: `Corp ${i + 1}`,
-      total_investment: Math.floor(Math.random() * 10000),
-      corp_sales: Math.floor(Math.random() * 5000),
-      employee: Math.floor(Math.random() * 200),
-    }));
+    // 문자열에서 숫자만 추출하여 파싱하는 헬퍼 함수
+    const parseValue = (str) =>
+      parseInt(String(str).replace(/[^0-9]/g, ""), 10) || 0;
 
     // 데이터 정렬
-    let sortedData = [...MOCK_DATA];
+    let sortedData = [...MOCK_COMPANIES];
     switch (order) {
       case "investmentLowest":
-        sortedData.sort((a, b) => a.total_investment - b.total_investment);
+        sortedData.sort(
+          (a, b) => parseValue(a.investment) - parseValue(b.investment)
+        );
         break;
       case "investmentHighest":
-        sortedData.sort((a, b) => b.total_investment - a.total_investment);
+        sortedData.sort(
+          (a, b) => parseValue(b.investment) - parseValue(a.investment)
+        );
         break;
       case "salesLowest":
-        sortedData.sort((a, b) => a.corp_sales - b.corp_sales);
+        sortedData.sort(
+          (a, b) => parseValue(a.revenue) - parseValue(b.revenue)
+        );
         break;
       case "salesHighest":
-        sortedData.sort((a, b) => b.corp_sales - a.corp_sales);
+        sortedData.sort(
+          (a, b) => parseValue(b.revenue) - parseValue(a.revenue)
+        );
         break;
       case "employeeLowest":
-        sortedData.sort((a, b) => a.employee - b.employee);
+        sortedData.sort(
+          (a, b) => parseValue(a.employees) - parseValue(b.employees)
+        );
         break;
       case "employeeHighest":
-        sortedData.sort((a, b) => b.employee - a.employee);
+        sortedData.sort(
+          (a, b) => parseValue(b.employees) - parseValue(a.employees)
+        );
         break;
       default:
         sortedData.sort((a, b) => b.total_investment - a.total_investment);

@@ -1,0 +1,160 @@
+html {
+  font-size: 10px;
+  /* font-size: 62.5%; */
+}
+
+body {
+  font-family:
+    Pretendard,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    "Noto Sans KR",
+    sans-serif;
+  line-height: 1.5;
+  background-color: var(--black-black_400, #131313);
+  color: #fff;
+  margin: 0;
+}
+
+/* 모든 버튼의 기본 텍스트 색상을 흰색으로 설정 */
+button {
+  color: #fff;
+}
+
+:root {
+  /* colors */
+  --gray-100: #747474; /* 선택해제 */
+  --gray-200: #d8d8d8; /* 선택완료 */
+  --brand-orange: #eb5230; /* 선택하기 */
+
+  /* Black scale */
+  --black-black_400: #131313;
+  --black-black_300: #212121;
+  --black-black_200: #282828;
+  --black-black_100: #2e2e2e;
+
+  /* Gray scale */
+  --gray-gray_400: #333333;
+  --gray-gray_300: #4b4b4b;
+  --gray-gray_200: #747474;
+  --gray-gray_100: #d8d8d8;
+
+  /* Brand & other colors */
+  --brand-brand_orange: #eb5230;
+  --blue-blue: #558fff;
+  --red-red_error: #c41013;
+}
+
+/* ===== 공통 버튼 ===== */
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  /* 사이즈(PC/Tablet 기본) */
+  height: 48px;
+  padding: 0 16px;
+  min-width: 96px; /* 리스트용 가변 폭 */
+  border-radius: 10px;
+  border: 1px solid currentColor;
+  background: transparent;
+
+  /* 타이포 */
+  font-family:
+    Pretendard,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    "Noto Sans KR",
+    Arial,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.actionBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.actionBtn:hover {
+  opacity: 0.92;
+}
+
+/* 리스트 오른쪽 정렬 간격 */
+.actionArea {
+  margin-left: auto;
+  display: flex;
+}
+
+/* 아이콘(선택완료 체크 등) */
+.btnIcon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+/* ===== 상태별 색상 ===== */
+.btnCancel {
+  /* 선택해제 */
+  color: var(--gray-100);
+}
+.btnDone {
+  /* 선택완료 */
+  color: var(--gray-200);
+}
+.btnSelect {
+  /* 선택하기 */
+  color: var(--brand-orange);
+}
+
+/* ===== “정확한 고정 크기”가 필요한 케이스 ===== */
+/* (리스트 안 말고, 단독 배치나 시안 규격이 필요한 곳에서 사용) */
+.standalone {
+  width: 448px; /* PC/Tablet */
+}
+
+/* ===== 모바일 ===== */
+@media (max-width: 767.98px) {
+  .actionBtn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .standalone {
+    width: 311px; /* Mobile */
+  }
+}
+
+/* ===== 카드/행 레이아웃 간격(참고: 버튼과 카테고리 간격) ===== */
+/* 리스트 행(container)에서 왼쪽 정보영역과 버튼 사이 간격을 맞추려면 행 컨테이너에 아래처럼 사용 */
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 좌측 썸네일·텍스트 간 기본 간격 */
+  padding: 12px 16px;
+}
+.itemInfo {
+  /* 회사명/카테고리 묶음 */
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.itemName {
+  color: #fff;
+  font-weight: 700;
+}
+.itemCategory {
+  color: #9f9f9f;
+}

@@ -4,8 +4,10 @@ import React, {
   useRef,
   useState,
   forwardRef,
-} from 'react';
-import styles from './SearchBar.module.css';
+} from "react";
+import styles from "./SearchBar.module.css";
+import searchIcon from "@/assets/images/icons/ic_search.svg";
+import deleteIcon from "@/assets/images/icons/ic_delete_circle_small.svg";
 
 /**
  * kind: 'root' | 'compareMine' | 'comparePick'
@@ -81,7 +83,7 @@ const SearchBar = forwardRef(function SearchBar(
         onClick={() => onSearch && onSearch(val)}
         tabIndex={-1}
       >
-        <img src="/images/ic_search.svg" alt="" />
+        <img src={searchIcon} alt="" />
       </button>
 
       <input
@@ -109,7 +111,7 @@ const SearchBar = forwardRef(function SearchBar(
             inputRef.current?.focus();
           }}
         >
-          <img src="/images/ic_delete_circle_small.svg" alt="" />
+          <img src={deleteIcon} alt="" />
         </button>
       )}
       {showRightControls && (
@@ -119,7 +121,7 @@ const SearchBar = forwardRef(function SearchBar(
           aria-label="검색"
           onClick={() => onSearch && onSearch(val)}
         >
-          <img src="/images/ic_search.svg" alt="" />
+          <img src={searchIcon} alt="" />
         </button>
       )}
     </div>

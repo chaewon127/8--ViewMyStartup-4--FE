@@ -4,7 +4,7 @@ import './Button.css';
 export default function OutlineButton({
   children,
   size = 'lg',
-  disabled = 'false',
+  disabled = false,
   fullWidth = 'false',
   type = 'button',
   onClick,
