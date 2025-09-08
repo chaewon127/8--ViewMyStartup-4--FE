@@ -6,8 +6,8 @@ import React, {
   forwardRef,
 } from "react";
 import styles from "./SearchBar.module.css";
-import searchIcon from "@/assets/images/icons/ic_search.svg";
-import deleteIcon from "@/assets/images/icons/ic_delete_circle_small.svg";
+import searchIcon from "@/assets/icons/ic_search.svg";
+import deleteIcon from "@/assets/icons/ic_delete_circle_small.svg";
 
 /**
  * kind: 'root' | 'compareMine' | 'comparePick'

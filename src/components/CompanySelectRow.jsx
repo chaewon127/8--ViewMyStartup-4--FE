@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./CompanySelectRow.module.css";
-import checkSmallIcon from "@/assets/images/icons/ic_check_small.svg";
-import checkIcon from "@/assets/images/icons/ic_check.svg";
+import checkSmallIcon from "@/assets/icons/ic_check_small.svg";
+import checkIcon from "@/assets/icons/ic_check.svg";
 
 /**
  * props
