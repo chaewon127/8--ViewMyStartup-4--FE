@@ -151,7 +151,7 @@ export default function CompanyDetailPage() {
           <div className="invest-header">
             <h2 id="investTitle" className="invest-title">View My Startup에서 받은 투자</h2>
             <button type="button" className="vms-btn-active" onClick={handleOpenCreateInvestment}>
-              가상투자하기
+              기업투자하기
             </button>
           </div>
 
@@ -159,37 +159,26 @@ export default function CompanyDetailPage() {
             총 <strong>{formatEokWon(totalAmount)}</strong>
           </div>
 
-          <div className="table-scroll">
-            <table className="invest-table">
-              <colgroup>
-                <col style={{ width: '300px' }} />
-                <col style={{ width: '120px' }} />
-                <col style={{ width: '220px' }} />
-                <col />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col">투자자 이름</th>
-                  <th scope="col">순위</th>
-                  <th scope="col">투자 금액</th>
-                  <th scope="col">투자 코멘트</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading && (
-                  <tr><td colSpan={4} className="empty-row">불러오는 중...</td></tr>
-                )}
+          <div className="invest-grid">
+            <div className="invest-head">
+              <div className="cell c1">투자자 이름</div>
+              <div className="cell c2">순위</div>
+              <div className="cell c3">투자 금액</div>
+              <div className="cell c4">투자 코멘트</div>
+            </div>
 
-                {!loading && pageSlice.length === 0 && (
-                  <tr><td colSpan={4} className="empty-row">투자 내역이 없습니다.</td></tr>
-                )}
-
-                {!loading && pageSlice.map((row) => (
-                  <tr key={row.id}>
-                    <td className="cell-name">{row.investor}</td>
-                    <td className="cell-rank">{row.rank}위</td>
-                    <td className="cell-amount">{formatWon(row.amount)}</td>
-                    <td className="cell-comment">
+            {loading ? (
+              <div className="invest-empty">불러오는 중...</div>
+            ) : pageSlice.length === 0 ? (
+              <div className="invest-empty">투자 내역이 없습니다.</div>
+            ) : (
+              <ul className="invest-list">
+                {pageSlice.map((row) => (
+                  <li className="invest-row" key={row.id}>
+                    <div className="cell c1">{row.investor}</div>
+                    <div className="cell c2">{row.rank}위</div>
+                    <div className="cell c3">{formatWon(row.amount)}</div>
+                    <div className="cell c4">
                       <span className="comment-text">{row.comment || '-'}</span>
                       <span className="row-menu">
                         <button
@@ -204,7 +193,6 @@ export default function CompanyDetailPage() {
                         >
                           <span aria-hidden="true">⋮</span>
                         </button>
-
                         {openMenuRowId === row.id && (
                           <ul role="menu" className="dropdown">
                             <li role="menuitem">
@@ -216,11 +204,11 @@ export default function CompanyDetailPage() {
                           </ul>
                         )}
                       </span>
-                    </td>
-                  </tr>
+                    </div>
+                  </li>
                 ))}
-              </tbody>
-            </table>
+              </ul>
+            )}
           </div>
 
           {totalPages > 1 && (

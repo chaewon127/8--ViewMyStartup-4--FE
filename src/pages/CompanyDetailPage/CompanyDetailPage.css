@@ -5,7 +5,7 @@
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 0 153px;
+  padding: 40px 0 153px;
 }
 
 
@@ -13,26 +13,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 12px;
+  padding-bottom: 32px;
 
-  border-bottom: 1px solid #2a2c30;
+  border-bottom: 1px solid #2e2e2e;
 
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .hero-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
 }
 
 .logo-wrap {
-  width: 48px;
-  height: 48px;
+  width: 81px;
+  height: 81px;
   border-radius: 50%;
-  background: #2b2d31;
   overflow: hidden;
-  flex: 0 0 48px;
+  flex: 0 0 81px;
 }
 
 .logo-wrap img {
@@ -45,23 +44,21 @@
 .title-wrap {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 
 .company-name {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 }
 
 .category-pill {
-  padding: 2px 8px;
-  font-size: 12px;
+  font-size: 20px;
+  font-weight: 500;
   line-height: 18px;
-  color: #b9bdc3;
-  background: #2b2d31;
-  border-radius: 999px;
+  color: var(--gray-100);
   width: max-content;
 }
 
@@ -69,59 +66,60 @@
 .kpi-row {
   display: flex;
   gap: 24px;
-  margin-top: 16px;
+  margin-top: 32px;
 }
 
 .kpi-card {
   width: 384px;
   height: 93px;
-  padding: 16px;
-  border-radius: 8px;
-  background: #1e1f22;
-  border: 1px solid #2a2c30;
+  padding: 36px 24px;
+  border-radius: 10px;
+  background: #282828;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .kpi-label {
-  font-size: 12px;
-  color: #9aa0a6;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-100);
 }
 
 .kpi-value {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 
 .about-section {
-  margin-top: 24px;
+  margin-top: 33px;
 }
 
 .about-card {
-  background: #1e1f22;
-  border: 1px solid #2a2c30;
-  border-radius: 8px;
-  padding: 16px 24px;
+  background: #212121;
+  border-radius: 10px;
+  padding: 24px;
 }
 
 .about-card-title {
   margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #e6e8ea;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .about-card-body {
   margin: 0;
   line-height: 1.6;
-  color: #e6e8ea;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-200);
 }
 
 
 .invest-section {
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
 
@@ -129,25 +127,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 12px;
+  padding: 0 0 24px;
   margin: 0 0 12px;
-  border-bottom: 1px solid #2a2c30;
+  border-bottom: 1px solid #2e2e2e;
 }
 
 .invest-title {
   margin: 0;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
-  color: #e6e8ea;
+  color: white;
 }
 
 .vms-btn-active {
   border: none;
-  padding: 8px 12px;
-  font-size: 12px;
-  color: #fff;
-  background: #ff6b3d;
-  border-radius: 999px;
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--brand-orange);
+  border-radius: 50px;
   cursor: pointer;
 }
 
@@ -156,84 +155,107 @@
 }
 
 .invest-submeta {
-  margin: 8px 0 12px;
-  font-size: 14px;
-  color: #e6e8ea;
+  margin: 8px 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
 }
 
-
-.table-scroll {
-  background: #1e1f22;
-  border: 1px solid #2a2c30;
-  border-radius: 8px;
-  overflow: auto;
-}
-
-.invest-table {
+.invest-grid {
   width: 100%;
-  border-collapse: collapse;
 }
 
-.invest-table thead th {
-  text-align: left;
-  font-weight: 600;
-  font-size: 12px;
-  color: #b9bdc3;
-  padding: 14px 16px;
-  border-bottom: 1px solid #2a2c30;
+.invest-head,
+.invest-row {
+  display: grid;
+  grid-template-columns: 100px 100px 100px 1fr;
 }
 
-.invest-table tbody td {
-  padding: 14px 16px;
+.invest-head {
+  height: 39px;
+  line-height: 39px;
+  background: #212121;
+  color: white;
+  margin-bottom: 16px;
   font-size: 14px;
-  color: #e6e8ea;
-  border-bottom: 1px solid #2a2c30;
-  vertical-align: middle;
+  font-weight: 500;
+  border-radius: 4px;
 }
 
-.invest-table tbody tr:last-child td {
+.invest-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.invest-row:last-child {
   border-bottom: none;
 }
 
-.cell-rank {
-  width: 120px;
+.invest-row {
+  min-height: 64px;
+  align-items: center;
+  background: #212121;
+  border-bottom: 1px solid #4b4b4b;
 }
 
-.cell-amount {
-  width: 220px;
+.cell {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--gray-200);
+  font-size: 14px;
 }
 
-.cell-comment {
+.invest-head .c1,
+.invest-row .c1 {
+  padding-left: 16px;
+  text-align: left;
+}
+
+.invest-head .c2,
+.invest-row .c2 {
+  padding: 0 8px;
+  text-align: center;
+}
+
+.invest-head .c3,
+.invest-row .c3 {
+  padding-right: 16px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.invest-head .c4,
+.invest-row .c4 {
+  padding: 0 100px;
   position: relative;
 }
 
 .comment-text {
   display: block;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
 
 .row-menu {
   position: absolute;
-  right: 8px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.kebab-btn:hover {
+  background: #212121;
 }
 
 .kebab-btn {
   width: 28px;
   height: 28px;
-  border-radius: 6px;
-  background: transparent;
-  border: 1px solid #2a2c30;
-  color: #c9cfd6;
+  color: #747474;
   cursor: pointer;
-}
-
-.kebab-btn:hover {
-  background: #2a2c30;
 }
 
 .dropdown {
@@ -242,9 +264,9 @@
   top: 36px;
   min-width: 120px;
   padding: 6px;
-  background: #2a2c30;
-  border: 1px solid #3a3d42;
-  border-radius: 8px;
+  background: #131313;
+  border-radius: 10px;
+  border: 1px solid #747474;
   z-index: 10;
 }
 
@@ -259,33 +281,20 @@
   border: 0;
   padding: 8px 10px;
   color: #e6e8ea;
-  border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
 }
 
-.dropdown button:hover {
-  background: #3a3d42;
-}
-
-.dropdown .danger {
-  color: #ff5a5f;
-}
-
-
-.empty-row {
-  padding: 32px 16px;
-  text-align: center;
-  color: #9aa0a6;
+.invest-empty {
+  padding: 20px 16px;
+  color: white;
+  background: #212121;
+  border-radius: 8px;
 }
 
 .error-box {
   margin-top: 24px;
   padding: 12px 16px;
-  background: #3a0d0d;
-  color: #ffdede;
-  border: 1px solid #5a1b1b;
-  border-radius: 8px;
 }
 
 .invest-section .pagination {
