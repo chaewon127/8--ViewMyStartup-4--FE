@@ -41,9 +41,9 @@
   line-height: normal;
 }
 
-.modal-close {
+.modal-close-wrapper {
+  margin-left: auto; /* 항상 오른쪽으로 밀어냄 */
   text-align: right;
-  justify-content: end;
 }
 
 .modal-footer {

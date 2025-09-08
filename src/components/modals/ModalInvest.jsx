@@ -23,6 +23,7 @@ function ModalInvest({ isOpen, company, onClose }) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      title='기업에 투자하기'
       footer={{
         cancelText: "취소",
         confirmText: "투자하기",
