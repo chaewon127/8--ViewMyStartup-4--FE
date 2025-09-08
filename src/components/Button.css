@@ -75,9 +75,9 @@
 
 .vms-btn--outline {
   --btn-bg: transparent;
-  --btn-border: var(--brand-brand_orange);
-  --btn-fg: var(--brand-brand_orange);
-  border-color: var(--btn-border);
+  --btn-border: var(--brand-brand_orange, #EB5230);
+  --btn-fg: var(--brand-brand_orange, #EB5230);
+  border-color: var(--btn-border, #EB5230);
 }
 
 /* 아이콘 대비 라벨 래퍼(필요 시) */
