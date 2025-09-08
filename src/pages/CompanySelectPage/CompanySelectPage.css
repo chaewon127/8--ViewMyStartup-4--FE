@@ -1,7 +1,12 @@
+/* 컨테이너 & 변수 */
+.cmp-select-page {
+  width: 100%;
+}
+
 /* ================================
-               투자 현황
+            페이지별 변수
    ================================ */
-.invest-page {
+.cmp-select-page {
   --w-rank: 68px;
   --w-name: 213px;
   --w-intro: 304px;
@@ -12,7 +17,7 @@
 }
 
 @media (max-width: 1024.98px) {
-  .invest-page {
+  .cmp-select-page {
     --w-rank: 60px;
     --w-name: 140px;
     --w-intro: 180px;
@@ -27,7 +32,7 @@
        그리드가 변수를 읽는 규칙
    ================================ */
 
-   .invest-page .grid-cols {
+.cmp-select-page .grid-cols {
   display: grid;
   grid-template-columns:
     var(--w-rank, 68px)
@@ -41,57 +46,55 @@
   box-sizing: border-box;
 }
 
-.invest-page .table-inner {
+.cmp-select-page .table-inner {
   min-width: var(--table-width, 1200px);
 }
 
-/* 페이지 래퍼 */
+/* 페이지 래퍼*/
 .page-inner {
   max-width: 1220px;
   margin: 0 auto;
-  padding: 0 16px 133px;
+  padding: 0 16px 133px; /*하단 여백*/
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .page-inner {
     padding: 0 0 133px;
   }
 }
 
 /* 기업명 컬럼: 좌측 여백 24px */
-.invest-page .grid-cols .td.company {
+.cmp-select-page .grid-cols .td.company {
   padding-left: 24px;
 }
 
 /* 헤더 '기업명'도 본문과 정렬 맞춤 */
-.invest-page .grid-cols .th:nth-child(2) {
+.cmp-select-page .grid-cols .th:nth-child(2) {
   padding-left: 24px;
   text-align: left;
 }
 
 /* 로고와 텍스트 간 간격 */
-.invest-page .company-cell {
+.cmp-select-page .company-cell {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 
-/* ================================
-   타이틀
-================================ */
+/* 타이틀 */
 .title-wrap {
   width: 100%;
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .title-wrap {
     width: var(--table-width);
     margin: 0 auto;
   }
 }
 
-@media (max-width: 767.98px){
+@media (max-width: 767.98px) {
   .title-wrap {
     margin-top: 22px;
   }
@@ -106,33 +109,26 @@
 }
 
 .title {
-  color: #FFF;
+  color: #fff;
   font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: normal;
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .title {
     font-size: 20px;
   }
 }
 
-/* 외부 컴포넌트 슬롯 */
+/* 외부 드롭다운 슬롯 */
 .dropdown-slot {
   width: 320px;
   height: 40px;
 }
 
-.pagination-slot {
-  margin-top: 16px;
-  height: 40px;
-}
-
-/* ================================
-   스크롤 & 폭
-================================ */
+/* 스크롤 & 폭 */
 .table-scroll {
   overflow-x: visible;
   position: relative;
@@ -143,31 +139,26 @@
   margin: 0 auto;
 }
 
-@media (max-width: 767.98px){
+@media (max-width: 767.98px) {
   .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-
   .table-scroll::-webkit-scrollbar {
     display: none;
   }
 }
 
-/* ================================
-   그리드
-================================ */
-.grid-cols{
+/* 그리드 */
+.grid-cols {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: var(--w-rank) var(--w-name) var(--w-intro) var(--w-category) var(--w-vms) var(--w-actual);
+  grid-template-columns: var(--w-rank) var(--w-name) var(--w-intro) var(--w-category) var(--w-my) var(--w-compare);
   box-sizing: border-box;
 }
 
-/* ================================
-   분리 박스 (테두리 제거)
-================================ */
+/* 분리 박스 */
 .table-head,
 .table-body {
   border-radius: 4px;
@@ -178,16 +169,14 @@
   overflow: hidden;
 }
 
-/* ================================
-   헤더
-================================ */
-.th{
+/* 헤더 */
+.th {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 39px;
   box-sizing: border-box;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   white-space: nowrap;
   font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -196,17 +185,18 @@
   font-size: 13px; /* 모바일 13px */
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .th {
     font-size: 14px; /* PC/태블릿 14px */
   }
 }
 
+/* 긴 헤더 텍스트 2줄(태블릿/모바일) */
 .br-md {
   display: none;
 }
 
-@media (max-width: 1024.98px){
+@media (max-width: 1024.98px) {
   .br-md {
     display: block !important;
     height: 0;
@@ -214,8 +204,7 @@
     margin: 0;
     padding: 0;
   }
-
-  .th-vms {
+  .th-wrap {
     white-space: normal;
     display: flex;
     flex-direction: column;
@@ -223,13 +212,8 @@
     justify-content: center;
     text-align: center;
     line-height: 1;
-    gap: 2px; /*줄 여백*/
+    gap: 2px; /* 줄 간격 */
   }
-}
-
-/* PC에서 우측 헤더 잘림 방지 */
-.th.wrap {
-  white-space: normal;
 }
 
 /* 헤더/바디 사이 16px */
@@ -237,20 +221,18 @@
   height: 16px;
 }
 
-/* ================================
-   데이터 바디 (행 64px 보장)
-================================ */
+/* 바디(행 64px 고정) */
 .tr {
   height: 64px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .tr:last-child {
   border-bottom: 0;
 }
 
-.td{
+.td {
   display: flex;
   align-items: center;
   height: 100%;
@@ -261,7 +243,7 @@
   font-size: 13px; /* 모바일 13px */
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .td {
     font-size: 14px; /* PC/태블릿 14px */
   }
@@ -285,7 +267,7 @@
 }
 
 .td.body {
-  color: #D8D8D8;
+  color: #d8d8d8;
   text-align: center;
   font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   font-weight: 400;
@@ -293,7 +275,7 @@
 }
 
 .td.company {
-  color: #FFF;
+  color: #fff;
   font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   font-weight: 500;
   line-height: normal;
@@ -320,7 +302,7 @@
   text-overflow: ellipsis;
 }
 
-/* 기업 소개 */
+/* 기업 소개  */
 .intro-text {
   display: -webkit-box;
   line-clamp: 2;
@@ -330,25 +312,21 @@
   white-space: normal;
 }
 
-/* ================================
-   모바일 커스텀 스크롤바
-================================ */
+/* 모바일 커스텀 스크롤바 */
 .mobile-scrollbar {
   display: none;
 }
 
-@media (max-width: 767.98px){
+@media (max-width: 767.98px) {
   .mobile-scrollbar {
     display: block;
     width: 100%;
     margin: 8px 0 0;
   }
-
   .mobile-scrollbar.hidden {
     display: none;
   }
-
-  .mobile-scrollbar__track{
+  .mobile-scrollbar__track {
     width: 348px;
     height: 12px;
     margin: 0 auto;
@@ -357,10 +335,10 @@
     position: relative;
     touch-action: none;
     overflow: hidden;
+    padding-left: 2px;
     box-sizing: border-box;
   }
-
-  .mobile-scrollbar__thumb{
+  .mobile-scrollbar__thumb {
     width: 101px;
     height: 8px;
     border-radius: 8px;
@@ -369,60 +347,56 @@
     left: 0;
     top: 50%;
     will-change: transform;
-    margin-left: 3px; /*스크롤 왼쪽 여백*/
   }
 }
 
-/* ================================
-   페이지네이션 위치
-================================ */
+/* 페이지네이션 */
 .pagination-wrapper {
   margin-top: 40px;
   display: flex;
   justify-content: center;
 }
 
-/* 투자현황 드롭다운이 표 위로 뜨도록 */
-.invest-page .table-scroll {
+/* 드롭다운이 표 위로 보이도록 z-index 정리 */
+.cmp-select-page .table-scroll {
   position: relative;
   z-index: 1;
 }
 
-.invest-page .title-wrap {
+.cmp-select-page .title-wrap {
   position: relative;
   z-index: 10;
-  overflow: visible !important;
+  overflow: visible;
 }
 
-.invest-page .order-dropdown {
+.cmp-select-page .order-dropdown {
   position: relative;
   z-index: 20;
 }
 
-.invest-page .order-dropdown .dropdown {
+.cmp-select-page .order-dropdown .dropdown {
   position: relative;
   z-index: 30;
-  overflow: visible; /* 트리거 박스가 리스트를 자르지 않게 */
 }
 
-.invest-page .order-dropdown .dropdown-list {
-  position: absolute;   /* 혹시 기본 CSS가 static이면 강제 */
+.cmp-select-page .order-dropdown .dropdown-list {
+  position: absolute;   /* Dropdown.css 가 absolute가 아니라면 강제 */
+  z-index: 9999;        /* 표보다 확실히 위로 */
   top: 100%;
   right: 0;
-  z-index: 9999;        /* 표 레이어보다 확실히 위 */
 }
 
-/* 기업명(회사명) 폰트 크기 고정 */
-.invest-page .td.company,
-.invest-page .td.company .company-name {
-  font-size: 13px;   /* mobile */
+/* 기업명(회사명) 폰트 크기 고정: 모바일 13px / PC·태블릿 14px */
+.cmp-select-page .td.company,
+.cmp-select-page .td.company .company-name {
+  font-size: 13px;      /* mobile */
   font-weight: 500;
   color: #fff;
 }
 
 @media (min-width: 768px) {
-  .invest-page .td.company,
-  .invest-page .td.company .company-name {
-    font-size: 14px; /* tablet & pc */
+  .cmp-select-page .td.company,
+  .cmp-select-page .td.company .company-name {
+    font-size: 14px;    /* tablet & pc */
   }
 }
