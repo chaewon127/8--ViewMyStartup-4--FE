@@ -9,12 +9,18 @@ function ModalInvest({ isOpen, company, onClose }) {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  // 비밀번호 일치 여부 확인
+  const isPasswordMatching = password === passwordConfirm;
+  const passwordError =
+    passwordConfirm && !isPasswordMatching ? "비밀번호가 일치하지 않습니다." : "";
+
   // 모든 필수 필드가 채워졌는지 확인
   const isFormValid =
     investor.trim() !== "" &&
     amount.trim() !== "" &&
     password.trim() !== "" &&
-    passwordConfirm.trim() !== "";
+    passwordConfirm.trim() !== "" &&
+    isPasswordMatching;
 
   // company prop이 없으면 렌더링하지 않거나, 기본값을 설정할 수 있습니다.
   if (!company) return null;
@@ -79,6 +85,7 @@ function ModalInvest({ isOpen, company, onClose }) {
         type="password"
         value={passwordConfirm}
         onChange={setPasswordConfirm}
+        error={passwordError}
         required
       />
     </Modal>

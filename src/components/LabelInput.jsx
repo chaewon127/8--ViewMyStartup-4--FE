@@ -16,6 +16,7 @@ export default function LabelInput({
   placeholder = '',
   rows = 4,
   maxLength,
+  error, // 에러 prop 추가
   className = '',
 }) {
   const [showPw, setShowPw] = React.useState(false);
@@ -35,8 +36,8 @@ export default function LabelInput({
           {label}{required && <span className={styles.requiredMark}>*</span>}
         </label>
       )}
-
-      <div className={`${styles.control} ${multiline ? styles.asTextarea : styles.asInput}`}>
+      {/* 에러 스타일 추가 */}
+      <div className={`${styles.control} ${multiline ? styles.asTextarea : styles.asInput} ${error ? styles.error : ''}`}>
         {!multiline ? (
           <input
             id={inputId}
@@ -80,6 +81,8 @@ export default function LabelInput({
           </button>
         )}
       </div>
+      {/* 비밀번호 =/= 비밀번호 확인 시 */}
+      {error && <div className={styles.errorMessage}>{error}</div>}
     </div>
   );
 }
