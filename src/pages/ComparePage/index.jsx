@@ -5,7 +5,7 @@ import "./ComparePage.css";
 import Pagination from "@/components/Pagination";
 import { fetchCorpData } from "@/api/MockPaginationApi";
 import Dropdown from "@/components/Dropdown";
-import ModalInvest from "../../components/modals/ModalInvest";
+import InvestmentModal from "../InvestmentPage/InvestmentModal";
 
 export default function ComparePage() {
   const MOCK_MY = [
@@ -133,7 +133,7 @@ export default function ComparePage() {
         onPageChange={setPage}
       />
       {isModalOpen && selectedCompany && (
-        <ModalInvest
+        <InvestmentModal
           isOpen={isModalOpen}
           company={selectedCompany} // 기업 정보 객체를 통째로 전달
           onClose={() => setIsModalOpen(false)}
