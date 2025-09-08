@@ -1,11 +1,12 @@
 import React from "react";
 import SearchBar from "@/components/SearchBar";
-import styles from "@/components/CompanyListItem.module.css"; // 버튼/행 공통 CSS
-import checkIcon from "@/assets/images/icons/ic_check.svg";
-import bluecordLogo from "@/assets/images/mock/bluecord.svg";
-import ccodeLogo from "@/assets/images/mock/ccode.svg";
-import codestatesLogo from "@/assets/images/mock/codestates.svg";
-import codeitLogo from "@/assets/images/mock/codeit.svg";
+import styles from "@/components/CompanySelectRow.module.css"; // 버튼/행 공통 CSS
+import checkIcon from "@/assets/icons/ic_check.svg";
+import bluecordLogo from "@/assets/images/mock/co_bluecord.svg";
+import ccodeLogo from "@/assets/images/mock/co_ccode.svg";
+import codestatesLogo from "@/assets/images/mock/co_codestates.svg";
+import codeitLogo from "@/assets/images/mock/co_codeit.svg";
+import Modal from "../../components/modals/Modal";
 
 // ── 목데이터 (API 완성 전 임시)
 const MOCK = [
@@ -30,7 +31,7 @@ const MOCK = [
   },
 ];
 
-export default function MyCompanyModal() {
+export default function MyCompanyModal({ isOpen, onClose, title }) {
   const [keyword, setKeyword] = React.useState("");
 
   // 기본 선택: 코드잇(4), 블루코드(1), 코드스테이츠(3)
@@ -64,73 +65,25 @@ export default function MyCompanyModal() {
   };
 
   return (
-    <div className="modal-body">
-      <SearchBar
-        kind="compareMine"
-        variant="action" // 우측 X + 검색
-        placeholder="기업"
-        value={keyword}
-        onChange={setKeyword}
-        onClear={handleClear}
-        onSearch={handleSearch}
-      />
+    <Modal isOpen={isOpen} onClose={onClose} title={title}>
+      <div className="modal-body">
+        <SearchBar
+          kind="compareMine"
+          variant="action" // 우측 X + 검색
+          placeholder="기업"
+          value={keyword}
+          onChange={setKeyword}
+          onClear={handleClear}
+          onSearch={handleSearch}
+        />
 
-      {/* ───────── 선택한 기업 섹션 ───────── */}
-      <section style={{ marginTop: 16 }}>
-        <h4 style={{ color: "#fff", margin: "0 0 12px 0" }}>
-          선택한 기업 ({selectedList.length})
-        </h4>
+        {/* ───────── 선택한 기업 섹션 ───────── */}
+        <section style={{ marginTop: 16 }}>
+          <h4 style={{ color: "#fff", margin: "0 0 12px 0" }}>
+            선택한 기업 ({selectedList.length})
+          </h4>
 
-        {selectedList.map((m) => (
-          <div key={m.id} className={styles.itemRow}>
-            <div className={styles.itemInfo}>
-              {!!m.logoUrl && (
-                <img
-                  src={m.logoUrl}
-                  alt={`${m.name} 로고`}
-                  width="32"
-                  height="32"
-                  style={{ borderRadius: 16, objectFit: "cover" }}
-                  onError={(e) => {
-                    e.currentTarget.style.visibility = "hidden";
-                  }}
-                />
-              )}
-              <div style={{ display: "flex", gap: 8 }}>
-                <span className={styles.itemName}>{m.name}</span>
-                <span className={styles.itemCategory}>{m.category}</span>
-              </div>
-            </div>
-
-            <div className={styles.actionArea}>
-              <button
-                type="button"
-                className={`${styles.actionBtn} ${styles.btnCancel}`}
-                onClick={() => unselectItem(m.id)}
-              >
-                선택 해제
-              </button>
-            </div>
-          </div>
-        ))}
-
-        {/* 선택된 게 없고 검색어 있는 경우 안내 */}
-        {selectedList.length === 0 && keyword.trim() && (
-          <div style={{ color: "#9f9f9f", padding: "8px 0" }}>
-            선택된 기업이 없습니다.
-          </div>
-        )}
-      </section>
-
-      {/* ───────── 검색 결과 섹션 ───────── */}
-      <section style={{ marginTop: 16 }}>
-        <h4 style={{ color: "#fff", margin: "0 0 12px 0" }}>
-          검색 결과 ({filtered.length})
-        </h4>
-
-        {filtered.map((m) => {
-          const isSelected = selectedIds.has(m.id);
-          return (
+          {selectedList.map((m) => (
             <div key={m.id} className={styles.itemRow}>
               <div className={styles.itemInfo}>
                 {!!m.logoUrl && (
@@ -152,29 +105,79 @@ export default function MyCompanyModal() {
               </div>
 
               <div className={styles.actionArea}>
-                {isSelected ? (
-                  <button
-                    type="button"
-                    className={`${styles.actionBtn} ${styles.btnDone}`}
-                    disabled
-                  >
-                    <img className={styles.btnIcon} src={checkIcon} alt="" />
-                    선택완료
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className={`${styles.actionBtn} ${styles.btnSelect}`}
-                    onClick={() => selectItem(m.id)}
-                  >
-                    선택하기
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className={`${styles.actionBtn} ${styles.btnCancel}`}
+                  onClick={() => unselectItem(m.id)}
+                >
+                  선택 해제
+                </button>
               </div>
             </div>
-          );
-        })}
-      </section>
-    </div>
+          ))}
+
+          {/* 선택된 게 없고 검색어 있는 경우 안내 */}
+          {selectedList.length === 0 && keyword.trim() && (
+            <div style={{ color: "#9f9f9f", padding: "8px 0" }}>
+              선택된 기업이 없습니다.
+            </div>
+          )}
+        </section>
+
+        {/* ───────── 검색 결과 섹션 ───────── */}
+        <section style={{ marginTop: 16 }}>
+          <h4 style={{ color: "#fff", margin: "0 0 12px 0" }}>
+            검색 결과 ({filtered.length})
+          </h4>
+
+          {filtered.map((m) => {
+            const isSelected = selectedIds.has(m.id);
+            return (
+              <div key={m.id} className={styles.itemRow}>
+                <div className={styles.itemInfo}>
+                  {!!m.logoUrl && (
+                    <img
+                      src={m.logoUrl}
+                      alt={`${m.name} 로고`}
+                      width="32"
+                      height="32"
+                      style={{ borderRadius: 16, objectFit: "cover" }}
+                      onError={(e) => {
+                        e.currentTarget.style.visibility = "hidden";
+                      }}
+                    />
+                  )}
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <span className={styles.itemName}>{m.name}</span>
+                    <span className={styles.itemCategory}>{m.category}</span>
+                  </div>
+                </div>
+
+                <div className={styles.actionArea}>
+                  {isSelected ? (
+                    <button
+                      type="button"
+                      className={`${styles.actionBtn} ${styles.btnDone}`}
+                      disabled
+                    >
+                      <img className={styles.btnIcon} src={checkIcon} alt="" />
+                      선택완료
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className={`${styles.actionBtn} ${styles.btnSelect}`}
+                      onClick={() => selectItem(m.id)}
+                    >
+                      선택하기
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </section>
+      </div>
+    </Modal>
   );
 }
