@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
+import ModalPassword from '@/components/modals/ModalPassword';
 import './CompanyDetailPage.css';
 
 // 개발 프리뷰 데이터
@@ -65,6 +66,11 @@ export default function CompanyDetailPage() {
 
   const [openMenuRowId, setOpenMenuRowId] = React.useState(null);
 
+  const [pwdModalOpen, setPwdModalOpen] = React.useState(false);
+  const [pwdTargetRow, setPwdTargetRow] = React.useState(null);
+  const [pwdSubmitting, setPwdSubmitting] = React.useState(false);
+  const [pwdError, setPwdError] = React.useState('');
+
   // (API 확정 후 연결 예정)
   React.useEffect(() => {
     // async function load()
@@ -85,7 +91,12 @@ export default function CompanyDetailPage() {
 
   const handleOpenCreateInvestment = () => { };
   const handleEdit = (row) => { };
-  const handleDelete = (row) => { };
+  const handleDelete = (row) => {
+    setPwdTargetRow(row);
+    setPwdError('');
+    setPwdModalOpen(true);
+    setOpenMenuRowId(null);
+  };
 
   return (
     <div className="company-detail-page">
@@ -226,6 +237,40 @@ export default function CompanyDetailPage() {
             데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
           </div>
         )}
+
+        <ModalPassword
+          isOpen={pwdModalOpen}
+          onClose={() => {
+            if (pwdSubmitting) return;
+            setPwdModalOpen(false);
+            setPwdError('');
+          }}
+          title="삭제 권한 인증"
+          submitLabel={pwdSubmitting ? '삭제 중...' : '삭제하기'}
+          placeholder="패스워드를 입력해주세요"
+          isSubmitting={pwdSubmitting}
+          errorMessage={pwdError}
+          onSubmit={async (password) => {
+            if (pwdSubmitting || !pwdTargetRow) return;
+            try {
+              setPwdSubmitting(true);
+              setPwdError('');
+              // await deleteInvestment({ id: pwdTargetRow.id, password });
+
+              setInvestments((prev) => {
+                const next = prev.filter((v) => v.id !== pwdTargetRow.id);
+                const nextTotalPages = Math.max(1, Math.ceil(next.length / pageSize));
+                if (page > nextTotalPages) setPage(nextTotalPages);
+                return next;
+              });
+              setPwdModalOpen(false);
+            } catch (e) {
+              setPwdError('비밀번호가 일치하지 않습니다.');
+            } finally {
+              setPwdSubmitting(false);
+            }
+          }}
+        />
       </div>
     </div>
   );
