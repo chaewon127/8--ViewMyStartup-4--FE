@@ -12,11 +12,11 @@ import "./Dropdown.css";
  */
 function DropdownList({ options, value, onChange }) {
   return (
-    <ul className="dropdown-list">
+    <ul className="vms-dropdown-list">
       {options.map((option) => (
         <li
           key={option.id || option.value || option.label}
-          className={`dropdown-item ${value === option.value ? "active" : ""}`}
+          className={`vms-dropdown-item ${value === option.value ? "active" : ""}`}
           onClick={() => onChange(option.value)}
         >
           {option.label}
@@ -37,7 +37,7 @@ function DropdownList({ options, value, onChange }) {
 function DropdownTrigger({ label, onClick }) {
   // 아이콘 ui 필요할 시 open prop 추가
   return (
-    <button className="dropdown-trigger" onClick={onClick}>
+    <button className="vms-dropdown-trigger" onClick={onClick}>
       {label}
       <img
         src={chevronDown}
@@ -90,7 +90,7 @@ function Dropdown({ value, onChange, options = [], disabled = false }) {
 
   return (
     // disabled에 따라 style 달리, ref로 드롭다운 바운더리 지정
-    <div className={`dropdown ${disabled ? "disabled" : ""}`} ref={ref}>
+    <div className={`vms-dropdown ${disabled ? "disabled" : ""}`} ref={ref}>
       <DropdownTrigger
         label={selected?.label}
         // open={open} // 화살표 방향 변경 시 추가
