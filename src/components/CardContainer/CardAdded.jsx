@@ -1,5 +1,4 @@
-import MinusIcon from "../assets/minusIcon.svg";
-import "../components/CardContainer";
+import MinusIcon from "../../assets/minusIcon.svg";
 
 function CardAdded({ companyName, companyCategory }) {
   return (

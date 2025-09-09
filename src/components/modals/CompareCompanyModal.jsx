@@ -6,12 +6,18 @@ import Pagination from "@/components/Pagination";
 import "../../components/modals/Modal.css";
 import CompanySelectRow from "../CompanySelectRow";
 
-export default function CompareCompanyModal({ isOpen, onClose, title }) {
+export default function CompareCompanyModal({
+  isOpen,
+  onClose,
+  title,
+  initialSelection = [],
+  onConfirm, // 부모로부터 받을 콜백 함수
+}) {
   const [keyword, setKeyword] = useState("");
 
   // 선택된 기업의 전체 정보를 담는 상태
   // 페이지네이션과 독립적으로 모든 선택된 기업을 유지하기 위해 별도로 관리합니다.
-  const [selectedList, setSelectedList] = useState([]);
+  const [selectedList, setSelectedList] = useState(initialSelection); // 오오 이렇게하면 모달 다시 띄울때 기존 기업들이 선택 완료되어있나?
   // 5개 초과 선택 시 에러 메시지를 관리하는 상태
   const [selectionError, setSelectionError] = useState("");
 
@@ -85,11 +91,20 @@ export default function CompareCompanyModal({ isOpen, onClose, title }) {
     });
   }, [page]);
 
+  // 모달이 닫힐 때(unmount) 현재 선택된 목록을 부모 컴포넌트로 전달
+  useEffect(() => {
+    // cleanup 함수를 사용하여 컴포넌트가 사라질 때 onConfirm을 호출합니다.
+    return () => {
+      onConfirm(selectedList);
+    };
+  }, [selectedList, onConfirm]); // 여기 onConfirm은 왜 넣어?
+
   // 렌더링할 목록: 검색어가 있으면 필터링된 결과를, 없으면 전체 데이터를 사용
   const listToRender = keyword.trim() ? filteredData : data;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title}>
+    <Modal isOpen={isOpen} onClose={onClose} title={title}> 
+    {/* ㄴㄴ 이 모달은 버튼이 없어야하는 모달임. 그래서 모달이 꺼질때 selectedList가 compareCompanies 같은데에 저장? 반환? 되어야함 */}
       <div className="modal-body">
         <div className="modal-padding">
           <SearchBar
