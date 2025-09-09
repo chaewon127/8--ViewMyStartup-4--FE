@@ -7,6 +7,7 @@ import InvestmentPage from './pages/InvestmentPage';
 import CompanyDetailPage from './pages/CompanyDetailPage';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
+import CompanySelectPage from './pages/CompanySelectPage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="compare" element={<ComparePage />} />
           <Route path="investment" element={<InvestmentPage />} />
           <Route path="company/:id" element={<CompanyDetailPage />} />
+          <Route path="compare/select" element={<CompanySelectPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="join" element={<JoinPage />} />
         </Route>

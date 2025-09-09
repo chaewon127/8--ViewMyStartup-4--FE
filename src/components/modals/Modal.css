@@ -1,29 +1,37 @@
 /* 화면 전체를 덮는 반투명 배경 */
 .modal-overlay {
-  position: fixed; /* 화면에 고정 */
+  position: fixed;
+  /* 화면에 고정 */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+  background: rgba(0, 0, 0, 0.5);
+  /* 반투명 검은색 배경 */
   display: flex;
   justify-content: center;
-  z-index: 1000; /* 다른 요소들 위에 오도록 z-index 설정 */
-  overflow-y: auto; /* 내용이 길어지면 스크롤 허용 */
-  padding: 40px 0; /* 상하 여백을 주어 스크롤 시 보기 좋게 함 */
+  z-index: 1000;
+  /* 다른 요소들 위에 오도록 z-index 설정 */
+  overflow-y: auto;
+  /* 내용이 길어지면 스크롤 허용 */
+  padding: 40px 0;
+  /* 상하 여백을 주어 스크롤 시 보기 좋게 함 */
 }
 
 /* 실제 모달 컨텐츠를 담는 박스 */
 .modal-content-box {
   display: flex;
-  flex-direction: column; /* 컨텐츠를 세로로 쌓음 */
+  flex-direction: column;
+  /* 컨텐츠를 세로로 쌓음 */
   padding: 24px;
   gap: 10px;
   border-radius: 16px;
   background: var(--black-black_300, #212121);
   color: white;
-  max-width: 90vw; /* 화면 너비의 90%를 넘지 않도록 */
-  margin: auto; /* flex 중앙 정렬 및 스크롤 시 위치 보정 */
+  max-width: 90vw;
+  /* 화면 너비의 90%를 넘지 않도록 */
+  margin: auto;
+  /* flex 중앙 정렬 및 스크롤 시 위치 보정 */
 }
 
 .modal-header {
@@ -42,20 +50,24 @@
 }
 
 .modal-close-wrapper {
-  margin-left: auto; /* 항상 오른쪽으로 밀어냄 */
+  margin-left: auto;
+  /* 항상 오른쪽으로 밀어냄 */
   text-align: right;
 }
 
 .modal-footer {
   display: flex;
   gap: 16px;
-  margin-top: auto; /* 푸터를 항상 맨 아래에 위치시킵니다. */
+  margin-top: auto;
+  /* 푸터를 항상 맨 아래에 위치시킵니다. */
   padding: 0 27.5px;
-  padding-top: 24px; /* 푸터와 내용 사이의 간격을 줍니다. */
+  padding-top: 24px;
+  /* 푸터와 내용 사이의 간격을 줍니다. */
 }
 
-.modal-footer > * {
-  flex: 1; /* 모든 자식 요소(버튼)가 동일한 비율로 너비를 차지하도록 합니다. */
+.modal-footer>* {
+  flex: 1;
+  /* 모든 자식 요소(버튼)가 동일한 비율로 너비를 차지하도록 합니다. */
 }
 
 .invest-info {
@@ -149,4 +161,48 @@
   line-height: normal;
   padding-top: 6px;
   padding-bottom: 8px;
+}
+.modal-body {
+  padding: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.input-with-suffix {
+  position: relative;
+}
+
+.input-password {
+  width: 448px;
+  height: 48px;
+  padding: 16px 20px;
+  border: 1px solid var(--gray-gray_200);
+  border-radius: 10px;
+  background: var(--black-black_300);
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  outline: none;
+}
+
+.input-suffix-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  border: 0;
 }

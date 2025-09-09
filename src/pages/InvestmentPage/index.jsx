@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./InvestmentPage.css";
 import Pagination from "../../components/Pagination";
+import Dropdown from "../../components/Dropdown";
+import "../../components/Dropdown/Dropdown.css";
 
 // 로고 이미지 import
 import co_codeit from "@/assets/images/mock/co_codeit.svg";
@@ -8,7 +10,6 @@ import co_codestates from "@/assets/images/mock/co_codestates.svg";
 import co_bluecord from "@/assets/images/mock/co_bluecord.svg";
 import co_ccode from "@/assets/images/mock/co_ccode.svg";
 
-// 목업 데이터
 const MOCK = [
   {
     rank: "1위", // 1
@@ -643,13 +644,42 @@ const BodyCell = ({ children, align = "center", variant = "body" }) => (
 );
 
 export default function Index() {
-  /* ---------------- Pagination 상태 ---------------- */
+  /* ---------------- Pagination ---------------- */
   const [page, setPage] = useState(1);
-  const DATA_PER_PAGE = 10; // 페이지당 행 개수
-  const startIndex = (page - 1) * DATA_PER_PAGE;
-  const currentRows = MOCK.slice(startIndex, startIndex + DATA_PER_PAGE);
+  const DATA_PER_PAGE = 10;
 
-  /* --------- 모바일 커스텀 스크롤바(동작 유지) --------- */
+  /* ---------------- 정렬(드롭다운) 추가 ---------------- */
+  const [order, setOrder] = useState("vms_desc");
+  useEffect(() => setPage(1), [order]);
+  const orderOptions = [
+    { value: "vms_desc",    label: "View My Startup 투자 금액 높은순" },
+    { value: "vms_asc",     label: "View My Startup 투자 금액 낮은순" },
+    { value: "actual_desc", label: "실제 누적 투자 금액 높은순" },
+    { value: "actual_asc",  label: "실제 누적 투자 금액 낮은순" },
+  ];
+
+  // "100억 원" 같은 문자열을 숫자로 변환(정렬용)
+  const toNum = (s) => {
+    if (typeof s === "number") return s;
+    const m = String(s).match(/([\d,]+(?:\.\d+)?)/);
+    return m ? parseFloat(m[1].replace(/,/g, "")) : 0;
+  };
+
+  const sorted = useMemo(() => {
+    const arr = [...MOCK];
+    const key = order.startsWith("vms") ? "vms" : "actual";
+    arr.sort((a, b) =>
+      order.endsWith("desc")
+        ? toNum(b[key]) - toNum(a[key])
+        : toNum(a[key]) - toNum(b[key])
+    );
+    return arr;
+  }, [order]);
+
+  const startIndex = (page - 1) * DATA_PER_PAGE;
+  const currentRows = sorted.slice(startIndex, startIndex + DATA_PER_PAGE);
+
+  /* --------- 모바일 커스텀 스크롤바(기존 유지) --------- */
   const scrollRef = useRef(null);
   const trackRef = useRef(null);
   const [thumbX, setThumbX] = useState(0);
@@ -739,9 +769,14 @@ export default function Index() {
         <div className="title-wrap">
           <div className="title-row">
             <h2 className="title">투자 현황</h2>
-            <div className="dropdown-slot" />
+
+            {/* 드롭다운 추가 */}
+            <div className="order-dropdown">
+              <Dropdown value={order} onChange={setOrder} options={orderOptions} />
+            </div>
           </div>
         </div>
+
         <div className="table-scroll" ref={scrollRef}>
           <div className="table-inner">
             {/* 헤더 */}
@@ -766,7 +801,7 @@ export default function Index() {
             <div className="table-body">
               {currentRows.map((it, i) => (
                 <div className="tr grid-cols" key={`${page}-${i}`}>
-                  <BodyCell>{it.rank}</BodyCell>
+                  <BodyCell>{`${startIndex + i + 1}위`}</BodyCell>
                   <BodyCell align="left" variant="company">
                     <div className="company-cell">
                       <img
@@ -807,7 +842,7 @@ export default function Index() {
 
         <div className="pagination-wrapper">
           <Pagination
-            totalItems={MOCK.length}
+            totalItems={sorted.length}
             dataPerPage={DATA_PER_PAGE}
             page={page}
             onPageChange={(p) => setPage(p)}

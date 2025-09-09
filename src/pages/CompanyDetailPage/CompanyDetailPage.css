@@ -1,0 +1,319 @@
+.company-detail-page {
+  color: #fff;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0 153px;
+}
+
+
+.company-hero .hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 32px;
+
+  border-bottom: 1px solid var(--black-black_100);
+
+  margin-bottom: 0;
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo-wrap {
+  width: 81px;
+  height: 81px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 81px;
+}
+
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+.company-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.category-pill {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--gray-100);
+  width: max-content;
+}
+
+
+.kpi-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.kpi-card {
+  width: 384px;
+  height: 93px;
+  padding: 36px 24px;
+  border-radius: 10px;
+  background: #282828;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-100);
+}
+
+.kpi-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+.about-section {
+  margin-top: 33px;
+}
+
+.about-card {
+  background: var(--black-black_200);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.about-card-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.about-card-body {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-200);
+}
+
+
+.invest-section {
+  margin-top: 32px;
+}
+
+
+.invest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 24px;
+  margin: 0 0 12px;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.invest-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.vms-btn-active {
+  border: none;
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--brand-orange);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.vms-btn-active:hover {
+  opacity: .95;
+}
+
+.invest-submeta {
+  margin: 8px 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.invest-grid {
+  width: 100%;
+}
+
+.invest-head,
+.invest-row {
+  display: grid;
+  grid-template-columns: 100px 100px 100px 1fr;
+}
+
+.invest-head {
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  background: var(--black-black_100);
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.invest-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.invest-row:last-child {
+  border-bottom: none;
+}
+
+.invest-row {
+  min-height: 64px;
+  align-items: center;
+  text-align: left;
+  background: var(--black-black_200);
+  border-bottom: 1px solid var(--gray-gray_300);
+  padding: 15px 16px;
+}
+
+.cell {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--gray-200);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.invest-head .cell {
+  color: #fff;
+}
+
+.invest-head .c1,
+.invest-row .c1 {
+  padding-left: 16px;
+  text-align: left;
+}
+
+.invest-head .c2,
+.invest-row .c2 {
+  padding: 0 8px;
+  text-align: center;
+}
+
+.invest-head .c3,
+.invest-row .c3 {
+  padding-right: 16px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.invest-head .c4,
+.invest-row .c4 {
+  padding: 0 100px;
+  position: relative;
+  overflow: visible;
+}
+
+.comment-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-menu {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+
+}
+
+.kebab-btn:hover {
+  background: #212121;
+}
+
+.kebab-btn {
+  width: 28px;
+  height: 28px;
+  color: var(--gray-200);
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 36px;
+  min-width: 120px;
+  padding: 0;
+  background: var(--black-black_400);
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+  z-index: 2;
+}
+
+.dropdown li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li+li {
+  border-top: 1px solid var(--gray-200);
+}
+
+.dropdown button {
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: 0;
+  padding: 8px 10px;
+  color: var(--gray-gray_200);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.invest-empty {
+  padding: 20px 16px;
+  color: white;
+  background: #212121;
+  border-radius: 8px;
+}
+
+.error-box {
+  margin-top: 24px;
+  padding: 12px 16px;
+}
+
+.invest-section .pagination {
+  margin-top: 24px;
+  padding-bottom: 40px;
+}
