@@ -35,7 +35,10 @@ function InvestmentModal({ isOpen, company, onClose }) {
       footer={{
         cancelText: "취소",
         confirmText: "투자하기",
-        onConfirm: () => console.log("투자 실행"), // 실제 투자 로직 연결
+        onConfirm: () => {
+          console.log("투자 실행");
+          onClose(); // FIXME: 추후 1button 알림 가능 추가
+        }, // 실제 투자 로직 연결
         isConfirmDisabled: !isFormValid,
       }}
     >
