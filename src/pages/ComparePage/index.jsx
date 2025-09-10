@@ -78,12 +78,35 @@ export default function ComparePage() {
 
     // `comparisonList`의 각 기업에 대해 전체 기업 데이터(`data`)에서 순위를 찾아 추가
     // `data`는 `rankOrder`에 따라 이미 정렬된 상태 => `findIndex`로 찾은 인덱스 = 순위
-    return comparisonList.map((company) => {
-      const rank = data.findIndex((item) => item.id === company.id) + 1;
-      return { ...company, rank: rank > 0 ? `${rank}위` : "" };
-    });
-  }, [comparisonList, data]);
-  // `rankOrder`가 변경되면 `useEffect`가 `data`를 새로 가져오므로, `data`만 의존성으로 추가해도 충분
+    return comparisonList
+      .map((company) => {
+        // 순위 라벨링
+        const rank = data.findIndex((item) => item.id === company.id) + 1;
+        return { ...company, rank: rank > 0 ? `${rank}위` : "" };
+      })
+      .sort((a, b) => {
+        // 문자열에서 숫자만 추출하여 정수로 변환하는 함수
+        const parseValue = (str) =>
+          parseInt(String(str).replace(/[^0-9]/g, ""), 10) || 0;
+
+        switch (rankOrder) {
+          case "investmentLowest":
+            return parseValue(a.investment) - parseValue(b.investment);
+          case "investmentHighest":
+            return parseValue(b.investment) - parseValue(a.investment);
+          case "salesLowest":
+            return parseValue(a.revenue) - parseValue(b.revenue);
+          case "salesHighest":
+            return parseValue(b.revenue) - parseValue(a.revenue);
+          case "employeeLowest":
+            return parseValue(a.employees) - parseValue(b.employees);
+          case "employeeHighest":
+            return parseValue(b.employees) - parseValue(a.employees);
+          default:
+            return 0;
+        }
+      });
+  }, [comparisonList, data, rankOrder]);
 
   // '비교 결과 확인하기' 테이블을 위한 데이터 정렬 로직
   // `useMemo`를 사용하여 `comparisonList`나 `compareOrder`가 변경될 때만 정렬을 다시 수행
@@ -119,6 +142,7 @@ export default function ComparePage() {
 
   // `rankOrder`는 API 호출 시 사용되어 `data`를 결정하고, `data`는 `rankedComparisonList`에서 순위를 매길 때 사용
   // `compareOrder`는 사용자가 선택한 `comparisonList`를 클라이언트 측에서 정렬할 때 사용
+  // FIXME: 아니 근데 '기업 순위' 테이블에도 정렬 Dropdown에 따라 순위 뿐만 아니라 테이블 row도 정렬 되어야 함
 
   // 1. MyCompanyModal에서 기업 선택 시 상태 업데이트
   const handleSelectMyCompany = (company) => setMyCompany(company);
@@ -149,7 +173,7 @@ export default function ComparePage() {
 
       {/* 비교할 기업 목록이 있을 때만 '기업 비교하기' 버튼 표시 */}
       {myCompany && compareCompanies.length > 0 && (
-        <div>
+        <div className="btn-center">
           <LargeButton onClick={handleCompareClick}>기업 비교하기</LargeButton>
         </div>
       )}
@@ -157,77 +181,122 @@ export default function ComparePage() {
       {/* 최종 비교 목록(comparisonList)에 데이터가 있을 때만 비교 테이블들을 렌더링 */}
       {comparisonList.length > 0 ? (
         <>
-          {/* 비교 결과 확인하기 */}
-          <Dropdown
-            value={compareOrder}
-            onChange={setCompareOrder}
-            options={orderOptions}
-          />
+          <section className="table-section">
+            <div className="saction-header">
+              <div className="saction-title">비교 결과 확인하기</div>
+              {/* 비교 결과 확인하기 */}
+              <Dropdown
+                value={compareOrder}
+                onChange={setCompareOrder}
+                options={orderOptions}
+              />
+            </div>
+            <div className="grid-table result">
+              <div className="grid-header">
+                <div className="grid-cell">기업명</div>
+                <div className="grid-cell">기업 소개</div>
+                <div className="grid-cell">카테고리</div>
+                <div className="grid-cell">누적 투자 금액</div>
+                <div className="grid-cell">매출액</div>
+                <div className="grid-cell">고용 인원</div>
+              </div>
 
-          <table
-            border="1"
-            style={{ borderCollapse: "collapse", width: "100%", marginTop: 20 }}
-          >
-            <thead>
-              <tr>
-                <th>기업명</th>
-                <th>기업 소개</th>
-                <th>카테고리</th>
-                <th>누적 투자 금액</th>
-                <th>고용 인원</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedComparisonList.map((corp) => (
-                <tr key={corp.id}>
-                  <td>{corp.name}</td>
-                  <td>{corp.intro}</td>
-                  <td>{corp.category}</td>
-                  <td>{corp.investment}</td>
-                  <td>{corp.employees}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* 기업 순위 확인하기 */}
-          <Dropdown
-            value={rankOrder}
-            onChange={setRankOrder}
-            options={orderOptions}
-          />
-          <table
-            border="1"
-            style={{ borderCollapse: "collapse", width: "100%", marginTop: 20 }}
-          >
-            <thead>
-              <tr>
-                <th>순위</th>
-                <th>기업명</th>
-                <th>기업 소개</th>
-                <th>카테고리</th>
-                <th>누적 투자 금액</th>
-                <th>고용 인원</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rankedComparisonList.map((corp) => (
-                <tr key={corp.id}>
-                  <td>{corp.rank}</td>
-                  <td>{corp.name}</td>
-                  <td>{corp.intro}</td>
-                  <td>{corp.category}</td>
-                  <td>{corp.investment}</td>
-                  <td>{corp.employees}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div>
-            <LargeButton onClick={() => setIsModalOpen(true)}>
-              나의 기업에 투자하기
-            </LargeButton>
-          </div>
+              {/* <div className="grid-body"> */}
+              {sortedComparisonList.map((corp, index) => {
+                // 마지막 row border-bottom 없애기 위해 index 추가
+                const isMyCompany = myCompany && myCompany.id === corp.id;
+                const myCompanyRowStyle = isMyCompany ? "myCompany-row" : "";
+                const isLastRow = index === sortedComparisonList.length - 1;
+                const lastRowStyle = isLastRow ? "is-last-row" : "";
+                return (
+                  <div
+                    key={corp.id}
+                    className={`grid-row ${myCompanyRowStyle} ${lastRowStyle}`}
+                  >
+                    <div className="grid-cell company-cell">
+                      <img
+                        src={corp.logoUrl}
+                        alt={`${corp.name} 로고`}
+                        className="corp-logo"
+                      />
+                      <div className="corp-name">{corp.name}</div>
+                    </div>
+                    <div className="grid-cell">{corp.intro}</div>
+                    <div className="grid-cell">{corp.category}</div>
+                    <div className="grid-cell">{corp.investment}</div>
+                    <div className="grid-cell">{corp.revenue}</div>
+                    <div className="grid-cell">{corp.employees}</div>
+                  </div>
+                );
+              })}
+              {/* </div> */}
+            </div>
+          </section>
+          <section className="table-section">
+            <div className="saction-header">
+              <div className="saction-title">기업 순위 확인하기</div>
+              {/* 기업 순위 확인하기 */}
+              <Dropdown
+                value={rankOrder}
+                onChange={setRankOrder}
+                options={orderOptions}
+              />
+            </div>
+            <div
+              className="grid-table rank"
+              // border="1"
+              // style={{
+              //   borderCollapse: "collapse",
+              //   width: "100%",
+              //   marginTop: 20,
+              // }}
+            >
+              <div className="grid-header">
+                <div className="grid-cell">순위</div>
+                <div className="grid-cell">기업명</div>
+                <div className="grid-cell">기업 소개</div>
+                <div className="grid-cell">카테고리</div>
+                <div className="grid-cell">누적 투자 금액</div>
+                <div className="grid-cell">매출액</div>
+                <div className="grid-cell">고용 인원</div>
+              </div>
+              {/* <div className="grid-body"> */}
+              {rankedComparisonList.map((corp, index) => {
+                // 마지막 row border-bottom 없애기 위해 index 추가
+                const isMyCompany = myCompany && myCompany.id === corp.id;
+                const myCompanyRowStyle = isMyCompany ? "myCompany-row" : "";
+                const isLastRow = index === sortedComparisonList.length - 1;
+                const lastRowStyle = isLastRow ? "is-last-row" : "";
+                return (
+                  <div
+                    key={corp.id}
+                    className={`grid-row ${myCompanyRowStyle} ${lastRowStyle}`}
+                  >
+                    <div className="grid-cell">{corp.rank}</div>
+                    <div className="grid-cell company-cell">
+                      <img
+                        src={corp.logoUrl}
+                        alt={`${corp.name} 로고`}
+                        className="corp-logo"
+                      />
+                      <div className="corp-name">{corp.name}</div>
+                    </div>
+                    <div className="grid-cell">{corp.intro}</div>
+                    <div className="grid-cell">{corp.category}</div>
+                    <div className="grid-cell">{corp.investment}</div>
+                    <div className="grid-cell">{corp.revenue}</div>
+                    <div className="grid-cell">{corp.employees}</div>
+                  </div>
+                );
+              })}
+            </div>
+            {/* </div> */}
+        <div className="btn-center">
+              <LargeButton onClick={() => setIsModalOpen(true)}>
+                나의 기업에 투자하기
+              </LargeButton>
+            </div>
+          </section>
         </>
       ) : (
         <></>
