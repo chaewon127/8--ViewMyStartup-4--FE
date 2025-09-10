@@ -59,6 +59,7 @@ function CardContainer({
               return (
                 <CardAdded
                   key={selectedCompany.id}
+                  companyLogo={selectedCompany.logoUrl}
                   companyName={selectedCompany.name}
                   companyCategory={selectedCompany.category}
                 />
@@ -76,6 +77,7 @@ function CardContainer({
             return companyList.map((el) => (
               <CardAdded
                 key={el.id}
+                companyLogo={el.logoUrl}
                 companyName={el.name}
                 companyCategory={el.category}
               />
