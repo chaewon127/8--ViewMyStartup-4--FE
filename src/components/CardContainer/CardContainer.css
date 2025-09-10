@@ -3,7 +3,7 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 16px;
 }
 
 .card-title {
@@ -14,7 +14,7 @@
 
 .title-left {
   display: flex;
-  gap: 0.8rem;
+  gap: 8px;
   align-items: center;
 }
 
@@ -40,19 +40,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.6rem;
+  gap: 16px;
   flex-wrap: wrap;
   border-radius: 4px;
   background: var(--black-black_300, #212121);
-  padding: 0.8rem;
-  min-height: 25rem;
+  padding: 8px;
+  min-height: 250px;
 }
 
 .add-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
+  gap: 16px;
 }
 
 .add-card > div {
@@ -70,13 +70,10 @@
 .card-added {
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
-
-  width: 126px;
+  box-sizing: border-box;
+  width: 126px; /* 최소 너비 역할 */
   flex-shrink: 0;
-  padding: 1rem 1rem;
-
+  padding: 10px;
   border-radius: 8px;
   background: var(--gray-gray_400, #333);
 }
@@ -87,21 +84,25 @@
 }
 
 .card-inner {
-  padding: 0.5rem 1rem;
+  padding: 5px 10px;
+  /* FIXME: 왜 리젝시키려했는지 확인 */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 1rem;
+  gap: 10px;
+  padding-bottom: 10px;
+  /* FIXME: 왜 리젝시키려했는지 확인 */
 }
 
 .card-img {
-  width: 82.963px;
-  height: 82.963px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: url("src/assets/default.svg") lightgray 50% / cover no-repeat;
+  /* background: url("src/assets/default.svg") lightgray 50% / cover no-repeat; */
+  object-fit: cover; /* 이미지가 찌그러지지 않고 비율을 유지하며 채움 */
+  background-color: var(--black-black_200); /* 이미지가 없을 때 배경색 */
 }
 
 .card-text {
@@ -109,19 +110,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 4px;
 }
 
-.company-name {
+.card-name {
+  max-width: 114px;
   color: #fff;
-  /* text-align: center; */
-  font-size: 1.6rem;
+  text-align: center;
+  font-size: 16px;
   font-weight: 500;
-  max-width: 10.5rem;
-  /* TODO: 2줄까지 줄바꿈 가능하도록 설정 */
+  white-space: nowrap; /* 텍스트가 다음 줄로 넘어가지 않도록 방지 */
+  overflow: hidden; /* 내용이 넘치면 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 "..."으로 표시  */
+  /* FIXME: 2줄 까지는 출력하도록 변경 */
 }
 
-.company-category {
+.card-category {
   color: #747474;
-  font-size: 1.4rem;
+  font-size: 14px;
   font-weight: 500;
+}
+
+.card-main-nothing {
+  color: var(--gray-gray_200, #747474);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
 }

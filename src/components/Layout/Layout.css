@@ -1,27 +1,27 @@
 main {
   min-height: 100vh;
   background: var(--black-black_400, #131313);
-  padding: 0 1.6rem;
-  padding-top: 8rem;
+  padding: 0 16px;
+  padding-top: 80px;
 }
 
 .inner-container {
-  max-width: 120rem;
+  max-width: 1200px;
   margin: 0 auto;
-  min-height: 10rem;
-  padding: 0 1.6rem;
+  min-height: 100px;
+  padding: 0 16px;
 }
 
 @media (max-width: 768px) {
   main {
-    padding: 0 2.4rem;
-    padding-top: 6rem; /* 헤더 높이에 맞춤 */
+    padding: 0 24px;
+    padding-top: 60px; /* 헤더 높이에 맞춤 */
   }
 }
 
 @media (max-width: 480px) {
   main {
-    padding: 0 1.6rem;
-    padding-top: 5.6rem; /* 헤더 높이에 맞춤 */
+    padding: 0 16px;
+    padding-top: 56px; /* 헤더 높이에 맞춤 */
   }
 }
