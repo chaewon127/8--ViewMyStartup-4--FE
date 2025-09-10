@@ -166,3 +166,16 @@
   align-items: center;
   border: 0;
 }
+
+.one-btn-popup {
+  padding: 24px;
+  width: 496px;
+}
+
+.modal-message {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+}
