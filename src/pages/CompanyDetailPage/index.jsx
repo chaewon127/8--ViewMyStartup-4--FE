@@ -2,10 +2,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
 import ModalPassword from '@/components/modals/ModalPassword';
+import OneButtonPopup from '@/components/modals/OneButtonPopup';
 import './CompanyDetailPage.css';
 
 // 개발 프리뷰 데이터
 const DEV_PREVIEW = import.meta.env.DEV;
+
+const DEV_DELETE_PASSWORD = '0000';
 
 const DEV_COMPANY = {
   id: 'preview',
@@ -71,6 +74,22 @@ export default function CompanyDetailPage() {
   const [pwdSubmitting, setPwdSubmitting] = React.useState(false);
   const [pwdError, setPwdError] = React.useState('');
 
+  const [onePopup, setOnePopup] = React.useState({
+    open: false,
+    message: '',
+    buttonLabel: '확인',
+    onClick: null,
+  });
+  const showPopup = (message, options = {}) => {
+    setOnePopup({
+      open: true,
+      message,
+      buttonLabel: options.buttonLabel || '확인',
+      onClick: typeof options.onClick === 'function' ? options.onClick : null,
+    });
+  };
+  const closePopup = () => setOnePopup((s) => ({ ...s, open: false }));
+
   // (API 확정 후 연결 예정)
   React.useEffect(() => {
     // async function load()
@@ -89,7 +108,9 @@ export default function CompanyDetailPage() {
     setOpenMenuRowId(null);
   };
 
-  const handleOpenCreateInvestment = () => { };
+  const handleOpenCreateInvestment = () => {
+    showPopup('준비 중입니다.', { buttonLabel: '닫기' });
+  };
   const handleEdit = (row) => { };
   const handleDelete = (row) => {
     setPwdTargetRow(row);
@@ -255,8 +276,17 @@ export default function CompanyDetailPage() {
             try {
               setPwdSubmitting(true);
               setPwdError('');
-              // await deleteInvestment({ id: pwdTargetRow.id, password });
 
+              if (DEV_PREVIEW) {
+                await new Promise((r) => setTimeout(r, 300));
+                if (password !== DEV_DELETE_PASSWORD) {
+                  setPwdModalOpen(false);
+                  showPopup('잘못된 비밀번호로 삭제에 실패하셨습니다.', { buttonLabel: '확인' });
+                  return;
+                }
+              } else {
+                // await deleteInvestment({ id: pwdTargetRow.id, password });
+              }
               setInvestments((prev) => {
                 const next = prev.filter((v) => v.id !== pwdTargetRow.id);
                 const nextTotalPages = Math.max(1, Math.ceil(next.length / pageSize));
@@ -264,11 +294,23 @@ export default function CompanyDetailPage() {
                 return next;
               });
               setPwdModalOpen(false);
+              showPopup('삭제가 완료되었습니다.', { buttonLabel: '확인' });
             } catch (e) {
               setPwdError('비밀번호가 일치하지 않습니다.');
             } finally {
               setPwdSubmitting(false);
             }
+          }}
+        />
+
+        <OneButtonPopup
+          isOpen={onePopup.open}
+          onClose={closePopup}
+          message={onePopup.message}
+          buttonLabel={onePopup.buttonLabel}
+          onButtonClick={() => {
+            if (onePopup.onClick) onePopup.onClick();
+            closePopup();
           }}
         />
       </div>
