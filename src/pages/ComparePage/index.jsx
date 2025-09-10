@@ -282,6 +282,7 @@ export default function ComparePage() {
                       <div className="corp-name">{corp.name}</div>
                     </div>
                     <div className="grid-cell">{corp.intro}</div>
+                    {/* FIXME: 기업 소개도 두줄까지만 허용하고 ellipsis */}
                     <div className="grid-cell">{corp.category}</div>
                     <div className="grid-cell">{corp.investment}</div>
                     <div className="grid-cell">{corp.revenue}</div>
@@ -290,13 +291,13 @@ export default function ComparePage() {
                 );
               })}
             </div>
-            {/* </div> */}
-        <div className="btn-center">
-              <LargeButton onClick={() => setIsModalOpen(true)}>
-                나의 기업에 투자하기
-              </LargeButton>
-            </div>
           </section>
+          {/* </div> */}
+          <div className="btn-center">
+            <LargeButton onClick={() => setIsModalOpen(true)}>
+              나의 기업에 투자하기
+            </LargeButton>
+          </div>
         </>
       ) : (
         <></>
