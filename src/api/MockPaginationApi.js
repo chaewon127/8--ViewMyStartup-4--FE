@@ -1,4 +1,5 @@
 import MOCK_COMPANIES from "./mockCompanies";
+import MOCK_INVESTED_COMPANIES from "../components/modals/mockInvestedCompanies";
 
 export async function fetchCorpData({ offset, limit, order }) {
   return new Promise((resolve) => {
@@ -52,4 +53,8 @@ export async function fetchCorpData({ offset, limit, order }) {
       totalCount: sortedData.length,
     });
   });
+}
+
+export async function fetchInvestedCompanies() {
+  return new Promise((resolve) => resolve({ data: MOCK_INVESTED_COMPANIES }));
 }

@@ -1,25 +1,25 @@
-import React from 'react';
-import './Button.css';
+import React from "react";
+import "./Button.css";
 
 export default function MediumButton({
   childern,
-  variant = 'active',
+  variant = "active",
   disabled = false,
   fullWidth = false,
-  type = 'button',
+  type = "button",
   onClick,
-  className = '',
+  className = "",
 }) {
   const classes = [
-    'vms-btn',
-    'vms-btn--md',
+    "vms-btn",
+    "vms-btn--md",
     `vms-btn--md-${variant}`,
-    fullWidth ? 'is-block' : '',
-    disabled ? 'is-disabled' : '',
+    fullWidth ? "is-block" : "",
+    disabled ? "is-disabled" : "",
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <button
@@ -28,7 +28,7 @@ export default function MediumButton({
       disabled={disabled}
       onClick={onClick}
     >
-      <span className='vms-btn__label'>{childern}</span>
+      <span className="vms-btn__label">{childern}</span>
     </button>
   );
 }

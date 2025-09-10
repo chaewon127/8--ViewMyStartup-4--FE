@@ -122,6 +122,46 @@
   line-height: normal;
 }
 
+.modal-error {
+  color: var(--red-red_C41013, #c41013);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.modal-padding {
+  padding: 5px 0;
+}
+
+.modal-padding.modal-pagination {
+  padding-top: 15px;
+}
+
+.modal-nothing {
+  color: var(--gray-gray_200, #d8d8d8);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.select-label {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 6px;
+  padding-bottom: 8px;
+}
 .modal-body {
   padding: 24px;
 }

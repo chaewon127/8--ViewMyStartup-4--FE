@@ -1,21 +1,21 @@
 /* Dropdown 전체 컨테이너 */
-.dropdown {
+.vms-dropdown {
   position: relative; /* dropdownlist 기준점 */
   display: inline-block;
   /* display: flex; */
 }
 
 /* DropdownTrigger 버튼 스타일 */
-.dropdown-trigger {
+.vms-dropdown-trigger {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 5px;
   flex-shrink: 0;
-  padding: 1.2rem 1.6rem;
+  padding: 12px 16px;
 
   border: 1px solid var(--gray-gray_200, #747474);
-  border-radius: 1rem;
+  border-radius: 10px;
   background: var(--black-black_400, #131313);
   cursor: pointer;
 
@@ -23,11 +23,11 @@
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
-  min-width: 14.6rem;
+  min-width: 146px;
 }
 
 /* 옵션 리스트 ul 태그 스타일 */
-.dropdown-list {
+.vms-dropdown-list {
   position: absolute;
   top: 100%;
   left: 0;
@@ -40,7 +40,7 @@
 }
 
 /* 옵션 아이템 li 태그 스타일 */
-.dropdown-item {
+.vms-dropdown-item {
   width: 100%;
   padding: 12px 26px;
 
@@ -58,25 +58,25 @@
 }
 
 /* 아이템 간 border가 겹쳐 두꺼워지는 현상 방지 */
-.dropdown-item + .dropdown-item {
+.vms-dropdown-item + .vms-dropdown-item {
   margin-top: -1px; /* 아이템 사이의 border가 겹치도록 음수 마진 적용 */
 }
 
 /* 첫 번째 아이템의 상단 모서리를 둥글게 */
-.dropdown-item:first-child {
+.vms-dropdown-item:first-child {
   border-radius: 10px 10px 0 0;
 }
 
 /* 마지막 아이템의 하단 모서리를 둥글게 */
-.dropdown-item:last-child {
+.vms-dropdown-item:last-child {
   border-radius: 0 0 10px 10px;
 }
 
 /* 아이템에 마우스를 올렸을 때 스타일 */
-.dropdown-item:hover {
+.vms-dropdown-item:hover {
   background-color: #2c2c2c; /* hover 시 배경 강조 */
 }
 
-.dropdown-item.active {
+.vms-dropdown-item.active {
   font-weight: 700;
 }

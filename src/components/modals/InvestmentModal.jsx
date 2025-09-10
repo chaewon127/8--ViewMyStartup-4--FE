@@ -2,7 +2,7 @@ import { useState } from "react";
 import LabelInput from "@/components/LabelInput";
 import Modal from "./Modal";
 
-function ModalInvest({ isOpen, company, onClose }) {
+function InvestmentModal({ isOpen, company, onClose }) {
   const [investor, setInvestor] = useState("");
   const [amount, setAmount] = useState("");
   const [comment, setComment] = useState("");
@@ -12,7 +12,9 @@ function ModalInvest({ isOpen, company, onClose }) {
   // 비밀번호 일치 여부 확인
   const isPasswordMatching = password === passwordConfirm;
   const passwordError =
-    passwordConfirm && !isPasswordMatching ? "비밀번호가 일치하지 않습니다." : "";
+    passwordConfirm && !isPasswordMatching
+      ? "비밀번호가 일치하지 않습니다."
+      : "";
 
   // 모든 필수 필드가 채워졌는지 확인
   const isFormValid =
@@ -29,11 +31,14 @@ function ModalInvest({ isOpen, company, onClose }) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title='기업에 투자하기'
+      title="기업에 투자하기"
       footer={{
         cancelText: "취소",
         confirmText: "투자하기",
-        onConfirm: () => console.log("투자 실행"), // 실제 투자 로직 연결
+        onConfirm: () => {
+          console.log("투자 실행");
+          onClose(); // FIXME: 추후 1button 알림 가능 추가
+        }, // 실제 투자 로직 연결
         isConfirmDisabled: !isFormValid,
       }}
     >
@@ -92,4 +97,4 @@ function ModalInvest({ isOpen, company, onClose }) {
   );
 }
 
-export default ModalInvest;
+export default InvestmentModal;

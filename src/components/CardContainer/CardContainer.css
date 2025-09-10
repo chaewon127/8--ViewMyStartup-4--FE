@@ -1,0 +1,139 @@
+/* CardContainer, CardAdded용 CSS */
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.title {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.desc {
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-radius: 4px;
+  background: var(--black-black_300, #212121);
+  padding: 8px;
+  min-height: 250px;
+}
+
+.add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.add-card > div {
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* CardAdded.jsx */
+
+.card-added {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 126px; /* 최소 너비 역할 */
+  flex-shrink: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--gray-gray_400, #333);
+}
+
+.minus-icon {
+  display: flex;
+  justify-content: end;
+}
+
+.card-inner {
+  padding: 5px 10px;
+  /* FIXME: 왜 리젝시키려했는지 확인 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  /* FIXME: 왜 리젝시키려했는지 확인 */
+}
+
+.card-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  /* background: url("src/assets/default.svg") lightgray 50% / cover no-repeat; */
+  object-fit: cover; /* 이미지가 찌그러지지 않고 비율을 유지하며 채움 */
+  background-color: var(--black-black_200); /* 이미지가 없을 때 배경색 */
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-name {
+  max-width: 114px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap; /* 텍스트가 다음 줄로 넘어가지 않도록 방지 */
+  overflow: hidden; /* 내용이 넘치면 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 "..."으로 표시  */
+  /* FIXME: 2줄 까지는 출력하도록 변경 */
+}
+
+.card-category {
+  color: #747474;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card-main-nothing {
+  color: var(--gray-gray_200, #747474);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
