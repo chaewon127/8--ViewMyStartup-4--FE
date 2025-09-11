@@ -17,7 +17,7 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // 필요 시 쿠키 전송
+  // withCredentials: true, // 필요 시 쿠키 전송
 });
 
 // 5. 요청 인터셉터 (Request Interceptor)

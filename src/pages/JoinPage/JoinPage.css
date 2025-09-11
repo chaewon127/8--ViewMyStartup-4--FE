@@ -1,0 +1,145 @@
+/* 페이지 컨테이너 (전역 배경은 프로젝트 공통값 사용) */
+.join-page {
+  min-height: 100vh;
+  padding-top: 80px; /* fixed header 보정 */
+}
+
+.join-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px 80px;
+}
+
+/* 로고: 로그인 페이지 요구사항과 동일하게 맞춤
+   - 너비 160px
+   - margin: 0 auto 24px
+   - 높이는 비율 유지(auto) */
+.auth-logo {
+  display: block;
+  width: 160px;
+  height: auto;
+  margin: 0 auto 24px;
+}
+
+/* 카드(로그인 모달 톤과 동일) */
+.join-wrap {
+  width: 100%;
+  max-width: 420px;       /* 로그인과 동일 폭 */
+  margin: 0 auto;
+  background: #2e2e2e;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 제목: 중앙정렬, 16px로 상향(요구사항) */
+.join-title {
+  margin: 2px 0 14px;
+  color: #fff;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 라벨 */
+.label {
+  display: block;
+  margin: 10px 0 6px;
+  color: #cfcfcf;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 인풋 공통(로그인과 동일 색감) */
+.input-wrap { position: relative; }
+.input-wrap input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+.input-wrap input::placeholder { color: #8c8c8c; }
+.input-wrap input:focus { border-color: #3a3a3a; }
+
+/* 비밀번호 눈 아이콘(배경 제거) */
+.input-wrap.with-icon input { padding-right: 40px; }
+.btn-eye {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.btn-eye img { width: 24px; height: 24px; }
+
+/* 에러 */
+.input-wrap.error input { border-color: #ff5a5a; }
+.field-error {
+  margin: 6px 0 0;
+  color: #ff6b6b;
+  font-size: 12px;
+}
+
+/* 약관 */
+.agree-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 6px;
+  color: #cfcfcf;
+  font-size: 13px;
+}
+.agree-row input { width: 14px; height: 14px; }
+
+/* 버튼 — 활성/비활성 구분, 요구 색상 적용 */
+.join-btn {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: #eb5230;   /* 활성 */
+  cursor: pointer;
+  transition: opacity .15s ease;
+}
+.join-btn:disabled {
+  background: #3a3a3a;   /* 비활성 배경(요청) */
+  color: #9a9a9a;        /* 비활성 텍스트(요청) */
+  cursor: not-allowed;
+  opacity: 1;            /* 흐려지지 않게 고정 */
+}
+
+/* 하단 링크 */
+.join-bottom {
+  margin: 12px 0 2px;
+  text-align: center;
+  font-size: 12px;
+  color: #bdbdbd;
+}
+.join-bottom a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* 유틸 */
+.mt16 { margin-top: 16px; }
