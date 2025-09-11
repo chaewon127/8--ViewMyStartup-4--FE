@@ -3,6 +3,7 @@ import LabelInput from "@/components/LabelInput";
 import Modal from "./Modal";
 import OneButtonPopup from "./OneButtonPopup";
 import { postMyCorp, patchMyCorp } from "@/api/invest";
+import { postInvestCorp } from "@/api/compare";
 
 function InvestmentModal({ isOpen, company, onClose, initialData }) {
   const isEditMode = !!initialData; // 수정 모달이니?
@@ -16,9 +17,9 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
   // initialData가 변경되면 상태를 다시 초기화합니다. // FIXME: 이거 굳이 필요?
   useEffect(() => {
     if (initialData) {
-      setInvestor(initialData.investor || "");
-      setAmount(initialData.amount || "");
-      setComment(initialData.comment || "");
+      setInvestor(initialData?.investor || "");
+      setAmount(initialData?.amount || "");
+      setComment(initialData?.comment || "");
     }
   }, [initialData]);
 
@@ -56,6 +57,7 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
         await patchMyCorp(initialData.id, payload); // 수정 API 호출
       } else {
         await postMyCorp(company.id, payload); // 생성 API 호출
+        await postInvestCorp(company.id);
       }
       setIsModalOpen(true); // 성공 시에만 팝업을 띄웁니다.
     } catch (error) {

@@ -16,8 +16,9 @@ const instance = axios.create({
   // 모든 요청에 기본으로 포함될 헤더입니다.
   headers: {
     "Content-Type": "application/json",
+    "Cache-Control": "no-cache", // 캐시 비활성화
   },
-  withCredentials: true, // 필요 시 쿠키 전송
+  // withCredentials: true, // 필요 시 쿠키 전송
 });
 
 // 5. 요청 인터셉터 (Request Interceptor)

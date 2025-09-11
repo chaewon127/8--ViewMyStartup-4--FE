@@ -5,7 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import Pagination from "@/components/Pagination";
 import "../../components/modals/Modal.css";
 import CompanySelectRow from "../CompanySelectRow";
-import { getMyCorpList } from "@/api/compare";
+import { getMyCorpList, postMyCorp } from "@/api/compare";
 
 const RECENT_SELECTIONS_KEY = "recentMyCompanySelections"; // 오잉 이건 왜?
 const MAX_RECENT_SELECTIONS = 5; // 이건 왜?
@@ -32,33 +32,10 @@ export default function MyCompanyModal({
     setPage(1); // 검색 시 첫 페이지로 이동
   };
 
-  // 검색 결과 목록
-  const filteredData = useMemo(() => {
-    const searchQuery = keyword.trim(); // 양쪽 공백 제거
-    if (!searchQuery) return data;
-    // 항상 전체 data를 기준으로 필터링
-    return data.filter((company) => company.name.includes(searchQuery));
-  }, [keyword, data]); // 페이지 변경 시 data가 업데이트
-
-  // 모달이 열릴 때 localStorage에서 최근 선택 목록 불러오기
-  useEffect(() => {
-    if (isOpen) {
-      // 1. 최근 선택 목록 불러오기 (캐싱)
-      const stored = localStorage.getItem(RECENT_SELECTIONS_KEY);
-      if (stored) {
-        // 캐시가 있으면?
-        setRecentSelections(JSON.parse(stored));
-      }
-      // // 2. 내가 투자한 기업 목록 불러오기 (API 호출)
-      // fetchInvestedCompanies().then((res) => {
-      //   setInvestedCompanies(res.data);
-      // });
-      // FIXME: 내가 투자한 데이터? 최근 투자한 데이터? API 호출
-    }
-  }, [isOpen]);
-
   // 기업 선택 시 처리 함수
-  const handleSelectCompany = (company) => {
+  const handleSelectCompany = async (company) => {
+    await postMyCorp(company.id);
+
     // 1. 최근 선택 목록 업데이트
     const updatedRecent = [
       company, // 현재 선택한 기업 추가
@@ -75,21 +52,35 @@ export default function MyCompanyModal({
     onClose();
   };
 
+  // 모달이 열릴 때 localStorage에서 최근 선택 목록 불러오기
   useEffect(() => {
-    getMyCorpList({
-      // 예: page=1 -> offset=0
-      offset: (page - 1) * limit,
-      limit: limit,
-      order: "investment_desc",
-    }).then((res) => {
-      // 백엔드에서 { data: [...], totalCount: ... } 형식으로 응답한다고 가정합니다.
-      setData(res.data.data);
-      setTotal(res.data.totalCount);
-    });
-  }, [page]);
+    // 1. 최근 선택 목록 불러오기 (캐싱)
+    const stored = localStorage.getItem(RECENT_SELECTIONS_KEY);
+    if (stored) {
+      setRecentSelections(JSON.parse(stored));
+    }
 
-  // 렌더링할 목록: 검색어가 있으면 필터링된 결과를, 없으면 전체 데이터를 사용
-  const listToRender = keyword.trim() ? filteredData : data;
+    const fetchMyCorpData = async () => {
+      try {
+        // 2. 전체 기업 목록 불러오기
+        const res = await getMyCorpList({
+          offset: (page - 1) * limit,
+          limit: limit,
+          order: "investment_desc",
+          keyword: keyword.trim(),
+        });
+        // 새로운 API 응답 구조에 맞게 수정: res.data.corps.compareCorps, res.data.corps.total
+        setData(res.data.corps?.compareCorps || []);
+        setTotal(res.data.corps?.total || 0);
+      } catch (error) {
+        console.error("나의 기업 목록 조회 중 오류:", error);
+      }
+    };
+
+    fetchMyCorpData();
+  }, [page, isOpen, keyword]);
+
+  const listToRender = data;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
@@ -116,21 +107,38 @@ export default function MyCompanyModal({
           {investedCompanies.length > 0 &&
             investedCompanies.map((company) => (
               <CompanySelectRow
-                key={company.id}
-                company={company}
+                key={company.id} // API 응답 데이터의 키를 컴포넌트 props에 맞게 매핑
+                company={{
+                  id: company.id,
+                  name: company.corp_name,
+                  category: company.corp_tag,
+                  logoUrl: company.logoUrl,
+                }}
                 onClick={() => handleSelectCompany(company)}
               />
             ))}
 
           {/* 최근 선택한 기업 목록 (투자한 기업이 없을 때만 표시) */}
           {investedCompanies.length === 0 &&
-            recentSelections.map((company) => (
-              <CompanySelectRow
-                key={company.id}
-                company={company}
-                onClick={() => handleSelectCompany(company)}
-              />
-            ))}
+            recentSelections.map((company) => {
+              // recentSelections는 이미 프론트엔드 객체 형식이거나 API 형식이거나 둘 다일 수 있습니다.
+              // company.name이 있는지 확인하여 안전하게 처리합니다.
+              const companyProps = company.name
+                ? company
+                : {
+                    id: company.id,
+                    name: company.corp_name,
+                    category: company.corp_tag,
+                    logoUrl: company.logoUrl,
+                  };
+              return (
+                <CompanySelectRow
+                  key={company.id}
+                  company={companyProps}
+                  onClick={() => handleSelectCompany(company)}
+                />
+              );
+            })}
 
           {investedCompanies.length === 0 && recentSelections.length === 0 && (
             <div className="modal-nothing">최근 선택한 기업이 없습니다.</div>
@@ -141,15 +149,19 @@ export default function MyCompanyModal({
         <section style={{ marginTop: 16 }}>
           {/* 검색어 유무에 따라 제목 변경 */}
           <h4 className="select-label">
-            {keyword.trim() // 검색어가 있으면 검색 결과, 없으면 전체 기업 표시
-              ? `검색 결과 (${filteredData.length})`
-              : `전체 기업 (${total})`}
+            {keyword.trim() ? `검색 결과 (${total})` : `전체 기업 (${total})`}
           </h4>
-          {listToRender.map((company) => {
+          {listToRender?.map((company) => {
             return (
               <CompanySelectRow
                 key={company.id}
-                company={company}
+                // API 응답 데이터의 키를 컴포넌트 props에 맞게 매핑
+                company={{
+                  id: company.id,
+                  name: company.corp_name,
+                  category: company.corp_tag,
+                  logoUrl: company.logoUrl, // logoUrl은 이미 올바른 키라고 가정
+                }}
                 // 기업 선택 시 handleSelectCompany 호출
                 onClick={() => handleSelectCompany(company)}
               />

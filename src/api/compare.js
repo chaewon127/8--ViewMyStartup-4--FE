@@ -5,31 +5,79 @@ import instance from "@/lib/axios";
  * @param {object} params - 페이지네이션, 정렬 정보
  * 예: { page: 1, limit: 10 }
  */
-export const getMyCorpList = (params) => instance.get("/compare", { params });
+export const getMyCorpList = (params) =>
+  instance.get("/compare/mycorpinfo", { params });
 
 /**
  * 내 기업 선택 모달 전체 기업 목록 조회
  * @param {object} params - 페이지네이션, 정렬 정보
  * 예: { page: 1, limit: 10 }
  */
-export const getCompareCorpList = (id, params) =>
-  instance.get(`/compare/${id}`, { params });
+export const getCompareCorpList = (params) =>
+  instance.get(`/compare/corpinfo`, { params });
 
 /**
- * 특정 기업 비교 선택 & 옵션 카운트
+ * 나의 기업 비교 선택
  * @param {string|number} id - 기업 ID
  * @param {object} payload - 옵션 데이터 (예: { option: "A" })
  */
-export const postMyCorp = (id, payload) =>
-  instance.post(`/compare/mycorpinfo/${id}`, payload);
+export const postMyCorp = (id) => instance.post(`/compare/mycorpinfo/${id}`);
 
 /**
- * 나의 기업 비교 선택 & 옵션 카운트
+ * 비교 기업 비교 선택
  * @param {string|number} id - 기업 ID
  * @param {object} payload - 옵션 데이터 (예: { option: "A" })
  */
-export const postCompareCorp = (id, payload) =>
-  instance.post(`/compare/corpinfo/${id}`, payload);
+export const postCompareCorp = (id) => instance.post(`/compare/corpinfo/${id}`);
+
+/**
+ * 나의 기업 옵션 카운트
+ * @param {string|number} id - 기업 ID
+ * @param {object} payload - 옵션 데이터 (예: { option: "A" })
+ */
+export const postMyCorpCount = (id) =>
+  instance.post(`/compare/myoptioncount/${id}`);
+
+/**
+ * 비교 기업 옵션 카운트
+ * @param {string|number} id - 기업 ID
+ * @param {object} payload - 옵션 데이터 (예: { option: "A" })
+ */
+export const postCompareCorpCount = (id) =>
+  instance.post(`/compare/optioncount/${id}`);
+
+/**
+ * 나의 기업 삭제
+ * @param {string|number} id - 기업 ID
+ * @param {object} payload - 옵션 데이터 (예: { option: "A" })
+ */
+export const deleteMyCorp = (id) =>
+  instance.delete(`/compare/mycorpinfo/${id}`);
+
+/**
+ * 비교 기업 삭제
+ * @param {string|number} id - 기업 ID
+ * @param {object} payload - 옵션 데이터 (예: { option: "A" })
+ */
+export const deleteCompareCorp = (id) =>
+  instance.delete(`/compare/corpinfo/${id}`);
+
+/**
+ * 나의 기업 테이블 초기화
+ */
+export const deleteMyCorpAll = () => instance.delete(`/compare/mycorpinfo`);
+
+/**
+ * 비교 기업 테이블 초기화
+ */
+export const deleteCompareCorpAll = () => instance.delete(`/compare/corpinfo`);
+
+/**
+ * 결과 get 직전 옵션
+ * @param {object} params - 페이지네이션, 정렬 정보
+ * 예: { sort: "asc" }
+ */
+export const postCorpCount = (id) => instance.get(`/compare/optioncount/${id}`);
 
 /**
  * 비교 결과 목록 조회
@@ -39,13 +87,18 @@ export const postCompareCorp = (id, payload) =>
 export const getCompareList = (params) =>
   instance.get("/compare/comparerank", { params });
 
-/*
-// 기업 비교 현황  랭킹 추가해서 조회
-GET http://localhost:3000/compare/comparerank
+/**
+ * 순위 결과 목록 조회
+ * @param {object} params - 페이지네이션, 정렬 정보
+ * 예: { sort: "asc" }
+ */
+export const getRankList = ({ order }) =>
+  instance.get("/compare/comparerank", { params: { sort: order } });
 
-// 기업 비교 현황 랭킹없이 조회
-GET http://localhost:3000/compare/compareorder
-
-// 기업 비교 현황 그냥 합산해서 조회
-GET http://localhost:3000/compare/comparetotal
-*/
+/**
+ * 기업 투자하기 옵션 카운트
+ * @param {string|number} id - 기업 ID
+ * @param {object} payload - 옵션 데이터 (예: { option: "A" })
+ */
+export const postInvestCorp = (id, payload) =>
+  instance.post(`/compare/myoptioncount/${id}`, payload);

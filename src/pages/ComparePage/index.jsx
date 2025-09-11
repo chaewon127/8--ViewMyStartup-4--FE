@@ -3,10 +3,17 @@ import CardContainer from "../../components/CardContainer";
 import LargeButton from "@/components/LargeButton";
 import "./ComparePage.css";
 import Pagination from "@/components/Pagination";
-import { fetchCorpData } from "@/api/MockPaginationApi";
 import Dropdown from "@/components/Dropdown";
 import InvestmentModal from "@/components/modals/InvestmentModal";
-import { getCompareList, postMyCorp, postCompareCorp } from "@/api/compare";
+import {
+  getCompareList,
+  getRankList,
+  deleteMyCorpAll,
+  deleteCompareCorpAll,
+  postMyCorpCount,
+  postCompareCorpCount,
+  deleteCompareCorp,
+} from "@/api/compare";
 
 export default function ComparePage() {
   // --- 상태 관리 --- //
@@ -37,18 +44,19 @@ export default function ComparePage() {
     { value: "employeeLowest", label: "사원 적은 순" },
   ];
 
-  // --- 데이터 로딩 ---
+  // --- 데이터 로딩 & 초기화 ---
+  // 페이지가 처음 로드될 때 서버의 선택 목록을 초기화
   useEffect(() => {
-    // '기업 순위 확인하기' 테이블의 정렬 기준(rankOrder)이 바뀔 때마다
-    // 전체 기업 데이터를 새로 가져와서 순위를 매길 수 있도록
-    fetchCorpData({
-      offset: 0,
-      limit: 100, // 순위 비교를 위해 충분한 데이터를 가져옵니다.
-      order: rankOrder, // '기업 순위 확인하기' 테이블의 정렬 기준을 사용
-    }).then((res) => {
-      setData(res.data);
-    });
-  }, [rankOrder]); // '기업 순위' 테이블의 정렬 순서가 바뀌면 API를 다시 호출. rankedComparisonList에서 순위 매기는데 사용하기 때문에 useEffect에 rankOrder는 꼭 필요함
+    const initialize = async () => {
+      try {
+        // await deleteMyCorpAll();
+        // await deleteCompareCorpAll();
+      } catch (error) {
+        console.error("초기화 중 오류 발생:", error);
+      }
+    };
+    initialize();
+  }, []);
 
   // 나의 기업 또는 비교 기업 목록이 변경되면, 비교 버튼을 다시 표시하고 이전 비교 결과를 초기화 FIXME: 흠 내 기업 카드 변경이 아니면 테이블을 그대로 둘지.. 고민
   useEffect(() => {
@@ -73,28 +81,32 @@ export default function ComparePage() {
     // setShowCompareButton(false);
 
     try {
-      // 1. 나의 기업 POST
-      await postMyCorp(myCompany.id, { option: "A" }); // FIXME: 뭘 보내야할지 차차..!
-
-      // 2. 비교할 기업 POST
+      await postMyCorpCount(myCompany.id);
       await Promise.all(
-        compareCompanies
-          .slice(0, 5)
-          .map((corp) => postCompareCorp(corp.id, { option: "A" }))
+        compareCompanies.map((corp) => postCompareCorpCount(corp.id))
       );
+      // await getCompareList(); // 아래에서 sort 옵션과 함께 호출되므로 중복
+      // await getRankList(); // 아래에서 order 옵션과 함께 호출
 
-      // 3. 비교결과 GET
-      const response = await getCompareList({ sort: "inbestmentHighest" }); // FIXME: 나중에 dropdown이랑 상태 동기화
+      // 3. 비교결과 및 순위 데이터 GET
+      const response = await getCompareList({ sort: compareOrder });
       const compareData = response.data;
 
-      // 4. 화면에 반영
-      setComparisonList(compareData);
+      const rankResponse = await getRankList({ order: rankOrder });
+      setData(rankResponse.data);
+
+      setComparisonList(compareData); // FIXME: 이제 내쪽에서 pagination 목api할 필요 없으니 상태관리 필요 없지 않나?
+
+      // '기업 순위 확인하기' 테이블 데이터 로딩
+      getRankList({ order: rankOrder }).then((res) => {
+        setData(res.data);
+      });
+
       setShowCompareButton(false); // 비교 후 버튼 숨기기
     } catch (error) {
       console.error("기업 비교 API 호출 중 오류: ", error);
       alert("기업 비교 중 오류가 발생하였습니다.");
     }
-      
   };
 
   // --- 메모이제이션을 통한 성능 최적화 ---
@@ -195,13 +207,14 @@ export default function ComparePage() {
   }, []);
 
   // 나의 기업 카드에서 (-) 버튼 클릭 시
-  const handleRemoveMyCompany = () => {
-    setMyCompany(null);
-    setCompareCompanies([]);
+  const handleRemoveMyCompany = async () => {
+    await deleteCompareCorpAll();
+    await deleteMyCorpAll();
   };
 
   // 비교할 기업 카드에서 (-) 버튼 클릭 시
-  const handleRemoveCompareCompany = (companyId) => {
+  const handleRemoveCompareCompany = async (companyId) => {
+    await deleteCompareCorp(companyId);
     setCompareCompanies((prev) =>
       prev.filter((company) => company.id !== companyId)
     );
@@ -226,8 +239,8 @@ export default function ComparePage() {
         companyList={compareCompanies}
         onSelectCompare={handleConfirmCompare}
         onRemove={handleRemoveCompareCompany}
-        isData={compareCompanies.length > 0} // 비교 기업 목록 데이터 여부
-        myCompanyId={myCompany?.id}
+        isData={compareCompanies.length > 0}
+        myCompanyId={myCompany?.id} // myCompany가 null일 수 있으므로 옵셔널 체이닝
       />
 
       {/* 1. 나의 기업, 비교할 기업 둘 다 있을 때만 active, 
@@ -264,7 +277,7 @@ export default function ComparePage() {
                   options={orderOptions}
                 />
               </div>
-              
+
               <div className="grid-table result">
                 <div className="grid-header">
                   <div className="grid-cell">기업명</div>
