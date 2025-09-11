@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { getCompanyList } from '../../api/companyList';
+import Pagination from '../../components/Pagination/index';
 import './HomePage.css';
+import co_codeit from '@/assets/images/mock/co_codeit.svg';
+import co_codestates from '@/assets/images/mock/co_codestates.svg';
+import co_bluecord from '@/assets/images/mock/co_bluecord.svg';
+import co_ccode from '@/assets/images/mock/co_ccode.svg';
+
+const fmt = (v) => new Intl.NumberFormat('ko-KR').format(Number(v ?? 0));
+const pickLogoByName = (name = '') => {
+  if (/코드잇|codeit/i.test(name)) return co_codeit;
+  if (/코드스테이츠|codestates/i.test(name)) return co_codestates;
+  if (/블루|blue|bluecord/i.test(name)) return co_bluecord;
+  if (/씨코드|ccode/i.test(name)) return co_ccode;
+  const n = [...name].reduce((s, c) => s + c.charCodeAt(0), 0) % 4;
+  return [co_codeit, co_codestates, co_bluecord, co_ccode][n];
+};
 
 const SORT_OPTIONS = [
   { value: 'revenueDesc', label: '매출액 높은순' },
@@ -16,10 +32,11 @@ export default function HomePage() {
 
   const [sort, setSort] = useState('revenueDesc');
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(5);
+  const [pageSize] = useState(10);
 
   const [companies, setCompanies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -30,17 +47,14 @@ export default function HomePage() {
       setLoading(true);
       setError('');
       try {
-        // const { list, totalPages } = await companyService.getCompanyList({
-        //   page, pageSize, sort, keyword,
-        // });
-        // if (!cancelled) {
-        //   setCompanies(list);
-        //   setTotalPages(totalPages);
-        // }
+        const { list, totalPages, totalCount } = await getCompanyList({
+          page, pageSize, sort, keyword,
+        });
 
         if (!cancelled) {
-          setCompanies([]);
-          setTotalPages(0);
+          setCompanies(list);
+          setTotalPages(totalPages);
+          setTotalCount(totalCount);
         }
       } catch (e) {
         if (!cancelled) setError('fetch-failed');
@@ -54,10 +68,8 @@ export default function HomePage() {
 
   const handleSubmitSearch = (e) => {
     e.preventDefault();
-    // (API 연동 시) 여기서 setKeyword(keywordInput)만 호출하면 됨.
-    // 지금은 구조만 맞추는 단계라 기존 상태 유지
+    setKeyword(keywordInput.trim());
     setPage(1);
-    setSort(e.target.value);
   };
 
   const handleChangeSort = (e) => {
@@ -66,7 +78,8 @@ export default function HomePage() {
   };
 
   const handlePageChange = (next) => {
-    if (next < 1 || (totalPages && next > totalPages)) return;
+    const computedTotalPages = Math.max(1, Math.ceil((totalCount || 0) / pageSize));
+    if (next < 1 || next > computedTotalPages) return;
     setPage(next);
   };
 
@@ -104,87 +117,82 @@ export default function HomePage() {
         </div>
 
         <section className="list-section">
-          <div className="table-scroll">
-            <table className="company-table">
-              {/* 시안 고정폭을 위한 colgroup */}
-              <colgroup>
-                <col className="colw-rank" />
-                <col className="colw-company" />
-                <col className="colw-summary" />
-                <col className="colw-category" />
-                <col className="colw-invest" />
-                <col className="colw-revenue" />
-                <col className="colw-employees" />
-              </colgroup>
+          <div className="list-grid">
+            <div className="list-head">
+              <div className="cell c1">순위</div>
+              <div className="cell c2">기업 명</div>
+              <div className="cell c3">기업 소개</div>
+              <div className="cell c4">카테고리</div>
+              <div className="cell c5">누적 투자 금액</div>
+              <div className="cell c6">매출액</div>
+              <div className="cell c7">고용 인원</div>
+            </div>
+            <div className="list-body">
+              {loading && (
+                <div className="state-box">불러오는 중...</div>
+              )}
+              {!!error && !loading && (
+                <div className="state-box">데이터를 불러오지 못했습니다.</div>
+              )}
+              {!loading && !error && companies.length > 0 && (
+                <ul className="list">
+                  {companies.map((c, i) => {
+                    const fallback = pickLogoByName(c?.name ?? '');
+                    const logoSrc = c?.corp_image && String(c.corp_image);
+                    return (
+                      <li key={c.id ?? i} className="list-row">
+                        <div className="cell c1">
+                          {c.rank ?? `${(page - 1) * pageSize + i + 1}위`}
+                        </div>
 
-              <thead>
-                <tr>
-                  <th className="col-rank"><span className="th-chip">순위</span></th>
-                  <th className="col-company"><span className="th-chip">기업 명</span></th>
-                  <th className="col-summary"><span className="th-chip">기업 소개</span></th>
-                  <th className="col-category"><span className="th-chip">카테고리</span></th>
-                  <th className="col-invest"><span className="th-chip">누적 투자 금액</span></th>
-                  <th className="col-revenue"><span className="th-chip">매출액</span></th>
-                  <th className="col-employees"><span className="th-chip">고용 인원</span></th>
-                </tr>
-              </thead>
+                        <div className="cell c2">
+                          <span className="company-cell">
+                            <img
+                              src={logoSrc || fallback}
+                              alt={`${c.name ?? ''} 로고`}
+                              className="company-logo"
+                              loading="lazy"
+                              onError={(e) => {
+                                if (e.currentTarget.src !== fallback) {
+                                  e.currentTarget.src = fallback;
+                                } else {
+                                  e.currentTarget.style.visibility = 'hidden';
+                                }
+                              }}
+                            />
+                            <span className="company-name">{c.name ?? '-'}</span>
+                          </span>
+                        </div>
 
-              <tbody>
-                {loading && (
-                  <tr className="state-row">
-                    <td className="state-cell" colSpan={7}>불러오는 중…</td>
-                  </tr>
-                )}
-                {!!error && !loading && (
-                  <tr className="state-row">
-                    <td className="state-cell" colSpan={7}>데이터를 불러오지 못했습니다.</td>
-                  </tr>
-                )}
-                {!loading && !error && companies.length === 0 && (
-                  <tr className="state-row">
-                    <td className="state-cell" colSpan={7}>표시할 데이터가 없습니다.</td>
-                  </tr>
-                )}
+                        <div className="cell c3">
+                          <p className="company-summary">{c.summary ?? '-'}</p>
+                        </div>
 
-                {companies.map((c, i) => (
-                  <tr key={c.id ?? i} className="company-row">
-                    <td className="col-rank">{c.rank ?? `${(page - 1) * pageSize + i + 1}위`}</td>
-                    <td className="col-company">
-                      <div className="company-cell">
-                        {c.logoUrl && (
-                          <img
-                            src={c.logoUrl}
-                            alt={`${c.name} 로고`}
-                            className="company-logo"
-                            onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}
-                          />
-                        )}
-                        <span className="company-name">{c.name ?? '—'}</span>
-                      </div>
-                    </td>
-                    <td className="col-summary">
-                      <p className="company-summary">{c.summary ?? '—'}</p>
-                    </td>
-                    <td className="col-category">{c.category ?? '—'}</td>
-                    <td className="col-invest">{c.investment ?? '—'}</td>
-                    <td className="col-revenue">{c.revenue ?? '—'}</td>
-                    <td className="col-employees">{c.employees ?? '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <div className="cell c4">{c.category ?? '-'}</div>
+                        <div className="cell c5">{fmt(c.investment)}</div>
+                        <div className="cell c6">{fmt(c.revenue)}</div>
+                        <div className="cell c7">{fmt(c.employees)}</div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              {!loading && !error && companies.length === 0 && (
+                <div className="state-box">표시할 데이터가 없습니다.</div>
+              )}
+            </div>
           </div>
-
-          {/* {totalPages > 1 && (
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onChange={handlePageChange}
-            />
-          )} */}
-          <div className="pagination-slot" />
         </section>
+
+        {Math.ceil((totalCount || 0) / pageSize) > 1 && (
+          <Pagination
+            totalItems={totalCount}
+            dataPerPage={pageSize}
+            page={page}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
     </div>
-  )
+  );
 }
