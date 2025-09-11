@@ -97,7 +97,8 @@ export default function CompareCompanyModal({
     return () => {
       onConfirm(selectedList);
     };
-  }, [selectedList, onConfirm]); // 여기 onConfirm은 왜 넣어?
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedList]); // onConfirm은 부모에서 useCallback으로 메모이제이션 되었으므로 의존성에서 제거해도 안전합니다. // FIXME: 왜 onConfirm하면 무한 렌더링이 됐는지 궁금
 
   // 렌더링할 목록: 검색어가 있으면 필터링된 결과를, 없으면 전체 데이터를 사용
   const listToRender = keyword.trim() ? filteredData : data;

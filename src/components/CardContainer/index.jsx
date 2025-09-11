@@ -16,6 +16,9 @@ function CardContainer({
   onSelectCompany, // ComparePage로부터 받을 기업 선택 함수
   onSelectCompare, // ComparePage로부터 받을 비교 기업 선택 함수
   companyList, // ComparePage로부터 받을 비교 기업들 정보
+  onRemove, // ComparePage로부터 받을 카드 제거 함수
+  setMyCompany,
+  setCompareCompanies,
   //isData = false,
 }) {
   const [isMyModalOpen, setIsMyModalOpen] = useState(null);
@@ -27,9 +30,13 @@ function CardContainer({
     setIsCompareModalOpen(true);
   };
 
-  // title에 따라 어떤 모달을 열지 결정합니다.
+  // 나의 기업 컨테이너면 상태 초기화 비교 기업 컨테이너면 모달 open
   const handleButtonClick = title.includes("나의 기업")
-    ? openMyCompanyModal
+    ? () => {
+      setMyCompany(null);
+      setCompareCompanies([]);
+      openMyCompanyModal();
+    } 
     : openCompareCompanyModal;
 
   const handleSelectMyCompanyAndClose = (company) => {
@@ -49,7 +56,8 @@ function CardContainer({
           <div className="title">{title}</div>
           <div className="desc">{desc}</div>
         </div>
-        <LargeButton onClick={handleButtonClick}>{btnName}</LargeButton>
+        {btnName !== '' ? <LargeButton onClick={handleButtonClick}>{btnName}</LargeButton> : <></> }
+        
       </div>
       <div className="card-main">
         {(() => {
@@ -62,6 +70,7 @@ function CardContainer({
                   companyLogo={selectedCompany.logoUrl}
                   companyName={selectedCompany.name}
                   companyCategory={selectedCompany.category}
+                  onRemove={onRemove} // 나의 기업 카드 제거 함수
                 />
               );
             }
@@ -80,6 +89,7 @@ function CardContainer({
                 companyLogo={el.logoUrl}
                 companyName={el.name}
                 companyCategory={el.category}
+                onRemove={() => onRemove(el.id)} // 비교 기업 카드 제거 함수
               />
             ));
           }
