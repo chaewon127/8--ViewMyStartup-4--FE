@@ -4,16 +4,11 @@ import Pagination from "../../components/Pagination";
 import Dropdown from "../../components/Dropdown";
 import "../../components/Dropdown/Dropdown.css";
 
-// 로고 SVG (서버가 로고를 안 줄 때 더미용)
-import co_codeit from "@/assets/images/mock/co_codeit.svg";
-import co_codestates from "@/assets/images/mock/co_codestates.svg";
-import co_bluecord from "@/assets/images/mock/co_bluecord.svg";
-import co_ccode from "@/assets/images/mock/co_ccode.svg";
-
-// ✅ API
+// API
 import { getCorpTotals } from "@/api/corpTotalsApi";
 
-// 숫자 포매터
+import { useNavigate } from "react-router-dom";
+
 const toNum = (v) => Number(String(v ?? 0).replace(/,/g, ""));
 const fmt = (v) => new Intl.NumberFormat("ko-KR").format(Number(v ?? 0));
 
@@ -49,16 +44,6 @@ const BodyCell = ({ children, align = "center", variant = "body" }) => (
   <div className={`td ${align} ${variant}`}>{children}</div>
 );
 
-// 이름으로 간단 로고 매핑(더미)
-const pickLogoByName = (name = "") => {
-  if (/코드잇/i.test(name)) return co_codeit;
-  if (/코드스테이츠/i.test(name)) return co_codestates;
-  if (/블루|blue/i.test(name)) return co_bluecord;
-  if (/씨코드|ccode/i.test(name)) return co_ccode;
-  const n = [...name].reduce((s, c) => s + c.charCodeAt(0), 0) % 4;
-  return [co_codeit, co_codestates, co_bluecord, co_ccode][n];
-};
-
 export default function CompanySelectPage() {
   const [order, setOrder] = useState("my_desc");
   const [page, setPage] = useState(1);
@@ -69,18 +54,22 @@ export default function CompanySelectPage() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => setPage(1), [order]);
 
   useEffect(() => {
     let alive = true;
 
     const normalize = (it, idx) => ({
-      logo: pickLogoByName(it?.corp_name ?? `기업 ${idx + 1}`),
+
+      id: it?.corp_id ?? it?.id ?? String(idx + 1),
       name: it?.corp_name ?? `기업 ${idx + 1}`,
       intro: it?.corp_profile ?? "",
       category: it?.corp_tag ?? "-",
       my: it?.my_compare_total ?? 0,
       compare: it?.compare_total ?? 0,
+      logo: it?.corp_image ?? it?.corp_logo ?? it?.logo ?? null,
     });
 
     (async () => {
@@ -208,7 +197,7 @@ export default function CompanySelectPage() {
             </div>
           </div>
 
-          {/* ✅ 투자 페이지처럼: 상단 배너만 노출 */}
+          {/* 상단 배너만 노출 */}
           {err ? (
             <p className="api-hint error">
               데이터 불러오기 오류(현재 데이터 표시 없음)
@@ -218,7 +207,7 @@ export default function CompanySelectPage() {
           ) : null}
         </div>
 
-        {/* ✅ 테이블은 항상 보이게 */}
+        {/*  테이블은 항상 보이게 */}
         <div className="table-scroll" ref={scrollRef}>
           <div className="table-inner">
             <div className="table-head grid-cols">
@@ -245,11 +234,17 @@ export default function CompanySelectPage() {
                 </div>
               ) : (
                 currentRows.map((it, i) => (
-                  <div className="tr grid-cols" key={`${page}-${i}-${it.name}`}>
+                  <div
+                    className="tr grid-cols row-click"
+                    key={`${page}-${i}-${it.name}`}
+                    onClick={() => it?.id && navigate(`/company/${it.id}`)}
+                  >
                     <BodyCell>{`${startIndex + i + 1}위`}</BodyCell>
                     <BodyCell align="left" variant="company">
                       <div className="company-cell">
-                        <img className="logo" src={it.logo} alt={`${it.name} 로고`} loading="lazy" />
+                        {it.logo ? (
+                          <img className="logo" src={it.logo} alt={`${it.name} 로고`} loading="lazy" />
+                        ) : null}
                         <span className="company-name">{it.name}</span>
                       </div>
                     </BodyCell>

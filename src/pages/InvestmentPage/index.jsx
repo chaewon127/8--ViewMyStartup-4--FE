@@ -4,11 +4,10 @@ import Pagination from "../../components/Pagination";
 import Dropdown from "../../components/Dropdown";
 import "../../components/Dropdown/Dropdown.css";
 
-// 로고 placeholder (API에 로고 없을 때)
-import co_codeit from "@/assets/images/mock/co_codeit.svg";
-
-// ✅ API
+// API
 import { getInvestments } from "@/api/investmentsApi";
+// 추가: 라우터 이동
+import { useNavigate } from "react-router-dom";
 
 // 드롭다운 옵션
 const ORDER_OPTIONS = [
@@ -18,15 +17,13 @@ const ORDER_OPTIONS = [
   { value: "actual_asc", label: "실제 누적 투자 금액 낮은순" },
 ];
 
-// 프론트 → API 쿼리 매핑
 const ORDER_TO_QUERY = {
   vms_desc: { sortBy: "virtual", order: "Highest" },
   vms_asc: { sortBy: "virtual", order: "Lowest" },
-  actual_desc: { sortBy: "amount", order: "Highest" },
-  actual_asc: { sortBy: "amount", order: "Lowest" },
+  actual_desc: { sortBy: "total", order: "Highest" },
+  actual_asc: { sortBy: "total", order: "Lowest" },
 };
 
-// 금액 포맷
 const formatWon = (n) => {
   const num = Number(n || 0);
   if (!isFinite(num)) return "-";
@@ -60,15 +57,17 @@ const BodyCell = ({ children, align = "center", variant = "body" }) => (
 );
 
 export default function InvestmentPage() {
-  // 정렬 & 페이지
+
   const [order, setOrder] = useState("vms_desc");
   const [page, setPage] = useState(1);
   const DATA_PER_PAGE = 10;
 
-  // 서버 데이터
+
   const [rows, setRows] = useState([]); // normalized list
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+
+  const navigate = useNavigate();
 
   // API 호출
   useEffect(() => {
@@ -85,7 +84,7 @@ export default function InvestmentPage() {
       };
 
       try {
-        const { list, /* total */ } = await getInvestments({
+        const { list /* , total */ } = await getInvestments({
           sortBy,
           order: apiOrder,
           offset: 0,
@@ -93,18 +92,10 @@ export default function InvestmentPage() {
           signal: ac.signal,
         });
 
-        // 로고 placeholder 보강
-        setRows(
-          list.map((it) => ({
-            ...it,
-            logo: it.logo || co_codeit,
-          }))
-        );
+        setRows(list);
 
         if ((list?.length ?? 0) === 0) {
-          setErrMsg(
-            "데이터를 불러오는 중입니다…"
-          );
+          setErrMsg("데이터를 불러오는 중입니다…");
         }
       } catch (e) {
         if (e.name === "AbortError") return;
@@ -216,7 +207,7 @@ export default function InvestmentPage() {
             </div>
           </div>
 
-          {loading ? (
+        {loading ? (
             <p className="api-hint">데이터 불러오는 중…</p>
           ) : errMsg ? (
             <p className="api-hint error">
@@ -252,16 +243,20 @@ export default function InvestmentPage() {
                 </div>
               ) : (
                 currentRows.map((it, i) => (
-                  <div className="tr grid-cols" key={`${page}-${it.id}-${i}`}>
+                  <div
+                    className="tr grid-cols row-click"         /* ✅ hover & 커서 */
+                    key={`${page}-${it.id ?? it.corp_id}-${i}`}
+                    onClick={() => {
+                      const id = it?.id ?? it?.corp_id;
+                      if (id) navigate(`/company/${id}`);
+                    }}                                          /* ✅ row 클릭 이동 */
+                  >
                     <BodyCell>{`${startIndex + i + 1}위`}</BodyCell>
                     <BodyCell align="left" variant="company">
                       <div className="company-cell">
-                        <img
-                          className="logo"
-                          src={it.logo || co_codeit}
-                          alt={`${it.name} 로고`}
-                          loading="lazy"
-                        />
+                        {it.corp_image ? (
+                          <img className="logo" src={it.corp_image} alt={`${it.name} 로고`} loading="lazy" />
+                        ) : null}
                         <span className="company-name">{it.name}</span>
                       </div>
                     </BodyCell>
