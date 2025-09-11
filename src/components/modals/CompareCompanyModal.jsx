@@ -79,24 +79,26 @@ export default function CompareCompanyModal({
 
   const tempId = "11111111-aaaa-bbbb-cccc-000000000003";
 
+  // 데이터 로딩: 모달이 열리거나, 페이지, 검색어가 변경될 때 데이터를 다시 불러옵니다.
+  const fetchData = async () => {
+    if (!isOpen) return; // 모달이 닫혀있으면 API를 호출하지 않습니다.
+    try {
+      const res = await getCompareCorpList({
+        offset: (page - 1) * limit,
+        limit: limit,
+        order: "investment_desc",
+        search: keyword.trim(),
+      });
+      setData(res.data.corps?.compareCorpWithRanking || []);
+      setTotal(res.data.corps?.total || 0);
+    } catch (error) {
+      console.error("비교 기업 목록 조회 중 오류:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getCompareCorpList({
-          offset: (page - 1) * limit,
-          limit: limit,
-          order: "investment_desc",
-          keyword: keyword.trim(),
-        });
-        // 실제 API 응답 구조에 맞게 수정: res.data.corps.compareCorpWithRanking, res.data.corps.total
-        setData(res.data.corps?.compareCorpWithRanking || []);
-        setTotal(res.data.corps?.total || 0);
-      } catch (error) {
-        console.error("비교 기업 목록 조회 중 오류:", error);
-      }
-    };
     fetchData();
-  }, [page, isOpen, keyword]);
+  }, [page, keyword, isOpen]);
 
   // 모달이 닫힐 때(unmount) 현재 선택된 목록을 부모 컴포넌트로 전달
   useEffect(() => {
@@ -150,8 +152,8 @@ export default function CompareCompanyModal({
               key={company.id} // API 응답 데이터의 키를 컴포넌트 props에 맞게 매핑
               company={{
                 id: company.id,
-                name: company.corp_name,
-                category: company.corp_tag,
+                name: company.name || company.corp_name, // API 응답(corp_name)과 프론트 상태(name)를 모두 처리
+                category: company.category || company.corp_tag,
                 logoUrl: company.logoUrl, // logoUrl은 이미 올바른 키라고 가정
               }}
               status="remove" // 선택 해제 버튼 스타일 적용

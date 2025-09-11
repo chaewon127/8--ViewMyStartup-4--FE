@@ -46,10 +46,11 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
   /** 투자 요청을 제출하는 함수 */
   const handleInvestSubmit = async () => {
     const payload = {
-      investor,
+      name: investor, // 'investor'를 'name'으로 변경
       amount: Number(amount),
       comment,
       password,
+      passwordConfirm, // passwordConfirm 필드 추가
     };
 
     try {
@@ -85,17 +86,17 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
             <div
               className="company-logo"
               role="img"
-              aria-label={`${company.name} 로고`}
+              aria-label={`${company.corp_image} 로고`}
               style={{
-                backgroundImage: company.logoUrl
-                  ? `url(${company.logoUrl})`
+                backgroundImage: company.corp_image
+                  ? `url(${company.corp_image})`
                   : "none",
               }}
             />
             <div className="company-name modal-company-name">
-              {company.name}
+              {company.corp_name}
             </div>
-            <div className="company-category">{company.category}</div>
+            <div className="company-category">{company.corp_tag}</div>
           </div>
         </div>
         <LabelInput
