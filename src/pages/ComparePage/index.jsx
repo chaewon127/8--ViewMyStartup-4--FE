@@ -227,6 +227,7 @@ export default function ComparePage() {
         onSelectCompare={handleConfirmCompare}
         onRemove={handleRemoveCompareCompany}
         isData={compareCompanies.length > 0} // 비교 기업 목록 데이터 여부
+        myCompanyId={myCompany.id}
       />
 
       {/* 1. 나의 기업, 비교할 기업 둘 다 있을 때만 active, 

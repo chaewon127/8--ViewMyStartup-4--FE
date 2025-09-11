@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "@/components/modals/Modal";
 import SearchBar from "@/components/SearchBar";
-import { fetchCorpData, fetchInvestedCompanies } from "@/api/MockPaginationApi";
+// import { fetchCorpData, fetchInvestedCompanies } from "@/api/MockPaginationApi";
 import Pagination from "@/components/Pagination";
 import "../../components/modals/Modal.css";
 import CompanySelectRow from "../CompanySelectRow";
+import { getMyCorpList } from "@/api/compare";
 
 const RECENT_SELECTIONS_KEY = "recentMyCompanySelections"; // 오잉 이건 왜?
 const MAX_RECENT_SELECTIONS = 5; // 이건 왜?
@@ -48,10 +49,11 @@ export default function MyCompanyModal({
         // 캐시가 있으면?
         setRecentSelections(JSON.parse(stored));
       }
-      // 2. 내가 투자한 기업 목록 불러오기 (API 호출)
-      fetchInvestedCompanies().then((res) => {
-        setInvestedCompanies(res.data);
-      });
+      // // 2. 내가 투자한 기업 목록 불러오기 (API 호출)
+      // fetchInvestedCompanies().then((res) => {
+      //   setInvestedCompanies(res.data);
+      // });
+      // FIXME: 내가 투자한 데이터? 최근 투자한 데이터? API 호출
     }
   }, [isOpen]);
 
@@ -74,7 +76,7 @@ export default function MyCompanyModal({
   };
 
   useEffect(() => {
-    fetchCorpData({
+    getMyCorpList({
       // 예: page=1 -> offset=0
       offset: (page - 1) * limit,
       limit,

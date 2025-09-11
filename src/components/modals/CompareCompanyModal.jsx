@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "@/components/modals/Modal";
 import SearchBar from "@/components/SearchBar";
-import { fetchCorpData } from "@/api/MockPaginationApi";
+// import { fetchCorpData } from "@/api/MockPaginationApi";
 import Pagination from "@/components/Pagination";
 import "../../components/modals/Modal.css";
 import CompanySelectRow from "../CompanySelectRow";
+import { getCompareCorpList } from "@/api/compare";
 
 export default function CompareCompanyModal({
   isOpen,
@@ -12,6 +13,7 @@ export default function CompareCompanyModal({
   title,
   initialSelection = [],
   onConfirm, // 부모로부터 받을 콜백 함수
+  id,
 }) {
   const [keyword, setKeyword] = useState("");
 
@@ -80,7 +82,7 @@ export default function CompareCompanyModal({
   };
 
   useEffect(() => {
-    fetchCorpData({
+    getCompareCorpList(id, {
       // 예: page=1 -> offset=0
       offset: (page - 1) * limit,
       limit,
@@ -105,7 +107,6 @@ export default function CompareCompanyModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}> 
-    {/* ㄴㄴ 이 모달은 버튼이 없어야하는 모달임. 그래서 모달이 꺼질때 selectedList가 compareCompanies 같은데에 저장? 반환? 되어야함 */}
       <div className="modal-body">
         <div className="modal-padding">
           <SearchBar

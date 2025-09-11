@@ -20,6 +20,7 @@ function CardContainer({
   setMyCompany,
   setCompareCompanies,
   //isData = false,
+  myCompanyId,
 }) {
   const [isMyModalOpen, setIsMyModalOpen] = useState(null);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(null);
@@ -117,6 +118,7 @@ function CardContainer({
             title="비교할 기업 선택하기"
             initialSelection={companyList} // 이전에 선택한 목록을 전달
             onConfirm={onSelectCompare} // 모달이 닫힐 때 선택 결과를 부모로 전달
+            id={myCompanyId}
           />
         )}
       </div>
