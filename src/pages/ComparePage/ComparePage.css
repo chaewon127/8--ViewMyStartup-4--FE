@@ -5,6 +5,7 @@ body {
 .compare-page {
   display: flex;
   flex-direction: column;
+  margin-bottom: 80px;
 }
 
 .compare-page > :first-child {
@@ -19,16 +20,23 @@ body {
 .btn-center {
   display: flex;
   justify-content: center;
-  margin: 20px auto;
+  margin-top: 40px;
 }
 
-/* 테이블 섹션 */
+/* 결과 섹션 */
+
+.result-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+}
 
 .table-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 10px auto;
+  /* margin: 10px auto; */
 }
 
 .saction-header {
@@ -128,4 +136,8 @@ body {
   color: #fff;
   font-size: 14px;
   font-weight: 500;
+}
+
+.corp-intro {
+  text-align: left;
 }

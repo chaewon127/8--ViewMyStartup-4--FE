@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "@/components/modals/Modal";
 import SearchBar from "@/components/SearchBar";
-import { fetchCorpData } from "@/api/MockPaginationApi";
+// import { fetchCorpData } from "@/api/MockPaginationApi";
 import Pagination from "@/components/Pagination";
 import "../../components/modals/Modal.css";
 import CompanySelectRow from "../CompanySelectRow";
+import { getCompareCorpList } from "@/api/compare";
 
 export default function CompareCompanyModal({
   isOpen,
@@ -12,6 +13,7 @@ export default function CompareCompanyModal({
   title,
   initialSelection = [],
   onConfirm, // 부모로부터 받을 콜백 함수
+  id,
 }) {
   const [keyword, setKeyword] = useState("");
 
@@ -79,13 +81,19 @@ export default function CompareCompanyModal({
     setSelectedList((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const tempId = "11111111-aaaa-bbbb-cccc-000000000003";
+
   useEffect(() => {
-    fetchCorpData({
-      // 예: page=1 -> offset=0
-      offset: (page - 1) * limit,
-      limit,
-      // order,
-    }).then((res) => {
+    getCompareCorpList(
+      //id
+      tempId,
+      {
+        // 예: page=1 -> offset=0
+        offset: (page - 1) * limit,
+        limit: 5,
+        // order,
+      }
+    ).then((res) => {
       setData(res.data);
       setTotal(res.totalCount);
     });
@@ -97,14 +105,14 @@ export default function CompareCompanyModal({
     return () => {
       onConfirm(selectedList);
     };
-  }, [selectedList, onConfirm]); // 여기 onConfirm은 왜 넣어?
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedList]); // onConfirm은 부모에서 useCallback으로 메모이제이션 되었으므로 의존성에서 제거해도 안전합니다. // FIXME: 왜 onConfirm하면 무한 렌더링이 됐는지 궁금
 
   // 렌더링할 목록: 검색어가 있으면 필터링된 결과를, 없으면 전체 데이터를 사용
   const listToRender = keyword.trim() ? filteredData : data;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title}> 
-    {/* ㄴㄴ 이 모달은 버튼이 없어야하는 모달임. 그래서 모달이 꺼질때 selectedList가 compareCompanies 같은데에 저장? 반환? 되어야함 */}
+    <Modal isOpen={isOpen} onClose={onClose} title={title}>
       <div className="modal-body">
         <div className="modal-padding">
           <SearchBar

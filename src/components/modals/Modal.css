@@ -109,8 +109,11 @@
   font-size: 18px;
   font-weight: 500;
   line-height: normal;
-
   padding: 0 8px 0 12px;
+}
+
+.company-name.modal-company-name {
+  font-size: 20px;
 }
 
 .company-category {
@@ -162,9 +165,10 @@
   padding-top: 6px;
   padding-bottom: 8px;
 }
-.modal-body {
+
+/* .modal-body {
   padding: 24px;
-}
+} */
 
 .form-field {
   display: flex;

@@ -1,11 +1,11 @@
 import MinusIcon from "../../assets/minusIcon.svg";
 
-function CardAdded({ companyLogo, companyName, companyCategory }) {
+function CardAdded({ companyLogo, companyName, companyCategory, onRemove }) {
   return (
     <div className="card-added">
-      <div className="minus-icon">
+      <button className="minus-icon" onClick={onRemove}>
         <img src={MinusIcon} />
-      </div>
+      </button>
       <div className="card-inner">
         <img
           src={companyLogo}
