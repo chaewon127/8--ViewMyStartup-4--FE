@@ -79,10 +79,12 @@ export default function MyCompanyModal({
     getMyCorpList({
       // 예: page=1 -> offset=0
       offset: (page - 1) * limit,
-      limit,
+      limit: limit,
+      order: "investment_desc",
     }).then((res) => {
-      setData(res.data);
-      setTotal(res.totalCount);
+      // 백엔드에서 { data: [...], totalCount: ... } 형식으로 응답한다고 가정합니다.
+      setData(res.data.data);
+      setTotal(res.data.totalCount);
     });
   }, [page]);
 

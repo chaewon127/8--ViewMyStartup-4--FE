@@ -69,9 +69,9 @@ export default function ComparePage() {
       alert("비교할 기업을 1개 이상 선택해주세요!");
       return;
     }
-    setComparisonList([myCompany, ...compareCompanies]);
-    setShowCompareButton(false);
-    /*
+    // setComparisonList([myCompany, ...compareCompanies]);
+    // setShowCompareButton(false);
+
     try {
       // 1. 나의 기업 POST
       await postMyCorp(myCompany.id, { option: "A" }); // FIXME: 뭘 보내야할지 차차..!
@@ -94,7 +94,7 @@ export default function ComparePage() {
       console.error("기업 비교 API 호출 중 오류: ", error);
       alert("기업 비교 중 오류가 발생하였습니다.");
     }
-      */
+      
   };
 
   // --- 메모이제이션을 통한 성능 최적화 ---
@@ -227,7 +227,7 @@ export default function ComparePage() {
         onSelectCompare={handleConfirmCompare}
         onRemove={handleRemoveCompareCompany}
         isData={compareCompanies.length > 0} // 비교 기업 목록 데이터 여부
-        myCompanyId={myCompany.id}
+        myCompanyId={myCompany?.id}
       />
 
       {/* 1. 나의 기업, 비교할 기업 둘 다 있을 때만 active, 

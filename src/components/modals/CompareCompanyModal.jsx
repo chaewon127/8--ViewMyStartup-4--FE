@@ -81,13 +81,19 @@ export default function CompareCompanyModal({
     setSelectedList((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const tempId = "11111111-aaaa-bbbb-cccc-000000000003";
+
   useEffect(() => {
-    getCompareCorpList(id, {
-      // 예: page=1 -> offset=0
-      offset: (page - 1) * limit,
-      limit,
-      // order,
-    }).then((res) => {
+    getCompareCorpList(
+      //id
+      tempId,
+      {
+        // 예: page=1 -> offset=0
+        offset: (page - 1) * limit,
+        limit: 5,
+        // order,
+      }
+    ).then((res) => {
       setData(res.data);
       setTotal(res.totalCount);
     });
@@ -106,7 +112,7 @@ export default function CompareCompanyModal({
   const listToRender = keyword.trim() ? filteredData : data;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title}> 
+    <Modal isOpen={isOpen} onClose={onClose} title={title}>
       <div className="modal-body">
         <div className="modal-padding">
           <SearchBar

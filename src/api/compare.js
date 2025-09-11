@@ -36,4 +36,16 @@ export const postCompareCorp = (id, payload) =>
  * @param {object} params - 페이지네이션, 정렬 정보
  * 예: { sort: "asc" }
  */
-export const getCompareList = (params) => instance.get("/compare", { params });
+export const getCompareList = (params) =>
+  instance.get("/compare/comparerank", { params });
+
+/*
+// 기업 비교 현황  랭킹 추가해서 조회
+GET http://localhost:3000/compare/comparerank
+
+// 기업 비교 현황 랭킹없이 조회
+GET http://localhost:3000/compare/compareorder
+
+// 기업 비교 현황 그냥 합산해서 조회
+GET http://localhost:3000/compare/comparetotal
+*/
