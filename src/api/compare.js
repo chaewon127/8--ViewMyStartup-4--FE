@@ -85,7 +85,7 @@ export const postCorpCount = (id) => instance.get(`/compare/optioncount/${id}`);
  * 예: { sort: "asc" }
  */
 export const getCompareList = (params) =>
-  instance.get("/compare/comparerank", { params });
+  instance.get("/compare/compareorder", { params });
 
 /**
  * 순위 결과 목록 조회
