@@ -1,25 +1,27 @@
-import React from "react";
-import "./Button.css";
+import React from 'react';
+import './Button.css';
 
 export default function LargeButton({
   children,
-  variant = "active",
+  variant = 'active',
   disabled = false,
   fullWidth = false,
-  type = "button",
+  type = 'button',
   onClick,
-  className = "",
+  className = '',
+  isModalBtn,
 }) {
   const classes = [
-    "vms-btn",
-    "vms-btn--lg",
+    'vms-btn',
+    'vms-btn--lg',
+    isModalBtn ? `vms-btn--modal` : '',
     `vms-btn--${variant}`,
-    fullWidth ? "is-block" : "",
-    disabled ? "is-disabled" : "",
+    fullWidth ? 'is-block' : '',
+    disabled ? 'is-disabled' : '',
     className,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <button
