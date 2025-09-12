@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
-import logoVms from "@/assets/images/logo_vms.svg";
+// logo_vms.svg는 이제 public/images에 있으므로 절대 경로로 참조
 import eyeOn from "@/assets/icons/btn_visibility_on_24px.svg";
 import eyeOff from "@/assets/icons/btn_visibility_off_24px.svg";
 
@@ -57,7 +57,7 @@ export default function LoginPage() {
     <section className="login-page">
       {/* 상단 로고 */}
       <div className="login-logo">
-        <img src={logoVms} alt="view my startup" />
+        <img src={'/logo_vms.svg'} alt="view my startup" />
       </div>
 
       <form className="login-card" onSubmit={onSubmit} noValidate>
