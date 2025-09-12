@@ -19,7 +19,7 @@ export default function CompanySelectRow({
   const { name = '—', category = '—', logoUrl } = company;
 
   const label =
-    status === 'remove' ? '선택 해제' :
+    status === 'remove' ? '선택해제' :
     status === 'done'   ? '선택완료'  :
     '선택하기';
 
