@@ -8,7 +8,7 @@ function Header() {
       <div className="inner">
           <div className="headerLeft">
           <Link to="/" className="headerLogo" aria-label="홈으로 이동">
-            <img src={'images/logo_vms.svg'} alt="VMS 로고" />
+            <img src={'/images/logo_vms.svg'} alt="VMS 로고" />
           </Link>
 
           <nav>
