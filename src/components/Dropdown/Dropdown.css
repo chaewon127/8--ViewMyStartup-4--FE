@@ -32,6 +32,7 @@
   top: 100%;
   left: 0;
   margin-top: 5px;
+  z-index: 2;
 
   display: flex;
   width: 100%;

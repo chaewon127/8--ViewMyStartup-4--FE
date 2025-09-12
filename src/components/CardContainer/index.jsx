@@ -40,7 +40,7 @@ function CardContainer({
         // 이렇게 하면 ComparePage가 먼저 리렌더링되고, 그 다음에 모달이 열리므로 중복 호출을 방지할 수 있습니다.
         setMyCompany(null);
         setCompareCompanies([]);
-        // openMyCompanyModal();
+        openMyCompanyModal();
       }
     : openCompareCompanyModal; // "기업 추가하기" 버튼 클릭 시
 
