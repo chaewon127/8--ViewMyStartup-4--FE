@@ -1,234 +1,95 @@
-.home-page .page-container {
-  width: auto;
-  margin: 0;
-  box-sizing: border-box;
-}
+.home-page .page-container { width:auto; margin:0; box-sizing:border-box; }
 
-.home-page .page-title-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 48px;
-}
+.home-page .page-title-row { display:flex; align-items:center; gap:16px; height:48px; }
+.home-page .page-title { font-size:20px; font-weight:700; color:#fff; margin:0; }
 
-.home-page .page-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0;
-}
+/* 상단 컨트롤 (드롭다운 z-index 보장) */
+.home-page .controls { margin-left:auto; display:flex; align-items:center; gap:12px; position:relative; z-index:10; }
+.home-page .controls__dropdown { position:relative; z-index:10; }
 
-.home-page .controls {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 0 0 auto;
-}
+/* SearchBar 컴포넌트 래핑 시 높이 맞춤 */
+.home-page .controls .searchbar { width:448px; }
 
-.home-page .search-input {
-  width: 448px;
-  height: 48px;
-  border-radius: 10px;
-  border: 1px solid var(--gray-gray_200);
-  background: var(--black-black_400) url("../../assets/icons/ic_search.svg") no-repeat 12px 50%;
-  color: var(--gray-gray_100);
-  padding: 0 12px 0 40px;
-  box-sizing: border-box;
-}
+/* 테이블 섹션 & 스크롤 */
+.home-page .list-section { margin-top:16px; margin-bottom:24px; background:transparent; border-radius:0; }
+.home-page .table-scroll { overflow-x:auto; }
+.home-page .table-inner { min-width: 1201px; } /* PC 총합(68+213+304+153.75*4) 보장 */
 
-.home-page .sort-select {
-  height: 48px;
-  border-radius: 10px;
-  border: 1px solid var(--gray-gray_200);
-  background: var(--black-black_400) url("../../assets/icons/chevronDown.svg") no-repeat right 12px center;
-  color: var(--gray-gray_100);
-  padding: 10px;
-  appearance: none;
-}
+.home-page .company-cell { display:flex; align-items:center; gap:10px; min-width:0; }
+.home-page .company-logo { width:28px; height:28px; object-fit:contain; border-radius:50%; background:#1E1E1E; flex:0 0 auto; }
+.home-page .company-name { display:inline-block; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px !important; color:#fff; }
 
-.home-page .list-section {
-  margin-top: 16px;
-  margin-bottom: 24px;
-  background: transparent;
-  border-radius: 0;
-  overflow-x: auto;
-}
+.home-page .intro-text { color:#D8D8D8; }
 
-.home-page .company-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
+/* 상태 문구 */
+.home-page .state-box { min-height:649px; padding:32px 16px; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; font-size:14px; }
 
-.home-page .company-logo {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  border-radius: 6px;
-  background: #1E1E1E;
-  flex: 0 0 auto;
-}
-
-.home-page .company-name {
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 14px !important;
-}
-
-.home-page .company-summary {
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  color: #fff;
-  line-height: 1.4;
-}
-
-.home-page .state-box {
-  min-height: 649px;
-  padding: 32px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
-  font-size: 14px;
-}
-
-.home-page .pagination {
-  margin-top: 0;
-}
-
-
-@media (max-width: 1200px) {
-  .home-page .page-container {
-    width: auto;
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-}
-
-.home-page .list-grid {
-  width: 100%;
-}
-
+/* 헤더/바디 공통 */
 .home-page .list-head,
-.home-page .list-row {
-  display: grid;
-  grid-template-columns: 72px 240px 1fr 140px 160px 160px 140px;
+.home-page .list-row { display:grid; }
+
+/* ✅ PC 그리드 폭(요청값) */
+.home-page .grid-cols {
+  grid-template-columns:
+    68px   /* 순위 */
+    213px  /* 기업명 */
+    304px  /* 기업소개 */
+    153.75px /* 카테고리 */
+    153.75px /* 누적 투자 금액 */
+    153.75px /* 매출액 */
+    153.75px /* 고용 인원 */;
 }
 
 .home-page .list-head {
-  height: 39px;
-  line-height: 39px;
-  background: var(--black-black_100);
-  margin: 16px 0;
-  padding: 0 16px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 4px;
-  justify-items: center;
+  height:39px; line-height:39px; background:var(--black-black_100);
+  margin:16px 0; padding:0 16px; font-size:14px; font-weight:500; border-radius:4px; justify-items:center;
 }
+.home-page .list-head .cell { width:100%; max-width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; color:#fff; text-align:center; }
 
-.home-page .list-head .cell {
-  width: 100px;
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: #fff;
-  text-align: center;
-}
-
-.home-page .list-body {
-  background: var(--black-black_200);
-  border-radius: 4px;
-  padding: 0;
-}
-
-.home-page .list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-radius: 4px;
-}
+.home-page .list-body { background:var(--black-black_200); border-radius:4px; padding:0; }
+.home-page .list { list-style:none; margin:0; padding:0; border-radius:4px; }
 
 .home-page .list-row {
-  min-height: 64px;
-  align-items: center;
-  text-align: left;
-  background: var(--black-black_200);
-  border-bottom: 1px solid var(--gray-gray_300);
-  padding: 0 16px;
+  min-height:64px; align-items:center; text-align:left; background:var(--black-black_200);
+  border-bottom:1px solid var(--gray-gray_300); padding:0 16px; transition: background-color .15s ease;
+}
+.home-page .list-row:last-child { border-bottom:none; }
+.home-page .list-row:hover { background: rgba(255,255,255,0.06); }
+
+.home-page .list-row .cell { height:64px; display:flex; align-items:center; min-width:0; justify-content:center; }
+.home-page .cell { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; color:#D8D8D8; font-size:14px; font-weight:400; }
+.home-page .left { justify-content:flex-start; }
+.home-page .center { text-align:center; }
+
+/* 기업소개 2줄까지 보이도록(PC는 한 줄, 모바일/태블릿은 2줄) */
+@media (max-width: 1023px) {
+  .home-page .list-row .cell:nth-child(2),
+  .home-page .list-row .cell:nth-child(3) { align-items:flex-start; }
 }
 
-.home-page .list-row:last-child {
-  border-bottom: none;
+/* ✅ 태블릿/모바일: 순위 숨김 + 지정 폭 (요청값) */
+@media (max-width: 1023px) {
+  .home-page .table-inner { min-width: 696px; } /* 150 + 180 + 91.5*4 */
+  .home-page .grid-cols {
+    grid-template-columns:
+      150px  /* 기업 명 */
+      180px  /* 기업 소개 */
+      91.5px /* 카테고리 */
+      91.5px /* 누적 투자 금액 */
+      91.5px /* 매출액 */
+      91.5px /* 고용 인원 */;
+  }
+  .home-page .cell--rank { display:none; }       /* 순위 열 숨김 */
+  .home-page .list-head .cell--rank { display:none; }
 }
 
-.home-page .list-row .cell {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  justify-content: center;
+/* 모바일 추가 보정(원하는 동일 폭 유지) */
+@media (max-width: 767px) {
+  .home-page .grid-cols {
+    grid-template-columns:
+      150px 180px 91.5px 91.5px 91.5px 91.5px;
+  }
 }
 
-.home-page .cell {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: var(--gray-200);
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.home-page .list-row .c1 {
-  padding: 15px 16px;
-  text-align: center;
-}
-
-.home-page .list-row .c2 {
-  justify-content: flex-start;
-  padding-left: 24px;
-  text-align: center;
-}
-
-.home-page .list-row .c3 {
-  padding: 15px 16px;
-  text-align: center;
-  justify-content: flex-start;
-}
-
-.home-page .list-row .c4 {
-  padding: 15px 16px;
-  text-align: center;
-}
-
-.home-page .list-row .c5,
-.home-page .list-row .c6,
-.home-page .list-row .c7 {
-  padding: 15px 16px;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-}
-
-.home-page .list-row .c2 {
-  font-size: 14px;
-}
-
-.home-page .list-row .c3 {
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.home-page .list-row .c1,
-.home-page .list-row .c4 {
-  font-size: 12px;
-}
+/* row 클릭/호버 */
+.list .row-click { cursor: pointer; }
