@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
-import Logo from "../../assets/images/logo_vms.svg";
 
 function Header() {
   return (
@@ -9,7 +8,7 @@ function Header() {
       <div className="inner">
           <div className="headerLeft">
           <Link to="/" className="headerLogo" aria-label="홈으로 이동">
-            <img src={Logo} alt="VMS 로고" />
+            <img src={'images/logo_vms.svg'} alt="VMS 로고" />
           </Link>
 
           <nav>

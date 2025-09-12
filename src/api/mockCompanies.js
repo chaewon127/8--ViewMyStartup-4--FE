@@ -1,27 +1,28 @@
-import co_aircode from "@/assets/images/mock/co_aircode.svg";
-import co_elice from "@/assets/images/mock/co_elice.svg";
-import co_bluecord from "@/assets/images/mock/co_bluecord.svg";
-import co_ccode from "@/assets/images/mock/co_ccode.svg";
-import co_codeit from "@/assets/images/mock/co_codeit.svg";
-import co_codestates from "@/assets/images/mock/co_codestates.svg";
-import co_ncode from "@/assets/images/mock/co_ncode.svg";
-import co_mespresso from "@/assets/images/mock/co_mespresso.svg";
-import co_mildang from "@/assets/images/mock/co_mildang.svg";
-import co_riiid from "@/assets/images/mock/co_riiid.svg";
-import co_sparta from "@/assets/images/mock/co_sparta.svg";
+// 이제 public/images에 있는 이미지들은 절대 경로로 참조
+const aircode = "/images/aircode.svg";
+const elice = "/images/elice.svg";
+const bluecord = "/images/bluecord.svg";
+const ccode = "/images/ccode.svg";
+const codeit = "/images/codeit.svg";
+const codestates = "/images/codestates.svg";
+const ncode = "/images/ncode.svg";
+const mespresso = "/images/mespresso.svg";
+const mildang = "/images/mildang.svg";
+const riiid = "/images/riiid.svg";
+const sparta = "/images/sparta.svg";
 
 const logos = [
-  co_aircode,
-  co_elice,
-  co_bluecord,
-  co_ccode,
-  co_codeit,
-  co_codestates,
-  co_ncode,
-  co_mespresso,
-  co_mildang,
-  co_riiid,
-  co_sparta,
+  aircode,
+  elice,
+  bluecord,
+  ccode,
+  codeit,
+  codestates,
+  ncode,
+  mespresso,
+  mildang,
+  riiid,
+  sparta,
 ];
 
 const names = [
@@ -119,7 +120,7 @@ export default mockCompanies;
  * [
  *   {
  *     "id": 1,
- *     "logoUrl": "/src/assets/images/mock/co_sparta.svg",
+ *     "logoUrl": "/src/assets/images/sparta.svg",
  *     "name": "스파르타코딩클럽",
  *     "intro": "VR/AR 기술을 활용한 실감형 콘텐츠를 제작하여 새로운 사용자 경험을 제공합니다.",
  *     "category": "콘텐츠",
@@ -129,7 +130,7 @@ export default mockCompanies;
  *   },
  *   {
  *     "id": 2,
- *     "logoUrl": "/src/assets/images/mock/co_riiid.svg",
+ *     "logoUrl": "/src/assets/images/riiid.svg",
  *     "name": "뤼이드",
  *     "intro": "클라우드 기반의 올인원 비즈니스 솔루션을 제공하여 기업의 성장을 돕습니다.",
  *     "category": "솔루션",
