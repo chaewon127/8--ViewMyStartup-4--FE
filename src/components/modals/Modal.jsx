@@ -1,8 +1,8 @@
-import React from "react";
-import "./Modal.css";
-import ModalClose from "@/assets/icons/close-modal.svg";
+import React from 'react';
+import './Modal.css';
+import ModalClose from '@/assets/icons/close-modal.svg';
 
-import LargeButton from "@/components/LargeButton";
+import LargeButton from '@/components/LargeButton';
 /*
 
   * 1버튼 팝업/모달 구현 가이드
@@ -82,7 +82,11 @@ function Modal({ isOpen, onClose, title, children, footer }) {
           <div className="modal-footer">
             {/* 취소 버튼 (cancelText가 있을 때만 렌더링) */}
             {footer.cancelText && (
-              <LargeButton variant="outline" onClick={footer.onCancel || onClose}>
+              <LargeButton
+                variant="outline"
+                onClick={footer.onCancel || onClose}
+                isModalBtn={true}
+              >
                 {footer.cancelText}
               </LargeButton>
             )}
@@ -90,8 +94,9 @@ function Modal({ isOpen, onClose, title, children, footer }) {
             {footer.confirmText && (
               <LargeButton
                 disabled={footer.isConfirmDisabled}
-                variant={footer.isConfirmDisabled ? "inactive" : "active"}
+                variant={footer.isConfirmDisabled ? 'inactive' : 'active'}
                 onClick={footer.onConfirm}
+                isModalBtn={true}
               >
                 {footer.confirmText}
               </LargeButton>
