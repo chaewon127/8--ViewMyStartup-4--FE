@@ -4,38 +4,7 @@ import Pagination from '../../components/Pagination';
 import ModalPassword from '@/components/modals/ModalPassword';
 import OneButtonPopup from '@/components/modals/OneButtonPopup';
 import './CompanyDetailPage.css';
-
-// 개발 프리뷰 데이터
-const DEV_PREVIEW = import.meta.env.DEV;
-
-const DEV_DELETE_PASSWORD = '0000';
-
-const DEV_COMPANY = {
-  id: 'preview',
-  name: '코드잇',
-  category: '에듀테크',
-  logoUrl: '/images/logo/img_logo.png',
-  summary:
-    '코드잇은 실무형 개발 교육을 제공하는 온라인 교육 플랫폼입니다. 다양한 커리큘럼과 프로젝트 중심 학습으로 실무 역량을 강화합니다.',
-  investment: 1_400_000_000,
-  revenue: 4_430_000_000,
-  employees: 95,
-};
-
-const DEV_INVESTMENTS = [
-  { id: '1', investor: '김안녕', rank: 1, amount: 50_000_000, comment: '코드잇은 정말 훌륭한 기업입니다!' },
-  { id: '2', investor: '이루비', rank: 2, amount: 45_000_000, comment: '성장 가능성이 확실합니다!' },
-  { id: '3', investor: '한덕선', rank: 3, amount: 40_000_000, comment: '최고의 가성비 코스들!' },
-  { id: '4', investor: '신현성', rank: 4, amount: 35_000_000, comment: '팀의 실행력이 좋습니다.' },
-  { id: '5', investor: '이동원', rank: 5, amount: 30_000_000, comment: '교육업계 리더로 성장하길.' },
-  { id: '6', investor: '박소정', rank: 6, amount: 25_000_000, comment: '제품 고도화 기대.' },
-  { id: '7', investor: '최민지', rank: 7, amount: 20_000_000, comment: '트랙 구성이 좋아요.' },
-  { id: '8', investor: '정세훈', rank: 8, amount: 15_000_000, comment: '콘텐츠 품질 우수.' },
-  { id: '9', investor: '오하늘', rank: 9, amount: 12_000_000, comment: '사용자 피드백 반영 빠름.' },
-  { id: '10', investor: '문지후', rank: 10, amount: 10_000_000, comment: '지속 성장이 기대됩니다.' },
-  { id: '11', investor: '노진우', rank: 11, amount: 9_000_000, comment: '데이터 기반 의사결정 굿.' },
-  { id: '12', investor: '서보람', rank: 12, amount: 8_000_000, comment: '브랜드 신뢰도 높음.' },
-];
+import { getCompanyDetail } from '../../api/companyDetail';
 
 function formatEokWon(n) {
   if (typeof n !== 'number' || Number.isNaN(n)) return '-';
@@ -54,8 +23,8 @@ export default function CompanyDetailPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
-  const [company, setCompany] = React.useState(() => (DEV_PREVIEW ? DEV_COMPANY : null));
-  const [investments, setInvestments] = React.useState(() => (DEV_PREVIEW ? DEV_INVESTMENTS : []));
+  const [company, setCompany] = React.useState(null);
+  const [investments, setInvestments] = React.useState([]);
 
   const [page, setPage] = React.useState(1);
   const pageSize = 5;
@@ -90,11 +59,28 @@ export default function CompanyDetailPage() {
   };
   const closePopup = () => setOnePopup((s) => ({ ...s, open: false }));
 
-  // (API 확정 후 연결 예정)
   React.useEffect(() => {
-    // async function load()
-    // load();
-  }, [id, page, pageSize]);
+    let cancelled = false;
+    async function load() {
+      if (!id) return;
+      setLoading(true);
+      setError('');
+      setPage(1);
+      try {
+        const { company, investments } = await getCompanyDetail({ id });
+        if (!cancelled) {
+          setCompany(company);
+          setInvestments(investments);
+        }
+      } catch (e) {
+        if (!cancelled) setError('fetch-failed');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    load();
+    return () => { cancelled = true; };
+  }, [id]);
 
   const totalAmount = React.useMemo(
     () => investments.reduce((acc, v) => acc + (v.amount || 0), 0),
@@ -147,7 +133,6 @@ export default function CompanyDetailPage() {
             </div>
           </div>
 
-
           <ul className="kpi-row" aria-label="기업 주요 지표">
             <li className="kpi-card">
               <span className="kpi-label">누적 투자 금액</span>
@@ -168,7 +153,6 @@ export default function CompanyDetailPage() {
           </ul>
         </section>
 
-
         <section className="about-section" aria-labelledby="aboutTitle">
           <div className="about-card">
             <h2 id="aboutTitle" className="about-card-title">기업 소개</h2>
@@ -177,7 +161,6 @@ export default function CompanyDetailPage() {
             </p>
           </div>
         </section>
-
 
         <section className="invest-section" aria-labelledby="investTitle">
           <div className="invest-header">
@@ -276,17 +259,6 @@ export default function CompanyDetailPage() {
             try {
               setPwdSubmitting(true);
               setPwdError('');
-
-              if (DEV_PREVIEW) {
-                await new Promise((r) => setTimeout(r, 300));
-                if (password !== DEV_DELETE_PASSWORD) {
-                  setPwdModalOpen(false);
-                  showPopup('잘못된 비밀번호로 삭제에 실패하셨습니다.', { buttonLabel: '확인' });
-                  return;
-                }
-              } else {
-                // await deleteInvestment({ id: pwdTargetRow.id, password });
-              }
               setInvestments((prev) => {
                 const next = prev.filter((v) => v.id !== pwdTargetRow.id);
                 const nextTotalPages = Math.max(1, Math.ceil(next.length / pageSize));
