@@ -139,8 +139,8 @@
 /* 모바일 사이즈 */
 @media (max-width: 767.98px) {
   .btn {
-    width: 73px;
-    height: 32px;
+    width: 100px;
+    height: 40px;
     border-radius: 8px;
     font-size: 14px;
     gap: 0; /* 모바일: 아이콘과 텍스트 붙이기 */
