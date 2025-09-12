@@ -400,3 +400,18 @@
     font-size: 14px;    /* tablet & pc */
   }
 }
+
+.table-body .tr.row-click {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.table-body .tr.row-click:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.table-body .tr.row-click:active {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+
+.company-name { text-decoration: none; }

@@ -1,21 +1,21 @@
-const API_BASE = (import.meta.env.VITE_API_BASE || "").replace(/\/+$/, "");
+const API_BASE = import.meta.env.VITE_API_BASE?.replace(/\/+$/, "") || "";
 
 /**
- * 투자 랭킹 조회
+ * 투자 랭킹 데이터 조회
  * @param {Object} opt
- * @param {number} opt.offset
- * @param {number} opt.limit
- * @param {"virtual"|"amount"} opt.sortBy
- * @param {"Highest"|"Lowest"} opt.order
- * @param {AbortSignal} opt.signal
+ * @param {"virtual"|"total"} [opt.sortBy="virtual"]
+ * @param {"Highest"|"Lowest"} [opt.order="Highest"]
+ * @param {number} [opt.offset=0]
+ * @param {number} [opt.limit=1000]
+ * @param {AbortSignal} [opt.signal]
  * @returns {Promise<{list: Array, total: number}>}
  */
 export async function getInvestments(opt = {}) {
   const {
+    sortBy = "virtual",
+    order = "Highest",
     offset = 0,
-    limit = 1000,               // 한 번에 크게 받아서 프론트에서 페이지네이션
-    sortBy = "virtual",         // virtual | amount
-    order = "Highest",          // Highest | Lowest
+    limit = 1000,
     signal,
   } = opt;
 
@@ -27,18 +27,17 @@ export async function getInvestments(opt = {}) {
   });
 
   const url = `${API_BASE}/investments?${params.toString()}`;
-  console.log("[investments] GET:", url);
 
   const res = await fetch(url, {
     signal,
     headers: { Accept: "application/json" },
   });
 
-  let body;
+  let body = null;
   try {
     body = await res.json();
   } catch {
-    body = null;
+    // body가 JSON이 아닐 수도 있으므로 방어
   }
 
   if (!res.ok) {
@@ -52,21 +51,34 @@ export async function getInvestments(opt = {}) {
     throw err;
   }
 
-  // 서버 스펙 방어적 매핑 { success, data: [], total }
-  const listRaw = Array.isArray(body?.data) ? body.data : [];
-  const total = Number(body?.total ?? listRaw.length ?? 0);
+  const raw = Array.isArray(body?.data)
+    ? body.data
+    : Array.isArray(body)
+    ? body
+    : [];
 
-  const list = listRaw.map((it, idx) => ({
-    id: it?.corp_id ?? it?.id ?? String(idx),
+  const list = raw.map((it, idx) => ({
+    id: it?.corp_id ?? it?.id ?? String(idx + 1),
     name: it?.corp_name ?? it?.name ?? "-",
     intro: it?.corp_profile ?? it?.intro ?? "",
     category: it?.corp_tag ?? it?.category ?? "-",
-    // VMS(가상) 금액
-    vms: it?.virtual ?? it?.virtual_total ?? it?.virtual_sum ?? it?.my_amount ?? 0,
-    // 실제 누적 투자 금액
-    actual: it?.amount ?? it?.amount_total ?? it?.sum?.amount ?? it?.real_amount ?? 0,
-    logo: it?.logo ?? null,
+
+    vms:
+      it?.virtual_investment ??
+      it?.virtual ??
+      it?.virtual_total ??
+      0,
+    actual:
+      it?.total_investment ??
+      it?.amount ??
+      it?.total ??
+      0,
+
+    corp_image: it?.corp_image ?? "",
+
+    logo: it?.corp_image ?? it?.logo ?? "",
   }));
 
+  const total = Number(body?.total ?? list.length ?? 0);
   return { list, total };
 }

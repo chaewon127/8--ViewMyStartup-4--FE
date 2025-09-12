@@ -1,7 +1,4 @@
-const API_BASE =
-  import.meta.env.VITE_API_BASE?.replace(/\/+$/, "") ||
-  "https://eight-viewmystartup-4-be.onrender.com";
-
+const API_BASE = import.meta.env.VITE_API_BASE.replace(/\/+$/, "");
 
 const DEFAULT_QUERY = {
   offset: 0,
@@ -10,15 +7,70 @@ const DEFAULT_QUERY = {
 };
 
 
+const ensureAbsoluteUrl = (u) => {
+  if (!u) return null;
+  if (/^(?:https?:)?\/\//i.test(u) || /^data:/i.test(u)) return u;
+  if (!API_BASE) return u;
+  if (u.startsWith("/")) return `${API_BASE}${u}`;
+  return `${API_BASE}/${u}`;
+};
+
+const toNum = (v) => Number(String(v ?? 0).replace(/,/g, ""));
+
+const normalizeCorp = (it, idx) => {
+  const id =
+    it?.corp_id ??
+    it?.id ??
+    String(idx + 1);
+
+  const name =
+    it?.corp_name ??
+    it?.name ??
+    `기업 ${idx + 1}`;
+
+  const intro =
+    it?.corp_profile ??
+    it?.intro ??
+    "";
+
+  const category =
+    it?.corp_tag ??
+    it?.category ??
+    "-";
+
+  const logo = ensureAbsoluteUrl(
+    it?.corp_image ?? it?.corp_logo ?? it?.logo ?? null
+  );
+
+  const my = toNum(it?.my_compare_total ?? it?.my);
+  const compare = toNum(it?.compare_total ?? it?.compare);
+
+  return {
+    ...it,
+    id,
+    name,
+    intro,
+    category,
+    logo,
+    my,
+    compare,
+  };
+};
+
 export async function getCorpTotals(opt = {}) {
+  const { signal, ...rest } = opt;
+
   const params = new URLSearchParams({
     ...DEFAULT_QUERY,
-    ...opt,
+    ...rest,
   });
 
   const url = `${API_BASE}/corpTotals?${params.toString()}`;
 
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  const res = await fetch(url, {
+    headers: { Accept: "application/json" },
+    signal,
+  });
 
   let body = null;
   try {
@@ -38,7 +90,7 @@ export async function getCorpTotals(opt = {}) {
     throw err;
   }
 
-  const list = Array.isArray(body)
+  const rawList = Array.isArray(body)
     ? body
     : Array.isArray(body?.corps)
     ? body.corps
@@ -46,5 +98,8 @@ export async function getCorpTotals(opt = {}) {
     ? body.data
     : [];
 
-  return { list, raw: body };
+  const list = rawList.map(normalizeCorp);
+  const total = Number(body?.total ?? rawList.length ?? 0);
+
+  return { list, total, raw: body };
 }
