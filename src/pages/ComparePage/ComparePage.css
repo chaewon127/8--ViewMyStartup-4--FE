@@ -12,7 +12,7 @@ body {
 /* 모바일 화면에서 헤더가 두꺼워지는 것을 고려하여 상단 간격을 늘립니다. */
 @media (max-width: 767.98px) {
   .compare-page {
-    margin-top: 100px;
+    margin-top: 20px;
   }
 }
 
