@@ -61,6 +61,15 @@ export default function CompanySelectPage() {
   useEffect(() => {
     let alive = true;
 
+    // ← 추가: API가 "codeit.svg" / "images/codeit.svg" / 절대URL 등 다양한 값을 줄 수 있으니 정규화
+    const normalizeLogo = (p) => {
+      if (!p) return null;
+      if (/^https?:\/\//i.test(p)) return p;                 // 절대 URL은 그대로 사용
+      const clean = String(p).replace(/^\.?\/*/, "");         // 앞의 './', '/' 제거
+      const withFolder = clean.startsWith("images/") ? clean : `images/${clean}`;
+      return `/${withFolder}`;                                // public/images/* 에서 제공
+    };
+
     const normalize = (it, idx) => ({
 
       id: it?.corp_id ?? it?.id ?? String(idx + 1),
@@ -69,7 +78,8 @@ export default function CompanySelectPage() {
       category: it?.corp_tag ?? "-",
       my: it?.my_compare_total ?? 0,
       compare: it?.compare_total ?? 0,
-      logo: it?.corp_image ?? it?.corp_logo ?? it?.logo ?? null,
+      // ← 변경: 다양한 키를 받아서 public 경로로 정규화
+      logo: normalizeLogo(it?.corp_image ?? it?.corp_logo ?? it?.logo ?? null),
     });
 
     (async () => {
