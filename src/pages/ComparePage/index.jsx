@@ -20,8 +20,8 @@ export default function ComparePage() {
   const [data, setData] = useState([]); // '기업 순위 확인하기' 테이블의 순위 기준이 되는 전체 기업 목록
 
   // 각 테이블의 정렬 상태를 독립적으로 관리합니다.
-  const [compareOrder, setCompareOrder] = useState("investment_desc"); // '비교 결과' 테이블 정렬 기준
-  const [rankOrder, setRankOrder] = useState("investment_desc"); // '기업 순위' 테이블 정렬 기준
+  const [compareOrder, setCompareOrder] = useState("investmentHighest"); // '비교 결과' 테이블 정렬 기준
+  const [rankOrder, setRankOrder] = useState("investmentHighest"); // '기업 순위' 테이블 정렬 기준
 
   // '나의 기업'으로 선택된 기업 정보를 관리하는 상태
   const [myCompany, setMyCompany] = useState(null);
@@ -38,12 +38,12 @@ export default function ComparePage() {
   const [showCompareButton, setShowCompareButton] = useState(true);
 
   const orderOptions = [
-    { value: "investment_desc", label: "투자금 많은 순" },
-    { value: "investment_asc", label: "투자금 적은 순" },
-    { value: "sales_desc", label: "매출 높은 순" },
-    { value: "sales_asc", label: "매출 낮은 순" },
-    { value: "employee_desc", label: "사원 많은 순" },
-    { value: "employee_asc", label: "사원 적은 순" },
+    { value: "investmentHighest", label: "투자금 많은 순" },
+    { value: "investmentLowest", label: "투자금 적은 순" },
+    { value: "salesHighest", label: "매출 높은 순" },
+    { value: "salesLowest", label: "매출 낮은 순" },
+    { value: "employeeHighest", label: "사원 많은 순" },
+    { value: "employeeLowest", label: "사원 적은 순" },
   ];
 
   // --- 데이터 로딩 & 초기화 ---
@@ -65,17 +65,17 @@ export default function ComparePage() {
     setShowCompareButton(true);
   }, [myCompany, compareCompanies]);
 
-  // compareOrder 변경될 때마다 '기업 순위 확인하기' 테이블 데이터를 다시 불러옵니다.
+  // compareOrder가 변경될 때마다 '비교 결과 확인하기' 테이블 데이터를 다시 불러옵니다.
   useEffect(() => {
-    // "기업 비교하기" 버튼을 누른 후에만(ResultList가 있을 때) 순위 데이터를 불러옵니다.
+    // "기업 비교하기" 버튼을 누른 후에만(resultList가 있을 때) 데이터를 불러옵니다.
     if (resultList.length === 0) return;
 
     const fetchResultData = async () => {
       try {
-        const res = await getCompareList({ order: compareOrder });
-        setData(res.data);
+        const response = await getCompareList({ order: compareOrder });
+        setResultList(response.data);
       } catch (error) {
-        console.error("순위 목록 조회 중 오류:", error);
+        console.error("비교 결과 목록 조회 중 오류:", error);
       }
     };
     fetchResultData();
@@ -83,13 +83,13 @@ export default function ComparePage() {
 
   // rankOrder가 변경될 때마다 '기업 순위 확인하기' 테이블 데이터를 다시 불러옵니다.
   useEffect(() => {
-    // "기업 비교하기" 버튼을 누른 후에만(ResultList가 있을 때) 순위 데이터를 불러옵니다.
+    // "기업 비교하기" 버튼을 누른 후에만(resultList가 있을 때) 데이터를 불러옵니다.
     if (resultList.length === 0) return;
 
     const fetchRankData = async () => {
       try {
-        const res = await getRankList({ order: rankOrder });
-        setData(res.data);
+        const rankResponse = await getRankList({ order: rankOrder });
+        setRankList(rankResponse.data);
       } catch (error) {
         console.error("순위 목록 조회 중 오류:", error);
       }
@@ -237,8 +237,8 @@ export default function ComparePage() {
         <>
           <div className="result-section">
             <section className="table-section">
-              <div className="saction-header">
-                <div className="saction-title">비교 결과 확인하기</div>
+              <div className="section-header">
+                <div className="title section-title">비교 결과 확인하기</div>
                 {/* 비교 결과 확인하기 */}
                 <Dropdown
                   value={compareOrder}
@@ -281,9 +281,11 @@ export default function ComparePage() {
                         {corp.corp_profile}
                       </div>
                       <div className="grid-cell">{corp.corp_tag}</div>
-                      <div className="grid-cell">{corp.total_investment}</div>
-                      <div className="grid-cell">{corp.corp_sales}</div>
-                      <div className="grid-cell">{corp.employee}</div>
+                      <div className="grid-cell">
+                        {corp.total_investment} 원
+                      </div>
+                      <div className="grid-cell">{corp.corp_sales} 원</div>
+                      <div className="grid-cell">{corp.employee} 명</div>
                     </div>
                   );
                 })}
@@ -291,8 +293,8 @@ export default function ComparePage() {
               </div>
             </section>
             <section className="table-section">
-              <div className="saction-header">
-                <div className="saction-title">기업 순위 확인하기</div>
+              <div className="section-header">
+                <div className="title section-title">기업 순위 확인하기</div>
                 {/* 기업 순위 확인하기 */}
                 <Dropdown
                   value={rankOrder}
@@ -344,9 +346,11 @@ export default function ComparePage() {
                       </div>
                       {/* FIXME: 기업 소개도 두줄까지만 허용하고 ellipsis */}
                       <div className="grid-cell">{corp.corp_tag}</div>
-                      <div className="grid-cell">{corp.total_investment}</div>
-                      <div className="grid-cell">{corp.corp_sales}</div>
-                      <div className="grid-cell">{corp.employee}</div>
+                      <div className="grid-cell">
+                        {corp.total_investment} 원
+                      </div>
+                      <div className="grid-cell">{corp.corp_sales} 원</div>
+                      <div className="grid-cell">{corp.employee} 명</div>
                     </div>
                   );
                 })}

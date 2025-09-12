@@ -5,7 +5,15 @@ body {
 .compare-page {
   display: flex;
   flex-direction: column;
+  /* margin-top: 20px; PC/Tablet 기본 상단 간격 */
   margin-bottom: 80px;
+}
+
+/* 모바일 화면에서 헤더가 두꺼워지는 것을 고려하여 상단 간격을 늘립니다. */
+@media (max-width: 767.98px) {
+  .compare-page {
+    margin-top: 100px;
+  }
 }
 
 .compare-page > :first-child {
@@ -39,15 +47,14 @@ body {
   /* margin: 10px auto; */
 }
 
-.saction-header {
+.section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   /* margin: 15px auto; */
 }
 
-.saction-title {
-  color: #fff;
+.section-title {
   color: #fff;
   font-size: 20px;
   font-weight: 700;

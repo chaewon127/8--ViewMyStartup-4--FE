@@ -92,8 +92,8 @@ export const getCompareList = (params) =>
  * @param {object} params - 페이지네이션, 정렬 정보
  * 예: { sort: "asc" }
  */
-export const getRankList = ({ order }) =>
-  instance.get("/compare/comparerank", { params: { sort: order } });
+export const getRankList = (params) =>
+  instance.get("/compare/comparerank", { params });
 
 /**
  * 기업 투자하기 옵션 카운트

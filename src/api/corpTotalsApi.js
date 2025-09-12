@@ -1,11 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_BASE.replace(/\/+$/, "");
+const API_BASE = import.meta.env.VITE_API_BASE?.replace(/\/+$/, "") || "";
 
 const DEFAULT_QUERY = {
   offset: 0,
   limit: 1000,
   order: "createdDesc",
 };
-
 
 const ensureAbsoluteUrl = (u) => {
   if (!u) return null;
@@ -18,25 +17,13 @@ const ensureAbsoluteUrl = (u) => {
 const toNum = (v) => Number(String(v ?? 0).replace(/,/g, ""));
 
 const normalizeCorp = (it, idx) => {
-  const id =
-    it?.corp_id ??
-    it?.id ??
-    String(idx + 1);
+  const id = it?.corp_id ?? it?.id ?? String(idx + 1);
 
-  const name =
-    it?.corp_name ??
-    it?.name ??
-    `기업 ${idx + 1}`;
+  const name = it?.corp_name ?? it?.name ?? `기업 ${idx + 1}`;
 
-  const intro =
-    it?.corp_profile ??
-    it?.intro ??
-    "";
+  const intro = it?.corp_profile ?? it?.intro ?? "";
 
-  const category =
-    it?.corp_tag ??
-    it?.category ??
-    "-";
+  const category = it?.corp_tag ?? it?.category ?? "-";
 
   const logo = ensureAbsoluteUrl(
     it?.corp_image ?? it?.corp_logo ?? it?.logo ?? null
@@ -93,10 +80,10 @@ export async function getCorpTotals(opt = {}) {
   const rawList = Array.isArray(body)
     ? body
     : Array.isArray(body?.corps)
-    ? body.corps
-    : Array.isArray(body?.data)
-    ? body.data
-    : [];
+      ? body.corps
+      : Array.isArray(body?.data)
+        ? body.data
+        : [];
 
   const list = rawList.map(normalizeCorp);
   const total = Number(body?.total ?? rawList.length ?? 0);
