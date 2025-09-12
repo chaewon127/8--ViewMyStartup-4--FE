@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./JoinPage.css";
 
-import logoVms from "@/assets/images/logo_vms.svg";
+// logo_vms.svg는 이제 public/images에 있으므로 절대 경로로 참조
 import eyeOn  from "@/assets/icons/btn_visibility_on_24px.svg";
 import eyeOff from "@/assets/icons/btn_visibility_off_24px.svg";
 
@@ -63,7 +63,7 @@ export default function JoinPage() {
     <section className="join-page">
       <div className="join-inner">
         {/* 로그인 페이지와 동일한 위치, 요구한 사이즈(160px, margin: 0 auto 24px) */}
-        <img className="auth-logo" src={logoVms} alt="view my startup" />
+        <img className="auth-logo" src={'/logo_vms.svg'} alt="view my startup" />
 
         <div className="join-wrap">
           {/* 요구: 16px로 상향 & 중앙정렬 */}

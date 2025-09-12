@@ -1,6 +1,7 @@
 import "./Pagination.css";
 
 function Pagination({ totalItems, dataPerPage, page, onPageChange }) {
+  console.log(totalItems, dataPerPage, page);
   const totalPages = Math.ceil(totalItems / dataPerPage); // 올림해야 나머지 데이터를 위한 페이지 생성
 
   const pagesPerGroup = 5; // 한 번에 보여줄 페이지 버튼 개수

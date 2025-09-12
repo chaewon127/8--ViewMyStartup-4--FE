@@ -2,6 +2,7 @@ const API_BASE =
   (import.meta.env.VITE_API_BASE || "https://eight-viewmystartup-4-be.onrender.com")
     .replace(/\/+$/, "");
 
+import instance from "@/lib/axios";
 import { getInvestments } from "./investmentsApi";
 
 const ORDER_MAP = {
@@ -113,4 +114,36 @@ export async function getCompanyList(opt = {}) {
 
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   return { list, totalPages, totalCount };
+}
+
+
+export async function getCorpList(opt = {}) {
+  const {
+    page = 1,
+    pageSize = 10,
+    sort = "revenueDesc",
+    keyword = "",
+  } = opt;
+
+  //https://eight-viewmystartup-4-be.onrender.com/corp?offset=0&limit=10&order=investmentHighest
+  const offset = Math.max(0, (page - 1) * pageSize);
+  const order = ORDER_MAP[sort] || "createdDesc";
+
+
+  const url = `${API_BASE}/corp?offset=${offset}&limit=${pageSize}&order=${order}&keyword=${keyword}`;
+
+  const res = await instance.get(url)
+  .then(res => {
+    console.log(res);
+    return res.data;
+  }).catch(e => {
+    throw new Error(e.response.data.message);
+  });
+
+
+  return {
+    list: res.compareCorpWithRanking,
+    totalPages: res.total / pageSize,
+    totalCount: res.total,
+  }
 }
