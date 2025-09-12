@@ -1,4 +1,4 @@
-import instance from "@/lib/axios";
+import instance from '@/lib/axios';
 
 /**
  * 나의 기업 투자하기
@@ -6,7 +6,7 @@ import instance from "@/lib/axios";
  * @param {object} payload - 옵션 데이터 (예: { option: "A" })
  */
 export const postMyCorp = (id, payload) =>
-  instance.post(`/investments/corp/${id}`, payload);
+  instance.post(`/corp/${id}/comments`, payload);
 
 /**
  * 기업 투자 수정하기
@@ -14,4 +14,4 @@ export const postMyCorp = (id, payload) =>
  * @param {object} payload - 옵션 데이터 (예: { option: "A" })
  */
 export const patchMyCorp = (id, payload) =>
-  instance.patch(`/investments/corp/${id}`, payload);
+  instance.patch(`/corp/${id}/comments`, payload);
