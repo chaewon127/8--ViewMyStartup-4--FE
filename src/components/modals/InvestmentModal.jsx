@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LabelInput from "@/components/LabelInput";
 import Modal from "./Modal";
 import OneButtonPopup from "./OneButtonPopup";
@@ -6,6 +7,7 @@ import { postMyCorp, patchMyCorp } from "@/api/invest";
 import { postInvestCorp } from "@/api/compare";
 
 function InvestmentModal({ isOpen, company, onClose, initialData }) {
+  const navigate = useNavigate();
   const isEditMode = !!initialData; // 수정 모달이니?
 
   const [investor, setInvestor] = useState(initialData?.investor || "");
@@ -142,6 +144,7 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
           onButtonClick={() => {
             setIsModalOpen(false);
             onClose();
+            navigate('/investment');
           }}
         />
       )}
