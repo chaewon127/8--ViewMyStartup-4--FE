@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination';
 import ModalPassword from '@/components/modals/ModalPassword';
 import OneButtonPopup from '@/components/modals/OneButtonPopup';
 import './CompanyDetailPage.css';
 import { getCompanyDetail } from '../../api/companyDetail';
+import InvestmentModal from '@/components/modals/InvestmentModal';
 
 function formatEokWon(n) {
   if (typeof n !== 'number' || Number.isNaN(n)) return '-';
@@ -22,11 +23,22 @@ export default function CompanyDetailPage() {
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
-
   const [company, setCompany] = React.useState(null);
   const [investments, setInvestments] = React.useState([]);
-
   const [page, setPage] = React.useState(1);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [openMenuRowId, setOpenMenuRowId] = React.useState(null);
+  const [pwdModalOpen, setPwdModalOpen] = React.useState(false);
+  const [pwdTargetRow, setPwdTargetRow] = React.useState(null);
+  const [pwdSubmitting, setPwdSubmitting] = React.useState(false);
+  const [pwdError, setPwdError] = React.useState('');
+  const [onePopup, setOnePopup] = React.useState({
+    open: false,
+    message: '',
+    buttonLabel: '확인',
+    onClick: null,
+  });
+
   const pageSize = 5;
   const totalItems = investments.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
@@ -36,19 +48,11 @@ export default function CompanyDetailPage() {
     [investments, page, pageSize]
   );
 
-  const [openMenuRowId, setOpenMenuRowId] = React.useState(null);
+  const totalAmount = React.useMemo(
+    () => investments.reduce((acc, v) => acc + (v.amount || 0), 0),
+    [investments]
+  );
 
-  const [pwdModalOpen, setPwdModalOpen] = React.useState(false);
-  const [pwdTargetRow, setPwdTargetRow] = React.useState(null);
-  const [pwdSubmitting, setPwdSubmitting] = React.useState(false);
-  const [pwdError, setPwdError] = React.useState('');
-
-  const [onePopup, setOnePopup] = React.useState({
-    open: false,
-    message: '',
-    buttonLabel: '확인',
-    onClick: null,
-  });
   const showPopup = (message, options = {}) => {
     setOnePopup({
       open: true,
@@ -57,9 +61,33 @@ export default function CompanyDetailPage() {
       onClick: typeof options.onClick === 'function' ? options.onClick : null,
     });
   };
+
   const closePopup = () => setOnePopup((s) => ({ ...s, open: false }));
 
-  React.useEffect(() => {
+  const onPageChange = (nextPage) => {
+    if (nextPage < 1) return;
+    if (nextPage > totalPages) return;
+    setPage(nextPage);
+    setOpenMenuRowId(null);
+  };
+
+  const handleEdit = (row) => {
+    setIsModalOpen(true);
+    // setInitialData(row);
+  };
+
+  const handleOpenCreateInvestment = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = (row) => {
+    setPwdTargetRow(row);
+    setPwdError('');
+    setPwdModalOpen(true);
+    setOpenMenuRowId(null);
+  };
+
+  useEffect(() => {
     let cancelled = false;
     async function load() {
       if (!id) return;
@@ -72,7 +100,7 @@ export default function CompanyDetailPage() {
           setCompany(company);
           setInvestments(investments);
         }
-      } catch (e) {
+      } catch {
         if (!cancelled) setError('fetch-failed');
       } finally {
         if (!cancelled) setLoading(false);
@@ -82,28 +110,6 @@ export default function CompanyDetailPage() {
     return () => { cancelled = true; };
   }, [id]);
 
-  const totalAmount = React.useMemo(
-    () => investments.reduce((acc, v) => acc + (v.amount || 0), 0),
-    [investments]
-  );
-
-  const onPageChange = (nextPage) => {
-    if (nextPage < 1) return;
-    if (nextPage > totalPages) return;
-    setPage(nextPage);
-    setOpenMenuRowId(null);
-  };
-
-  const handleOpenCreateInvestment = () => {
-    showPopup('준비 중입니다.', { buttonLabel: '닫기' });
-  };
-  const handleEdit = (row) => { };
-  const handleDelete = (row) => {
-    setPwdTargetRow(row);
-    setPwdError('');
-    setPwdModalOpen(true);
-    setOpenMenuRowId(null);
-  };
 
   return (
     <div className="company-detail-page">
@@ -113,9 +119,9 @@ export default function CompanyDetailPage() {
           <div className="hero-top">
             <div className="hero-left">
               <div className="logo-wrap" aria-hidden="true">
-                {company?.logoUrl ? (
+                {company?.corp_image ? (
                   <img
-                    src={company.logoUrl}
+                    src={company.corp_image}
                     alt=""
                     onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
                   />
@@ -124,10 +130,10 @@ export default function CompanyDetailPage() {
 
               <div className="title-wrap">
                 <h1 id="companyTitle" className="company-name">
-                  {company?.name || (loading ? '불러오는 중...' : '기업명')}
+                  {company?.corp_name || (loading ? '불러오는 중...' : '기업명')}
                 </h1>
-                {company?.category && (
-                  <span className="category-pill">{company.category}</span>
+                {company?.corp_tag && (
+                  <span className="category-pill">{company.corp_tag}</span>
                 )}
               </div>
             </div>
@@ -136,11 +142,11 @@ export default function CompanyDetailPage() {
           <ul className="kpi-row" aria-label="기업 주요 지표">
             <li className="kpi-card">
               <span className="kpi-label">누적 투자 금액</span>
-              <strong className="kpi-value">{formatEokWon(company?.investment)}</strong>
+              <strong className="kpi-value">{formatEokWon(company?.total_investment)}</strong>
             </li>
             <li className="kpi-card">
               <span className="kpi-label">매출액</span>
-              <strong className="kpi-value">{formatEokWon(company?.revenue)}</strong>
+              <strong className="kpi-value">{formatEokWon(company?.corp_sales)}</strong>
             </li>
             <li className="kpi-card">
               <span className="kpi-label">고용 인원</span>
@@ -157,7 +163,7 @@ export default function CompanyDetailPage() {
           <div className="about-card">
             <h2 id="aboutTitle" className="about-card-title">기업 소개</h2>
             <p className="about-card-body">
-              {company?.summary || (loading ? '설명을 불러오는 중...' : '기업 소개가 없습니다.')}
+              {company?.corp_profile || (loading ? '설명을 불러오는 중...' : '기업 소개가 없습니다.')}
             </p>
           </div>
         </section>
@@ -254,7 +260,7 @@ export default function CompanyDetailPage() {
           placeholder="패스워드를 입력해주세요"
           isSubmitting={pwdSubmitting}
           errorMessage={pwdError}
-          onSubmit={async (password) => {
+          onSubmit={async () => {
             if (pwdSubmitting || !pwdTargetRow) return;
             try {
               setPwdSubmitting(true);
@@ -267,7 +273,7 @@ export default function CompanyDetailPage() {
               });
               setPwdModalOpen(false);
               showPopup('삭제가 완료되었습니다.', { buttonLabel: '확인' });
-            } catch (e) {
+            } catch {
               setPwdError('비밀번호가 일치하지 않습니다.');
             } finally {
               setPwdSubmitting(false);
@@ -286,6 +292,12 @@ export default function CompanyDetailPage() {
           }}
         />
       </div>
+
+      <InvestmentModal
+        isOpen={isModalOpen}
+        company={company}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
