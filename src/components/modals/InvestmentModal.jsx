@@ -3,6 +3,7 @@ import LabelInput from "@/components/LabelInput";
 import Modal from "./Modal";
 import OneButtonPopup from "./OneButtonPopup";
 import { postMyCorp, patchMyCorp } from "@/api/invest";
+import { postInvestCorp } from "@/api/compare";
 
 function InvestmentModal({ isOpen, company, onClose, initialData }) {
   const isEditMode = !!initialData; // 수정 모달이니?
@@ -16,9 +17,9 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
   // initialData가 변경되면 상태를 다시 초기화합니다. // FIXME: 이거 굳이 필요?
   useEffect(() => {
     if (initialData) {
-      setInvestor(initialData.investor || "");
-      setAmount(initialData.amount || "");
-      setComment(initialData.comment || "");
+      setInvestor(initialData?.investor || "");
+      setAmount(initialData?.amount || "");
+      setComment(initialData?.comment || "");
     }
   }, [initialData]);
 
@@ -45,10 +46,11 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
   /** 투자 요청을 제출하는 함수 */
   const handleInvestSubmit = async () => {
     const payload = {
-      investor,
+      name: investor, // 'investor'를 'name'으로 변경
       amount: Number(amount),
       comment,
       password,
+      passwordConfirm, // passwordConfirm 필드 추가
     };
 
     try {
@@ -56,6 +58,7 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
         await patchMyCorp(initialData.id, payload); // 수정 API 호출
       } else {
         await postMyCorp(company.id, payload); // 생성 API 호출
+        await postInvestCorp(company.id);
       }
       setIsModalOpen(true); // 성공 시에만 팝업을 띄웁니다.
     } catch (error) {
@@ -83,17 +86,17 @@ function InvestmentModal({ isOpen, company, onClose, initialData }) {
             <div
               className="company-logo"
               role="img"
-              aria-label={`${company.name} 로고`}
+              aria-label={`${company.corp_image} 로고`}
               style={{
-                backgroundImage: company.logoUrl
-                  ? `url(${company.logoUrl})`
+                backgroundImage: company.corp_image
+                  ? `url(${company.corp_image})`
                   : "none",
               }}
             />
             <div className="company-name modal-company-name">
-              {company.name}
+              {company.corp_name}
             </div>
-            <div className="company-category">{company.category}</div>
+            <div className="company-category">{company.corp_tag}</div>
           </div>
         </div>
         <LabelInput
