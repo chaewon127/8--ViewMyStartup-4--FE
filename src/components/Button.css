@@ -75,9 +75,9 @@
 
 .vms-btn--outline {
   --btn-bg: transparent;
-  --btn-border: var(--brand-brand_orange, #EB5230);
-  --btn-fg: var(--brand-brand_orange, #EB5230);
-  border-color: var(--btn-border, #EB5230);
+  --btn-border: var(--brand-brand_orange, #eb5230);
+  --btn-fg: var(--brand-brand_orange, #eb5230);
+  border-color: var(--btn-border, #eb5230);
 }
 
 /* 아이콘 대비 라벨 래퍼(필요 시) */
@@ -87,6 +87,13 @@
 
 /* size modifiers */
 .vms-btn--lg {
+}
+
+@media (max-width: 767.98px) {
+  .vms-btn--lg {
+    width: 80px;
+    height: 40px;
+  }
 }
 
 /* Medium */
