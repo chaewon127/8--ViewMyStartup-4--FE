@@ -97,7 +97,7 @@ function CardContainer({
 
                 <CardAdded
                   key={selectedCompany.id}
-                  companyLogo={selectedCompany.logoUrl} // logoUrl은 이미 올바른 키라고 가정
+                  companyLogo={selectedCompany.corp_image} // logoUrl은 이미 올바른 키라고 가정
                   companyName={
                     selectedCompany.name || selectedCompany.corp_name
                   }
@@ -120,7 +120,7 @@ function CardContainer({
             return companyList.map((el) => (
               <CardAdded
                 key={el.id}
-                companyLogo={el.logoUrl} // logoUrl은 이미 올바른 키라고 가정
+                companyLogo={el.logoUrl || el.corp_image} // logoUrl은 이미 올바른 키라고 가정
                 companyName={el.name || el.corp_name}
                 companyCategory={el.category || el.corp_tag}
                 onRemove={() => onRemove(el.id)} // 비교 기업 카드 제거 함수

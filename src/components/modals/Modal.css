@@ -65,7 +65,7 @@
   /* 푸터와 내용 사이의 간격을 줍니다. */
 }
 
-.modal-footer>* {
+.modal-footer > * {
   flex: 1;
   /* 모든 자식 요소(버튼)가 동일한 비율로 너비를 차지하도록 합니다. */
 }
@@ -163,7 +163,7 @@
   font-weight: 700;
   line-height: normal;
   padding-top: 6px;
-  padding-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 /* .modal-body {
