@@ -438,3 +438,93 @@
 
 .company-name { text-decoration: none; }
 
+/* === [투자 현황] 태블릿 이하: 기업명 말줄임(…) 해제 & 여러 줄 허용 === */
+@media (max-width: 1200px) {
+  /* 셀 자체가 한 줄/클리핑을 걸어두는 걸 해제 */
+  .invest-page .table-body .tr .td.company,
+  .invest-page .table-body .tr .td.company .company-cell {
+    overflow: visible !important;
+    white-space: normal !important;
+    text-overflow: initial !important;
+  }
+
+  /* 실제 텍스트(span.company-name)도 줄바꿈 허용 */
+  .invest-page .table-body .tr .td.company .company-cell .company-name {
+    max-width: none !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+    word-break: keep-all;          /* 한글 단어 보존 */
+    overflow-wrap: anywhere;       /* 긴 영/숫자 대비 */
+    line-height: 1.35;
+  }
+
+  /* 줄바꿈 때문에 높이가 늘 수 있도록 행/셀을 유연하게 */
+  .invest-page .table-body .tr {
+    min-height: 64px;              /* 필요 시 더 키워도 됩니다 */
+    align-items: stretch;
+  }
+  .invest-page .table-body .tr .td.company {
+    align-items: center;           /* 로고+텍스트 세로 중앙 */
+  }
+}
+
+/* === [투자 현황] 태블릿 이하: 기업명 셀 공간 더 압축 === */
+@media (max-width: 1024.98px) {
+  /* 기업명 셀: 패딩을 0으로 (왼쪽으로 딱 붙이기) */
+  .invest-page .table-body .tr .td.company {
+    padding-left: 0 !important;   /* 기존 8~24px → 0 */
+    padding-right: 8px;            /* 숫자 붙는 열과 약간만 간격 */
+  }
+  /* 헤더 '기업명'도 본문과 정렬 일치 */
+  .invest-page .list-head .cell:nth-child(2),
+  .invest-page .grid-cols .th:nth-child(2) {
+    padding-left: 0 !important;
+    text-align: left;
+  }
+
+  /* 로고-텍스트 간 여백 더 줄이기 */
+  .invest-page .table-body .tr .td.company .company-cell {
+    gap: 4px;                      /* 기존 6~10px → 4px */
+  }
+
+  /* 로고 약간 축소로 추가 공간 확보 */
+  .invest-page .table-body .tr .td.company .logo {
+    width: 26px;                   /* 기존 28~32px → 26px */
+    height: 26px;
+  }
+
+  /* 텍스트가 조금이라도 더 들어가도록 자잘한 보정 */
+  .invest-page .table-body .tr .td.company .company-name {
+    max-width: none !important;
+    white-space: normal !important;  /* 줄바꿈 허용 */
+    overflow: visible !important;
+    text-overflow: initial !important;
+    letter-spacing: -0.2px;          /* 한 글자라도 더 들어가게 소폭 압축 */
+    line-height: 1.35;
+  }
+}
+
+/* === [투자 현황] 태블릿 이하: 기업명 셀/이미지 여백 모두 0 === */
+@media (max-width: 1024.98px) {
+  /* 기업명 데이터 셀 좌우 패딩 제거 (기본 .td.left padding 0 12px 덮어쓰기) */
+  .invest-page .table-body .tr .td.company.left {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 헤더 '기업명' 셀도 본문과 정렬 맞추기 (기존 24px 제거) */
+  .invest-page .table-head .grid-cols .th:nth-child(2) {
+    padding-left: 0 !important;
+  }
+
+  /* 로고와 회사명 사이 간격 0 */
+  .invest-page .table-body .tr .td.company .company-cell {
+    gap: 0 !important;
+  }
+
+  /* 로고 자체의 여백도 모두 제거 */
+  .invest-page .table-body .tr .td.company .company-cell .logo {
+    margin: 0 !important;
+  }
+}
