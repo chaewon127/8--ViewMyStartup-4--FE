@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   padding: 13px 48px;
-  min-width: 183px;
+  /* min-width: 183px; */
   height: 48px;
   border-radius: 50px;
   font-family: Pretendard;
@@ -89,13 +89,6 @@
 .vms-btn--lg {
 }
 
-@media (max-width: 767.98px) {
-  .vms-btn--lg {
-    width: 80px;
-    height: 40px;
-  }
-}
-
 /* Medium */
 
 .vms-btn--md {
@@ -145,4 +138,10 @@
   --btn-border: var(--brand-brand_orange);
   --btn-fg: var(--brand-brand_orange);
   border-color: var(--btn-border);
+}
+
+@media (max-width: 767.98px) {
+  .vms-btn--lg {
+    padding: 10px 24px;
+  }
 }
