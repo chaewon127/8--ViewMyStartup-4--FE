@@ -33,6 +33,7 @@
   margin: auto;
   /* flex 중앙 정렬 및 스크롤 시 위치 보정 */
 }
+/* FIXME */
 
 .modal-header {
   display: flex;
@@ -222,4 +223,15 @@
   font-size: 15px;
   font-weight: 400;
   text-align: center;
+}
+
+
+@media (max-width: 767.98px) {
+  .modal-content-box {
+    width: 360px;
+  }
+  .modal-footer {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }

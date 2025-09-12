@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   padding: 13px 48px;
-  min-width: 183px;
+  /* min-width: 183px; */
   height: 48px;
   border-radius: 50px;
   font-family: Pretendard;
@@ -75,9 +75,9 @@
 
 .vms-btn--outline {
   --btn-bg: transparent;
-  --btn-border: var(--brand-brand_orange, #EB5230);
-  --btn-fg: var(--brand-brand_orange, #EB5230);
-  border-color: var(--btn-border, #EB5230);
+  --btn-border: var(--brand-brand_orange, #eb5230);
+  --btn-fg: var(--brand-brand_orange, #eb5230);
+  border-color: var(--btn-border, #eb5230);
 }
 
 /* 아이콘 대비 라벨 래퍼(필요 시) */
@@ -138,4 +138,10 @@
   --btn-border: var(--brand-brand_orange);
   --btn-fg: var(--brand-brand_orange);
   border-color: var(--btn-border);
+}
+
+@media (max-width: 767.98px) {
+  .vms-btn--lg {
+    padding: 10px 24px;
+  }
 }
